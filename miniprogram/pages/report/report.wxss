@@ -1,1 +1,95 @@
+.nav-title {
+  margin: 14rpx 0 24rpx;
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: 800;
+}
 
+.block {
+  margin-top: 28rpx;
+  padding: 28rpx;
+}
+
+.block-title {
+  margin-bottom: 24rpx;
+  font-weight: 800;
+}
+
+.trend {
+  display: flex;
+  height: 230rpx;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #eef1f6;
+}
+
+.trend-item {
+  position: relative;
+  flex: 1;
+  height: 200rpx;
+  text-align: center;
+}
+
+.dot {
+  position: absolute;
+  left: 50%;
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #2f7bff;
+  transform: translateX(-50%);
+}
+
+.rate {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 8rpx;
+  color: #5c667a;
+  font-size: 22rpx;
+}
+
+.date {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -34rpx;
+  color: #8a94a6;
+  font-size: 20rpx;
+}
+
+.stats-row {
+  display: flex;
+}
+
+.dist-wrap,
+.legend-row {
+  display: flex;
+  align-items: center;
+}
+
+.donut {
+  width: 170rpx;
+  height: 170rpx;
+  margin-right: 42rpx;
+  border-radius: 50%;
+  background: conic-gradient(#35c6c8 0 60%, #ffa629 60% 90%, #2f7bff 90% 100%);
+}
+
+.legend {
+  flex: 1;
+}
+
+.legend-row {
+  justify-content: space-between;
+  margin-bottom: 18rpx;
+  color: #4b5568;
+  font-size: 24rpx;
+}
+
+.legend-dot {
+  width: 14rpx;
+  height: 14rpx;
+  margin-right: 12rpx;
+  border-radius: 50%;
+}

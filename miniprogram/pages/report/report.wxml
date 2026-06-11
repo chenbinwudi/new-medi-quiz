@@ -1,1 +1,38 @@
-<view class="page"></view>
+<view class="page report-page">
+  <view class="nav-title">学习报告</view>
+  <seg-tabs tabs="{{tabs}}" active="{{active}}" bind:change="onTabChange" />
+
+  <view class="card block">
+    <view class="block-title">正确率趋势</view>
+    <view class="trend">
+      <view wx:for="{{trend}}" wx:key="date" class="trend-item">
+        <view class="dot" style="bottom: {{item.accuracy - 55}}%;"></view>
+        <view class="rate">{{item.accuracy}}%</view>
+        <view class="date">{{item.date}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card block">
+    <view class="block-title">做题战绩</view>
+    <view class="stats-row">
+      <stat-card value="{{stats.total}}" label="做题数" />
+      <stat-card value="{{stats.correct}}" label="正确数" />
+      <stat-card value="{{stats.accuracy}}" label="正确率" />
+    </view>
+  </view>
+
+  <view class="card block">
+    <view class="block-title">题型分布</view>
+    <view class="dist-wrap">
+      <view class="donut"></view>
+      <view class="legend">
+        <view wx:for="{{distribution}}" wx:key="label" class="legend-row">
+          <view class="legend-dot" style="background: {{item.color}};"></view>
+          <text>{{item.label}}</text>
+          <text>{{item.value}} ({{item.percent}})</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

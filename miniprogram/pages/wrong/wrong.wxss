@@ -1,1 +1,67 @@
+.list-page {
+  padding-bottom: 140rpx;
+}
 
+.nav-title {
+  margin: 14rpx 0 24rpx;
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: 800;
+}
+
+.summary {
+  margin: 28rpx 0 14rpx;
+  font-size: 24rpx;
+}
+
+.question-card {
+  margin-bottom: 22rpx;
+  padding: 26rpx;
+  border-radius: 20rpx;
+  background: #fff;
+}
+
+.tag {
+  display: inline-block;
+  margin-bottom: 14rpx;
+  padding: 6rpx 12rpx;
+  border-radius: 10rpx;
+  background: #eaf2ff;
+  color: #2f7bff;
+  font-size: 22rpx;
+}
+
+.stem {
+  margin-bottom: 14rpx;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.meta {
+  margin-bottom: 18rpx;
+  color: #8a94a6;
+  font-size: 24rpx;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  color: #8a94a6;
+  font-size: 24rpx;
+}
+
+.red {
+  color: #f04438;
+}
+
+.fixed-btn {
+  position: fixed;
+  right: 28rpx;
+  bottom: calc(28rpx + env(safe-area-inset-bottom));
+  left: 28rpx;
+  height: 88rpx;
+  border-radius: 24rpx;
+  background: #2f7bff;
+  color: #fff;
+  line-height: 88rpx;
+}

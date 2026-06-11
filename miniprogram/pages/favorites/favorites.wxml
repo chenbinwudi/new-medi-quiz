@@ -1,1 +1,19 @@
-<view class="page"></view>
+<view class="page list-page">
+  <view class="nav-title">我的收藏</view>
+  <seg-tabs tabs="{{tabs}}" active="{{active}}" bind:change="onTabChange" />
+  <view class="summary muted">共{{list.length}}题</view>
+
+  <empty-state wx:if="{{!loading && !list.length}}" title="暂无收藏" desc="练习时可收藏重点题目" actionText="去练习" bind:action="goPractice" />
+
+  <view wx:for="{{list}}" wx:key="targetId" class="question-card">
+    <view class="tag">{{item.typeLabel}}</view>
+    <view class="stem">{{item.question.stem}}</view>
+    <view class="meta">章节：{{item.chapterName}}</view>
+    <view class="row">
+      <text class="muted">已收藏</text>
+      <text class="muted">{{item.dateText}}</text>
+    </view>
+  </view>
+
+  <button class="fixed-btn" bindtap="goPractice">查看收藏</button>
+</view>

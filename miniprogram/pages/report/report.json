@@ -1,3 +1,7 @@
 {
-  "navigationBarTitleText": "学习报告"
+  "navigationBarTitleText": "学习报告",
+  "usingComponents": {
+    "seg-tabs": "../../components/seg-tabs/seg-tabs",
+    "stat-card": "../../components/stat-card/stat-card"
+  }
 }
