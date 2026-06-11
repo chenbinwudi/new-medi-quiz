@@ -93,6 +93,26 @@ if (!/\.menu-icon\s*{[\s\S]*?width:\s*(3[8-9]|[4-9]\d)rpx;[\s\S]*?height:\s*(3[8
   fail('Profile menu SVG icon must be at least 38rpx square');
 }
 
+const homeJs = fs.readFileSync(path.join(root, 'miniprogram', 'pages', 'home', 'home.js'), 'utf8');
+for (const tab of ['real', 'mock', 'notes']) {
+  if (!homeJs.includes(`/pages/bank/bank?tab=${tab}`)) {
+    fail(`Home shortcut missing bank tab entry: ${tab}`);
+  }
+}
+
+const bankJs = fs.readFileSync(path.join(root, 'miniprogram', 'pages', 'bank', 'bank.js'), 'utf8');
+const bankWxml = fs.readFileSync(path.join(root, 'miniprogram', 'pages', 'bank', 'bank.wxml'), 'utf8');
+for (const key of ['showChapter', 'showReal', 'showMock', 'showNotes']) {
+  if (!bankWxml.includes(`wx:if="{{${key}}}"`)) {
+    fail(`Bank page missing content panel flag: ${key}`);
+  }
+}
+for (const key of ['realPapers', 'mockPapers', 'quickNotes']) {
+  if (!bankJs.includes(key)) {
+    fail(`Bank page missing dataset: ${key}`);
+  }
+}
+
 for (const icon of requiredIcons) {
   const file = path.join(root, 'miniprogram', 'assets', 'icons', icon);
   if (!fs.existsSync(file)) fail(`Missing icon: miniprogram/assets/icons/${icon}`);

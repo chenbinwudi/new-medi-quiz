@@ -9,32 +9,74 @@
 
   <seg-tabs tabs="{{tabs}}" active="{{activeTab}}" bind:change="onTabChange" />
 
-  <view class="progress-card card">
-    <view class="progress-head">
-      <view>
-        <text class="muted">总体进度</text>
-        <text class="progress-num">{{totalPercent}}%</text>
+  <view wx:if="{{showChapter}}">
+    <view class="progress-card card">
+      <view class="progress-head">
+        <view>
+          <text class="muted">总体进度</text>
+          <text class="progress-num">{{totalPercent}}%</text>
+        </view>
+        <text class="muted">已学 {{totalDone}}/{{totalCount}}</text>
       </view>
-      <text class="muted">已学 {{totalDone}}/{{totalCount}}</text>
+      <view class="progress-track">
+        <view class="progress-bar" style="{{totalProgressStyle}}"></view>
+      </view>
     </view>
-    <view class="progress-track">
-      <view class="progress-bar" style="{{totalProgressStyle}}"></view>
+
+    <view class="chapter-list card">
+      <view wx:for="{{progress}}" wx:key="id" class="chapter-row" data-id="{{item.id}}" bindtap="goPractice">
+        <view class="chapter-plus">+</view>
+        <view class="chapter-main">
+          <view class="chapter-name">{{item.name}}</view>
+          <view class="mini-track">
+            <view class="mini-bar" style="{{item.progressStyle}}"></view>
+          </view>
+        </view>
+        <view class="chapter-side">
+          <view class="chapter-count">{{item.learned}}/{{item.totalCount}}</view>
+          <view class="chapter-percent">{{item.progress}}%</view>
+        </view>
+      </view>
     </view>
   </view>
 
-  <view class="chapter-list card">
-    <view wx:for="{{progress}}" wx:key="id" class="chapter-row" data-id="{{item.id}}" bindtap="goPractice">
-      <view class="chapter-plus">+</view>
-      <view class="chapter-main">
-        <view class="chapter-name">{{item.name}}</view>
-        <view class="mini-track">
-          <view class="mini-bar" style="{{item.progressStyle}}"></view>
-        </view>
+  <view wx:if="{{showReal}}" class="paper-list">
+    <view wx:for="{{realPapers}}" wx:key="id" class="paper-card card" data-chapter-id="{{item.chapterId}}" bindtap="startPaper">
+      <view class="paper-icon green">
+        <image class="paper-img" src="/assets/icons/real-paper.svg" mode="aspectFit" />
       </view>
-      <view class="chapter-side">
-        <view class="chapter-count">{{item.learned}}/{{item.totalCount}}</view>
-        <view class="chapter-percent">{{item.progress}}%</view>
+      <view class="paper-main">
+        <view class="paper-title">{{item.title}}</view>
+        <view class="paper-desc">{{item.desc}}</view>
+        <view class="paper-meta">{{item.questionCount}}题 · {{item.duration}}</view>
       </view>
+      <view class="paper-action">开始</view>
+    </view>
+  </view>
+
+  <view wx:if="{{showMock}}" class="paper-list">
+    <view wx:for="{{mockPapers}}" wx:key="id" class="paper-card card" data-chapter-id="{{item.chapterId}}" bindtap="startPaper">
+      <view class="paper-icon orange">
+        <image class="paper-img" src="/assets/icons/mock-paper.svg" mode="aspectFit" />
+      </view>
+      <view class="paper-main">
+        <view class="paper-title">{{item.title}}</view>
+        <view class="paper-desc">{{item.desc}}</view>
+        <view class="paper-meta">{{item.questionCount}}题 · {{item.duration}}</view>
+      </view>
+      <view class="paper-action">练习</view>
+    </view>
+  </view>
+
+  <view wx:if="{{showNotes}}" class="note-list">
+    <view wx:for="{{quickNotes}}" wx:key="id" class="note-card card" data-chapter-id="{{item.chapterId}}" bindtap="openNote">
+      <view class="note-head">
+        <view class="note-tag">{{item.tag}}</view>
+        <image class="note-icon" src="/assets/icons/quick-notes.svg" mode="aspectFit" />
+      </view>
+      <view class="note-title">{{item.title}}</view>
+      <view class="note-desc">{{item.desc}}</view>
+      <view class="note-action">去练相关题 ›</view>
     </view>
   </view>
 </view>
