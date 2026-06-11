@@ -33,6 +33,15 @@ function fail(message) {
   process.exitCode = 1;
 }
 
+function pngSize(file) {
+  const bytes = fs.readFileSync(file);
+  if (bytes.length < 24 || bytes.toString('ascii', 1, 4) !== 'PNG') return null;
+  return {
+    width: bytes.readUInt32BE(16),
+    height: bytes.readUInt32BE(20)
+  };
+}
+
 const syntaxFiles = walk(path.join(root, 'miniprogram'), (p) => /\.(js|json)$/.test(p))
   .concat(walk(path.join(root, 'cloudfunctions'), (p) => /\.(js|json)$/.test(p)))
   .concat([path.join(root, 'project.config.json')]);
@@ -52,6 +61,19 @@ for (const file of walk(path.join(root, 'miniprogram'), (p) => p.endsWith('.wxml
   if (risky) fail(`Risky WXML expression in ${path.relative(root, file)}: ${risky}`);
 }
 
+const homeWxml = fs.readFileSync(path.join(root, 'miniprogram', 'pages', 'home', 'home.wxml'), 'utf8');
+if (!/<picker\b[^>]*bindchange="onExamChange"/.test(homeWxml)) {
+  fail('Home exam selector must use native picker with bindchange="onExamChange"');
+}
+
+const homeWxss = fs.readFileSync(path.join(root, 'miniprogram', 'pages', 'home', 'home.wxss'), 'utf8');
+if (!/\.shortcut-icon\s*{[\s\S]*?width:\s*(7[6-9]|[89]\d)rpx;[\s\S]*?height:\s*(7[6-9]|[89]\d)rpx;/.test(homeWxss)) {
+  fail('Home shortcut icon tile must be at least 76rpx square');
+}
+if (!/\.shortcut-img\s*{[\s\S]*?width:\s*(4[4-9]|[5-9]\d)rpx;[\s\S]*?height:\s*(4[4-9]|[5-9]\d)rpx;/.test(homeWxss)) {
+  fail('Home shortcut SVG image must be at least 44rpx square');
+}
+
 for (const icon of requiredIcons) {
   const file = path.join(root, 'miniprogram', 'assets', 'icons', icon);
   if (!fs.existsSync(file)) fail(`Missing icon: miniprogram/assets/icons/${icon}`);
@@ -60,6 +82,12 @@ for (const icon of requiredIcons) {
 for (const icon of requiredTabIcons) {
   const file = path.join(root, 'miniprogram', 'assets', 'icons', icon);
   if (!fs.existsSync(file)) fail(`Missing tab icon: miniprogram/assets/icons/${icon}`);
+  else {
+    const size = pngSize(file);
+    if (!size || size.width < 81 || size.height < 81) {
+      fail(`Tab icon must be at least 81x81 PNG: miniprogram/assets/icons/${icon}`);
+    }
+  }
 }
 
 try {

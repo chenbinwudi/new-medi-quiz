@@ -18,17 +18,27 @@
 .search-row {
   display: flex;
   align-items: center;
-  gap: 14rpx;
-  height: 72rpx;
-  padding: 0 22rpx;
+  gap: 16rpx;
+  height: 82rpx;
+  padding: 0 24rpx;
   color: #172033;
-  font-size: 26rpx;
+  font-size: 28rpx;
   font-weight: 600;
+}
+
+.selector-icon {
+  width: 30rpx;
+  height: 30rpx;
+  display: block;
+}
+
+.selector-text {
+  flex: 1;
 }
 
 .search-arrow {
   color: #8a94a6;
-  font-size: 24rpx;
+  font-size: 28rpx;
 }
 
 .hero {
@@ -94,14 +104,14 @@
 }
 
 .hero-icon {
-  width: 86rpx;
-  height: 86rpx;
+  width: 96rpx;
+  height: 96rpx;
 }
 
 .shortcut-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 32rpx 18rpx;
+  gap: 34rpx 18rpx;
   margin: 36rpx 0;
 }
 
@@ -114,10 +124,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 66rpx;
-  height: 66rpx;
-  margin: 0 auto 12rpx;
-  border-radius: 20rpx;
+  width: 78rpx;
+  height: 78rpx;
+  margin: 0 auto 14rpx;
+  border-radius: 22rpx;
   background: #eef5ff;
 }
 
@@ -146,8 +156,8 @@
 }
 
 .shortcut-img {
-  width: 38rpx;
-  height: 38rpx;
+  width: 46rpx;
+  height: 46rpx;
 }
 
 .shortcut-label {
@@ -189,8 +199,8 @@
 }
 
 .file-img {
-  width: 40rpx;
-  height: 40rpx;
+  width: 46rpx;
+  height: 46rpx;
 }
 
 .material-main {

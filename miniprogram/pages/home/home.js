@@ -5,6 +5,8 @@ const { daysUntil } = require('../../utils/date');
 Page({
   data: {
     exam: exams[0],
+    examIndex: 0,
+    examOptions: exams.map((item) => item.name),
     daysLeft: 0,
     stats: { questionCount: '30', doneCount: '25', accuracy: '83%' },
     shortcuts: [
@@ -22,6 +24,16 @@ Page({
 
   onLoad() {
     this.setData({ daysLeft: daysUntil(this.data.exam.examDate) });
+  },
+
+  onExamChange(event) {
+    const examIndex = Number(event.detail.value);
+    const exam = exams[examIndex] || exams[0];
+    this.setData({
+      examIndex,
+      exam,
+      daysLeft: daysUntil(exam.examDate)
+    });
   },
 
   go(event) {

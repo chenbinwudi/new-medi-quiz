@@ -11,11 +11,13 @@
     </view>
   </view>
 
-  <view class="search-row soft-card">
-    <image class="icon-sm" src="/assets/icons/search.svg" mode="aspectFit" />
-    <text>{{exam.name}}</text>
-    <text class="search-arrow">⌄</text>
-  </view>
+  <picker mode="selector" range="{{examOptions}}" value="{{examIndex}}" bindchange="onExamChange">
+    <view class="search-row soft-card">
+      <image class="selector-icon" src="/assets/icons/search.svg" mode="aspectFit" />
+      <text class="selector-text">{{exam.name}}</text>
+      <text class="search-arrow">⌄</text>
+    </view>
+  </picker>
 
   <view class="hero card">
     <view class="hero-copy">
