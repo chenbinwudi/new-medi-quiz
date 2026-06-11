@@ -2,9 +2,12 @@
   <view class="practice-head">
     <view>
       <view class="title">章节练习</view>
-      <view class="badge">{{typeLabel}}</view>
+      <view class="chapter-name">{{chapter.name}}</view>
     </view>
-    <view class="muted">{{currentNo}}/{{questions.length}}</view>
+    <view class="head-right">
+      <view class="badge">{{typeLabel}}</view>
+      <view class="muted">{{currentNo}}/{{questions.length}}</view>
+    </view>
   </view>
 
   <view class="question-card">
@@ -21,22 +24,35 @@
         <view class="option-text">{{item.text}}</view>
       </view>
     </view>
-    <button wx:if="{{!submitted}}" class="submit-btn" bindtap="submit">提交答案</button>
+    <button wx:if="{{showSubmit}}" class="submit-btn" bindtap="submit">提交答案</button>
   </view>
 
   <view wx:if="{{submitted}}" class="answer-card">
     <view class="answer-title {{answerClass}}">{{answerTitle}}</view>
     <view class="answer-row">
       <text>正确答案</text>
-      <text class="red">{{correctAnswerText}}</text>
+      <text class="answer-code">{{correctAnswerText}}</text>
+    </view>
+    <view class="answer-row">
+      <text>您的答案</text>
+      <text class="answer-code">{{selectedAnswerText}}</text>
     </view>
     <view class="analysis">{{current.analysis}}</view>
   </view>
 
   <view class="bottom-bar">
-    <view class="tool" bindtap="toggleFavorite">{{favoriteText}}</view>
-    <view class="tool" bindtap="saveNote">笔记</view>
-    <view class="tool" bindtap="showCard">答题卡</view>
+    <view class="tool" bindtap="toggleFavorite">
+      <image class="tool-icon" src="{{favoriteIcon}}" mode="aspectFit" />
+      <text>{{favoriteText}}</text>
+    </view>
+    <view class="tool" bindtap="saveNote">
+      <image class="tool-icon" src="/assets/icons/edit.svg" mode="aspectFit" />
+      <text>笔记</text>
+    </view>
+    <view class="tool" bindtap="showCard">
+      <image class="tool-icon" src="/assets/icons/answer-card.svg" mode="aspectFit" />
+      <text>答题卡</text>
+    </view>
     <button class="nav-btn ghost" bindtap="prev">上一题</button>
     <button class="nav-btn" bindtap="next">下一题</button>
   </view>

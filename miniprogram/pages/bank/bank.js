@@ -15,20 +15,27 @@ Page({
     progress: [],
     totalDone: 0,
     totalCount: 0,
-    totalPercent: 0
+    totalPercent: 0,
+    totalProgressStyle: 'width: 0%;'
   },
 
   onLoad(options) {
     const summaryByChapter = { basic: 235, humanities: 120 };
-    const progress = buildChapterProgress(chapters, summaryByChapter);
+    const progress = buildChapterProgress(chapters, summaryByChapter).map((item) => ({
+      ...item,
+      progressStyle: `width: ${item.progress}%;`,
+      statusText: item.progress ? '继续练习' : '开始练习'
+    }));
     const totalDone = progress.reduce((sum, item) => sum + item.learned, 0);
     const totalCount = progress.reduce((sum, item) => sum + item.totalCount, 0);
+    const totalPercent = percent(totalDone, totalCount);
     this.setData({
       activeTab: options.tab || 'chapter',
       progress,
       totalDone,
       totalCount,
-      totalPercent: percent(totalDone, totalCount)
+      totalPercent,
+      totalProgressStyle: `width: ${totalPercent}%;`
     });
   },
 

@@ -1,27 +1,40 @@
-<view class="page">
-  <view class="page-title">题库</view>
-  <view class="subject-row">
-    <text>{{exam.fullName}} ▾</text>
-    <text>⌕</text>
+<view class="page page-safe bank-page">
+  <view class="top-bar">
+    <view>
+      <view class="page-title">题库</view>
+      <view class="page-subtitle">{{exam.fullName}}</view>
+    </view>
+    <image class="icon" src="/assets/icons/search.svg" mode="aspectFit" />
   </view>
+
   <seg-tabs tabs="{{tabs}}" active="{{activeTab}}" bind:change="onTabChange" />
 
   <view class="progress-card card">
     <view class="progress-head">
-      <text>总体进度 <text class="green">{{totalPercent}}%</text></text>
+      <view>
+        <text class="muted">总体进度</text>
+        <text class="progress-num">{{totalPercent}}%</text>
+      </view>
       <text class="muted">已学 {{totalDone}}/{{totalCount}}</text>
     </view>
     <view class="progress-track">
-      <view class="progress-bar" style="width: {{totalPercent}}%;"></view>
+      <view class="progress-bar" style="{{totalProgressStyle}}"></view>
     </view>
   </view>
 
-  <view class="chapter-list">
+  <view class="chapter-list card">
     <view wx:for="{{progress}}" wx:key="id" class="chapter-row" data-id="{{item.id}}" bindtap="goPractice">
-      <view class="plus">+</view>
-      <view class="chapter-name">{{item.name}}</view>
-      <view class="muted">{{item.learned}}/{{item.totalCount}}</view>
-      <view class="chapter-percent">{{item.progress}}%</view>
+      <view class="chapter-plus">+</view>
+      <view class="chapter-main">
+        <view class="chapter-name">{{item.name}}</view>
+        <view class="mini-track">
+          <view class="mini-bar" style="{{item.progressStyle}}"></view>
+        </view>
+      </view>
+      <view class="chapter-side">
+        <view class="chapter-count">{{item.learned}}/{{item.totalCount}}</view>
+        <view class="chapter-percent">{{item.progress}}%</view>
+      </view>
     </view>
   </view>
 </view>

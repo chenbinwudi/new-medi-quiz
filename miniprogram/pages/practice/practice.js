@@ -11,14 +11,17 @@ Page({
     current: null,
     selected: [],
     submitted: false,
+    showSubmit: true,
     isCorrect: false,
     favorited: false,
     typeLabel: '',
     correctAnswerText: '',
+    selectedAnswerText: '',
     currentNo: 1,
     answerTitle: '',
     answerClass: '',
-    favoriteText: '收藏'
+    favoriteText: '收藏',
+    favoriteIcon: '/assets/icons/star.svg'
   },
 
   onLoad(options) {
@@ -31,7 +34,7 @@ Page({
   },
 
   setQuestionState(list, index, chapterId) {
-    const current = this.decorateQuestion(list[index], []);
+    const current = this.decorateQuestion(list[index], [], false);
     this.setData({
       chapter: chapters.find((item) => item.id === (chapterId || current.chapterId)) || chapters[0],
       questions: list,
@@ -40,28 +43,37 @@ Page({
       current,
       selected: [],
       submitted: false,
+      showSubmit: true,
       isCorrect: false,
       favorited: false,
       typeLabel: getQuestionTypeLabel(current.type),
       correctAnswerText: normalizeAnswer(current.answer),
+      selectedAnswerText: '',
       answerTitle: '',
       answerClass: '',
-      favoriteText: '收藏'
+      favoriteText: '收藏',
+      favoriteIcon: '/assets/icons/star.svg'
     });
   },
 
-  decorateQuestion(question, selected) {
+  decorateQuestion(question, selected, submitted) {
+    const answers = normalizeAnswer(question.answer).split(',');
     return {
       ...question,
-      options: question.options.map((option) => ({
-        ...option,
-        selected: selected.includes(option.key),
-        isAnswer: normalizeAnswer(question.answer).split(',').includes(option.key),
-        optionClass: [
-          selected.includes(option.key) ? 'selected' : '',
-          this.data && this.data.submitted && normalizeAnswer(question.answer).split(',').includes(option.key) ? 'correct' : ''
-        ].join(' ')
-      }))
+      options: question.options.map((option) => {
+        const selectedOption = selected.includes(option.key);
+        const isAnswer = answers.includes(option.key);
+        return {
+          ...option,
+          selected: selectedOption,
+          isAnswer,
+          optionClass: [
+            selectedOption ? 'selected' : '',
+            submitted && isAnswer ? 'correct' : '',
+            submitted && selectedOption && !isAnswer ? 'wrong' : ''
+          ].join(' ')
+        };
+      })
     };
   },
 
@@ -73,10 +85,10 @@ Page({
       const selected = this.data.selected.includes(key)
         ? this.data.selected.filter((item) => item !== key)
         : this.data.selected.concat(key);
-      this.setData({ selected, current: this.decorateQuestion(current, selected) });
+      this.setData({ selected, current: this.decorateQuestion(current, selected, false) });
       return;
     }
-    this.setData({ selected: [key], current: this.decorateQuestion(current, [key]) });
+    this.setData({ selected: [key], current: this.decorateQuestion(current, [key], false) });
   },
 
   submit() {
@@ -89,19 +101,12 @@ Page({
     const isCorrect = isCorrectAnswer(current, answer);
     this.setData({
       submitted: true,
+      showSubmit: false,
       isCorrect,
+      selectedAnswerText: normalizeAnswer(answer),
       answerTitle: isCorrect ? '回答正确' : '回答错误',
       answerClass: isCorrect ? 'ok' : 'bad',
-      current: {
-        ...current,
-        options: current.options.map((option) => ({
-          ...option,
-          optionClass: [
-            option.selected ? 'selected' : '',
-            option.isAnswer ? 'correct' : ''
-          ].join(' ')
-        }))
-      }
+      current: this.decorateQuestion(current, this.data.selected, true)
     });
     saveAnswer({
       questionId: current.id,
@@ -131,7 +136,11 @@ Page({
   toggleFavorite() {
     const current = this.data.current;
     toggleFavorite({ targetType: 'question', targetId: current.id })
-      .then((res) => this.setData({ favorited: res.favorited, favoriteText: res.favorited ? '已收藏' : '收藏' }))
+      .then((res) => this.setData({
+        favorited: res.favorited,
+        favoriteText: res.favorited ? '已收藏' : '收藏',
+        favoriteIcon: res.favorited ? '/assets/icons/star-filled.svg' : '/assets/icons/star.svg'
+      }))
       .catch(() => wx.showToast({ title: '收藏同步失败', icon: 'none' }));
   },
 
