@@ -1,0 +1,33 @@
+.empty {
+  padding: 80rpx 32rpx;
+  text-align: center;
+  color: #8a94a6;
+}
+
+.empty-icon {
+  width: 96rpx;
+  height: 96rpx;
+  margin: 0 auto 20rpx;
+  border-radius: 50%;
+  background: #eef4ff;
+  color: #2f7bff;
+  line-height: 96rpx;
+}
+
+.empty-title {
+  color: #172033;
+  font-weight: 600;
+}
+
+.empty-desc {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+}
+
+.empty-action {
+  width: 220rpx;
+  margin-top: 28rpx;
+  border-radius: 999rpx;
+  background: #2f7bff;
+  color: #fff;
+}

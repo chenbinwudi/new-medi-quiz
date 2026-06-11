@@ -1,0 +1,29 @@
+.tabs {
+  display: flex;
+  gap: 40rpx;
+  align-items: center;
+  height: 72rpx;
+}
+
+.tab {
+  position: relative;
+  color: #4b5568;
+  font-size: 28rpx;
+}
+
+.tab.active {
+  color: #2f7bff;
+  font-weight: 700;
+}
+
+.tab.active::after {
+  position: absolute;
+  left: 50%;
+  bottom: -16rpx;
+  width: 36rpx;
+  height: 6rpx;
+  border-radius: 999rpx;
+  background: #2f7bff;
+  content: "";
+  transform: translateX(-50%);
+}
