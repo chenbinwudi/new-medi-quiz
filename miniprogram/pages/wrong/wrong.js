@@ -16,7 +16,8 @@ function hydrateWrong(records) {
       question,
       chapterName: chapter.name,
       typeLabel: getQuestionTypeLabel(question.type),
-      dateText: typeof record.lastWrongAt === 'string' ? record.lastWrongAt : '最近'
+      dateText: typeof record.lastWrongAt === 'string' ? record.lastWrongAt : '最近',
+      countText: `${record.wrongCount || 1}次`
     };
   });
 }
@@ -31,6 +32,7 @@ Page({
     active: 'all',
     loading: true,
     list: [],
+    listCountText: '共0题',
     emptyVisible: false
   },
 
@@ -42,12 +44,12 @@ Page({
     getStudyData('wrong')
       .then((res) => {
         const list = hydrateWrong(res.wrongQuestions);
-        this.setData({ list, loading: false, emptyVisible: !list.length });
+        this.setData({ list, listCountText: `共${list.length}题`, loading: false, emptyVisible: !list.length });
       })
       .catch(() => {
         wx.showToast({ title: '学习数据加载失败', icon: 'none' });
         const list = hydrateWrong([]);
-        this.setData({ list, loading: false, emptyVisible: !list.length });
+        this.setData({ list, listCountText: `共${list.length}题`, loading: false, emptyVisible: !list.length });
       });
   },
 

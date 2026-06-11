@@ -1,13 +1,13 @@
 const { getStudyData } = require('../../services/study');
 
 const demoTrend = [
-  { date: '04-14', accuracy: 72, dotStyle: 'bottom: 17%;' },
-  { date: '04-15', accuracy: 76, dotStyle: 'bottom: 21%;' },
-  { date: '04-16', accuracy: 80, dotStyle: 'bottom: 25%;' },
-  { date: '04-17', accuracy: 85, dotStyle: 'bottom: 30%;' },
-  { date: '04-18', accuracy: 88, dotStyle: 'bottom: 33%;' },
-  { date: '04-19', accuracy: 90, dotStyle: 'bottom: 35%;' },
-  { date: '04-20', accuracy: 86, dotStyle: 'bottom: 31%;' }
+  { date: '04-14', accuracy: 72, dotStyle: 'bottom: 26%;', lineStyle: 'height: 72%;' },
+  { date: '04-15', accuracy: 76, dotStyle: 'bottom: 34%;', lineStyle: 'height: 76%;' },
+  { date: '04-16', accuracy: 80, dotStyle: 'bottom: 42%;', lineStyle: 'height: 80%;' },
+  { date: '04-17', accuracy: 85, dotStyle: 'bottom: 52%;', lineStyle: 'height: 85%;' },
+  { date: '04-18', accuracy: 88, dotStyle: 'bottom: 58%;', lineStyle: 'height: 88%;' },
+  { date: '04-19', accuracy: 90, dotStyle: 'bottom: 62%;', lineStyle: 'height: 90%;' },
+  { date: '04-20', accuracy: 86, dotStyle: 'bottom: 54%;', lineStyle: 'height: 86%;' }
 ];
 
 Page({

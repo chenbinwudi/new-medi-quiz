@@ -30,6 +30,7 @@ Page({
     active: 'all',
     loading: true,
     list: [],
+    listCountText: '共0题',
     emptyVisible: false
   },
 
@@ -37,12 +38,12 @@ Page({
     getStudyData('favorites')
       .then((res) => {
         const list = hydrateFavorites(res.favorites);
-        this.setData({ list, loading: false, emptyVisible: !list.length });
+        this.setData({ list, listCountText: `共${list.length}题`, loading: false, emptyVisible: !list.length });
       })
       .catch(() => {
         wx.showToast({ title: '学习数据加载失败', icon: 'none' });
         const list = hydrateFavorites([]);
-        this.setData({ list, loading: false, emptyVisible: !list.length });
+        this.setData({ list, listCountText: `共${list.length}题`, loading: false, emptyVisible: !list.length });
       });
   },
 

@@ -1,12 +1,9 @@
 .list-page {
-  padding-bottom: 140rpx;
+  padding-bottom: 150rpx;
 }
 
-.nav-title {
-  margin: 14rpx 0 24rpx;
-  text-align: center;
-  font-size: 34rpx;
-  font-weight: 800;
+.centered {
+  justify-content: center;
 }
 
 .summary {
@@ -15,26 +12,26 @@
 }
 
 .question-card {
-  margin-bottom: 22rpx;
+  margin-bottom: 20rpx;
   padding: 26rpx;
-  border-radius: 20rpx;
-  background: #fff;
 }
 
 .tag {
   display: inline-block;
   margin-bottom: 14rpx;
-  padding: 6rpx 12rpx;
-  border-radius: 10rpx;
+  padding: 6rpx 14rpx;
+  border-radius: 999rpx;
   background: #eaf2ff;
   color: #2f7bff;
   font-size: 22rpx;
+  font-weight: 700;
 }
 
 .stem {
   margin-bottom: 14rpx;
+  color: #172033;
   font-weight: 700;
-  line-height: 1.6;
+  line-height: 1.62;
 }
 
 .meta {
@@ -43,15 +40,14 @@
   font-size: 24rpx;
 }
 
-.row {
-  display: flex;
-  justify-content: space-between;
+.foot {
   color: #8a94a6;
   font-size: 24rpx;
 }
 
 .red {
   color: #f04438;
+  font-weight: 800;
 }
 
 .fixed-btn {
@@ -60,8 +56,15 @@
   bottom: calc(28rpx + env(safe-area-inset-bottom));
   left: 28rpx;
   height: 88rpx;
+  border: 0;
   border-radius: 24rpx;
   background: #2f7bff;
   color: #fff;
+  font-weight: 700;
   line-height: 88rpx;
+  box-shadow: 0 14rpx 28rpx rgba(47, 123, 255, 0.22);
+}
+
+.fixed-btn::after {
+  border: 0;
 }

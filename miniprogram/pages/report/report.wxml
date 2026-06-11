@@ -1,11 +1,14 @@
-<view class="page report-page">
-  <view class="nav-title">学习报告</view>
+<view class="page page-safe report-page">
+  <view class="top-bar centered">
+    <view class="page-title">学习报告</view>
+  </view>
   <seg-tabs tabs="{{tabs}}" active="{{active}}" bind:change="onTabChange" />
 
   <view class="card block">
     <view class="block-title">正确率趋势</view>
     <view class="trend">
       <view wx:for="{{trend}}" wx:key="date" class="trend-item">
+        <view class="trend-line" style="{{item.lineStyle}}"></view>
         <view class="dot" style="{{item.dotStyle}}"></view>
         <view class="rate">{{item.accuracy}}%</view>
         <view class="date">{{item.date}}</view>
@@ -16,29 +19,24 @@
   <view class="card block">
     <view class="block-title">做题战绩</view>
     <view class="stats-row">
-      <view class="stat-item">
-        <view class="stat-value">{{stats.total}}</view>
-        <view class="stat-label">做题数</view>
-      </view>
-      <view class="stat-item">
-        <view class="stat-value">{{stats.correct}}</view>
-        <view class="stat-label">正确数</view>
-      </view>
-      <view class="stat-item">
-        <view class="stat-value">{{stats.accuracy}}</view>
-        <view class="stat-label">正确率</view>
-      </view>
+      <stat-card value="{{stats.total}}" label="做题数" />
+      <stat-card value="{{stats.correct}}" label="正确数" />
+      <stat-card value="{{stats.accuracy}}" label="正确率" tone="primary" />
     </view>
   </view>
 
   <view class="card block">
     <view class="block-title">题型分布</view>
     <view class="dist-wrap">
-      <view class="donut"></view>
+      <view class="donut">
+        <view class="donut-hole"></view>
+      </view>
       <view class="legend">
         <view wx:for="{{distribution}}" wx:key="label" class="legend-row">
-          <view class="legend-dot" style="{{item.styleText}}"></view>
-          <text>{{item.label}}</text>
+          <view class="legend-left">
+            <view class="legend-dot" style="{{item.styleText}}"></view>
+            <text>{{item.label}}</text>
+          </view>
           <text>{{item.value}} ({{item.percent}})</text>
         </view>
       </view>
