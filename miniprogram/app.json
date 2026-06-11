@@ -22,10 +22,30 @@
     "backgroundColor": "#ffffff",
     "borderStyle": "white",
     "list": [
-      { "pagePath": "pages/home/home", "text": "首页" },
-      { "pagePath": "pages/bank/bank", "text": "题库" },
-      { "pagePath": "pages/materials/materials", "text": "资料" },
-      { "pagePath": "pages/profile/profile", "text": "我的" }
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "assets/icons/tab-home.svg",
+        "selectedIconPath": "assets/icons/tab-home-active.svg"
+      },
+      {
+        "pagePath": "pages/bank/bank",
+        "text": "题库",
+        "iconPath": "assets/icons/tab-bank.svg",
+        "selectedIconPath": "assets/icons/tab-bank-active.svg"
+      },
+      {
+        "pagePath": "pages/materials/materials",
+        "text": "资料",
+        "iconPath": "assets/icons/tab-materials.svg",
+        "selectedIconPath": "assets/icons/tab-materials-active.svg"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "assets/icons/tab-profile.svg",
+        "selectedIconPath": "assets/icons/tab-profile-active.svg"
+      }
     ]
   },
   "style": "v2",
