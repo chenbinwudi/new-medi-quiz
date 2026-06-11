@@ -1,1 +1,148 @@
+.practice-page {
+  min-height: 100vh;
+  padding: 28rpx 28rpx 160rpx;
+  box-sizing: border-box;
+  background: #fff;
+}
 
+.practice-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 34rpx;
+}
+
+.title {
+  font-size: 34rpx;
+  font-weight: 800;
+}
+
+.badge {
+  display: inline-block;
+  margin-top: 22rpx;
+  padding: 8rpx 14rpx;
+  border-radius: 12rpx;
+  background: #eaf2ff;
+  color: #2f7bff;
+  font-size: 22rpx;
+}
+
+.question-card {
+  padding-top: 10rpx;
+}
+
+.stem {
+  margin-bottom: 30rpx;
+  font-size: 32rpx;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+.option {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 24rpx;
+  padding: 20rpx;
+  border: 2rpx solid #e4eaf3;
+  border-radius: 24rpx;
+}
+
+.option.selected {
+  border-color: #2f7bff;
+  background: #f1f6ff;
+}
+
+.option.correct {
+  border-color: #35c987;
+}
+
+.letter {
+  width: 42rpx;
+  height: 42rpx;
+  margin-right: 18rpx;
+  border: 2rpx solid #c9d2e3;
+  border-radius: 50%;
+  color: #5c667a;
+  font-size: 24rpx;
+  line-height: 42rpx;
+  text-align: center;
+}
+
+.option-text {
+  flex: 1;
+  line-height: 1.6;
+}
+
+.submit-btn {
+  margin-top: 24rpx;
+  border-radius: 24rpx;
+  background: #2f7bff;
+  color: #fff;
+}
+
+.answer-card {
+  margin-top: 32rpx;
+  padding: 28rpx;
+  border-radius: 20rpx;
+  background: #f8fafc;
+}
+
+.answer-title {
+  margin-bottom: 18rpx;
+  font-weight: 800;
+}
+
+.answer-title.ok {
+  color: #23b26b;
+}
+
+.answer-title.bad,
+.red {
+  color: #f04438;
+}
+
+.answer-row {
+  display: flex;
+  gap: 40rpx;
+  margin-bottom: 18rpx;
+}
+
+.analysis {
+  color: #5c667a;
+  line-height: 1.7;
+}
+
+.bottom-bar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 20rpx 28rpx calc(20rpx + env(safe-area-inset-bottom));
+  border-top: 1rpx solid #eef1f6;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.tool {
+  color: #4b5568;
+  font-size: 22rpx;
+}
+
+.nav-btn {
+  flex: 1;
+  height: 72rpx;
+  border-radius: 999rpx;
+  background: #2f7bff;
+  color: #fff;
+  font-size: 26rpx;
+  line-height: 72rpx;
+}
+
+.nav-btn.ghost {
+  background: #fff;
+  color: #5c667a;
+  border: 1rpx solid #d9e1ef;
+}
