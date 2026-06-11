@@ -1,1 +1,112 @@
+.detail-page {
+  min-height: 100vh;
+  padding: 28rpx 28rpx 150rpx;
+  box-sizing: border-box;
+  background: #fff;
+}
 
+.material-card {
+  display: flex;
+  align-items: center;
+  padding: 28rpx;
+}
+
+.pdf-icon {
+  width: 96rpx;
+  height: 112rpx;
+  margin-right: 24rpx;
+  border-radius: 16rpx;
+  background: linear-gradient(135deg, #ff6a6a, #ef4056);
+  color: #fff;
+  font-weight: 800;
+  line-height: 112rpx;
+  text-align: center;
+}
+
+.material-main {
+  flex: 1;
+}
+
+.title {
+  margin-bottom: 12rpx;
+  font-size: 30rpx;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.star {
+  color: #2f7bff;
+  font-size: 42rpx;
+}
+
+.tabs {
+  display: flex;
+  gap: 80rpx;
+  margin: 40rpx 0 26rpx;
+  padding-left: 18rpx;
+}
+
+.tab {
+  position: relative;
+  padding-bottom: 18rpx;
+  color: #4b5568;
+}
+
+.tab.active {
+  color: #2f7bff;
+  font-weight: 800;
+}
+
+.tab.active::after {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 36rpx;
+  height: 6rpx;
+  border-radius: 999rpx;
+  background: #2f7bff;
+  content: "";
+  transform: translateX(-50%);
+}
+
+.content-card {
+  padding: 10rpx 4rpx;
+}
+
+.section-title {
+  margin-bottom: 20rpx;
+  font-weight: 800;
+}
+
+.summary {
+  margin-bottom: 34rpx;
+  color: #4b5568;
+  line-height: 1.8;
+}
+
+.meta-row,
+.catalog-row {
+  display: flex;
+  justify-content: space-between;
+  min-height: 76rpx;
+  color: #172033;
+}
+
+.meta-row text:first-child {
+  color: #8a94a6;
+}
+
+.bottom-actions {
+  position: fixed;
+  right: 28rpx;
+  bottom: calc(28rpx + env(safe-area-inset-bottom));
+  left: 28rpx;
+  display: flex;
+  gap: 20rpx;
+  background: #fff;
+}
+
+.share,
+.learn {
+  flex: 1;
+}

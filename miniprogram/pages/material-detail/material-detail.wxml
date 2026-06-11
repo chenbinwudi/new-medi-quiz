@@ -1,1 +1,38 @@
-<view class="page"></view>
+<view class="detail-page">
+  <view class="material-card card">
+    <view class="pdf-icon">{{material.type}}</view>
+    <view class="material-main">
+      <view class="title">{{material.title}}</view>
+      <view class="muted">{{material.type}} · {{material.size}}</view>
+      <view class="muted">{{material.learnerCount}}人已学</view>
+    </view>
+    <view class="star" bindtap="toggleFavorite">{{favorited ? '★' : '☆'}}</view>
+  </view>
+
+  <view class="tabs">
+    <view data-tab="intro" bindtap="switchTab" class="tab {{activeTab === 'intro' ? 'active' : ''}}">简介</view>
+    <view data-tab="catalog" bindtap="switchTab" class="tab {{activeTab === 'catalog' ? 'active' : ''}}">目录</view>
+  </view>
+
+  <view wx:if="{{activeTab === 'intro'}}" class="content-card">
+    <view class="section-title">资料简介</view>
+    <view class="summary">{{material.summary}}</view>
+    <view class="meta-row"><text>适用科目</text><text>执业医师（医学综合）</text></view>
+    <view class="meta-row"><text>资料类型</text><text>{{material.type}}</text></view>
+    <view class="meta-row"><text>更新日期</text><text>{{material.updatedAt}}</text></view>
+    <view class="meta-row"><text>资料大小</text><text>{{material.size}}</text></view>
+  </view>
+
+  <view wx:else class="content-card">
+    <view class="section-title">资料目录</view>
+    <view wx:for="{{material.catalog}}" wx:key="*this" class="catalog-row">
+      <text>{{index + 1}}. {{item}}</text>
+      <text class="muted">〉</text>
+    </view>
+  </view>
+
+  <view class="bottom-actions">
+    <button class="share btn-ghost" open-type="share">分享</button>
+    <button class="learn btn-primary" bindtap="startLearning">立即学习</button>
+  </view>
+</view>
