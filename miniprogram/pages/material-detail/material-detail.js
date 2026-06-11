@@ -10,7 +10,7 @@ Page({
     catalogActive: false,
     introClass: 'active',
     catalogClass: '',
-    starText: '☆'
+    starIcon: '/assets/icons/star.svg'
   },
 
   onLoad(options) {
@@ -31,7 +31,10 @@ Page({
 
   toggleFavorite() {
     toggleFavorite({ targetType: 'material', targetId: this.data.material.id })
-      .then((res) => this.setData({ favorited: res.favorited, starText: res.favorited ? '★' : '☆' }))
+      .then((res) => this.setData({
+        favorited: res.favorited,
+        starIcon: res.favorited ? '/assets/icons/star-filled.svg' : '/assets/icons/star.svg'
+      }))
       .catch(() => wx.showToast({ title: '收藏同步失败', icon: 'none' }));
   },
 

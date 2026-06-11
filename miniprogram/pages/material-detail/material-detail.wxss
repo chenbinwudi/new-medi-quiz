@@ -12,36 +12,52 @@
 }
 
 .pdf-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 96rpx;
   height: 112rpx;
   margin-right: 24rpx;
-  border-radius: 16rpx;
+  border-radius: 18rpx;
   background: linear-gradient(135deg, #ff6a6a, #ef4056);
-  color: #fff;
-  font-weight: 800;
-  line-height: 112rpx;
-  text-align: center;
+  box-shadow: 0 14rpx 24rpx rgba(239, 64, 86, 0.18);
+}
+
+.pdf-img {
+  width: 50rpx;
+  height: 50rpx;
 }
 
 .material-main {
   flex: 1;
+  min-width: 0;
 }
 
 .title {
   margin-bottom: 12rpx;
+  color: #172033;
   font-size: 30rpx;
   font-weight: 800;
   line-height: 1.4;
 }
 
 .star {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6rpx;
   color: #2f7bff;
-  font-size: 42rpx;
+  font-size: 20rpx;
+}
+
+.star-img {
+  width: 38rpx;
+  height: 38rpx;
 }
 
 .tabs {
   display: flex;
-  gap: 80rpx;
+  gap: 90rpx;
   margin: 40rpx 0 26rpx;
   padding-left: 18rpx;
 }
@@ -75,6 +91,8 @@
 
 .section-title {
   margin-bottom: 20rpx;
+  color: #172033;
+  font-size: 30rpx;
   font-weight: 800;
 }
 
@@ -87,9 +105,11 @@
 .meta-row,
 .catalog-row {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   min-height: 76rpx;
   color: #172033;
+  border-bottom: 1rpx solid #f0f3f8;
 }
 
 .meta-row text:first-child {
@@ -103,6 +123,7 @@
   left: 28rpx;
   display: flex;
   gap: 20rpx;
+  padding-top: 12rpx;
   background: #fff;
 }
 

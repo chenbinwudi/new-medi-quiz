@@ -1,12 +1,17 @@
 <view class="detail-page">
   <view class="material-card card">
-    <view class="pdf-icon">{{material.type}}</view>
+    <view class="pdf-icon">
+      <image class="pdf-img" src="/assets/icons/outline.svg" mode="aspectFit" />
+    </view>
     <view class="material-main">
       <view class="title">{{material.title}}</view>
       <view class="muted">{{material.type}} · {{material.size}}</view>
       <view class="muted">{{material.learnerCount}}人已学</view>
     </view>
-    <view class="star" bindtap="toggleFavorite">{{starText}}</view>
+    <view class="star" bindtap="toggleFavorite">
+      <image class="star-img" src="{{starIcon}}" mode="aspectFit" />
+      <text>收藏</text>
+    </view>
   </view>
 
   <view class="tabs">
@@ -27,7 +32,7 @@
     <view class="section-title">资料目录</view>
     <view wx:for="{{material.catalog}}" wx:key="*this" class="catalog-row">
       <text>{{item}}</text>
-      <text class="muted">〉</text>
+      <text class="muted">›</text>
     </view>
   </view>
 
