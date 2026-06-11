@@ -105,20 +105,20 @@ page {
 }
 
 .icon {
-  width: 36rpx;
-  height: 36rpx;
+  width: 40rpx;
+  height: 40rpx;
   display: block;
 }
 
 .icon-sm {
-  width: 28rpx;
-  height: 28rpx;
+  width: 32rpx;
+  height: 32rpx;
   display: block;
 }
 
 .icon-lg {
-  width: 52rpx;
-  height: 52rpx;
+  width: 58rpx;
+  height: 58rpx;
   display: block;
 }
 
@@ -126,9 +126,9 @@ page {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 72rpx;
-  height: 72rpx;
-  border-radius: 20rpx;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 22rpx;
   background: #eef5ff;
 }
 

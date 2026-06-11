@@ -84,7 +84,7 @@
 
 .shortcut-row {
   justify-content: space-between;
-  padding: 24rpx 18rpx;
+  padding: 26rpx 18rpx;
 }
 
 .shortcut {
@@ -97,10 +97,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 56rpx;
-  height: 56rpx;
-  margin: 0 auto 10rpx;
-  border-radius: 16rpx;
+  width: 70rpx;
+  height: 70rpx;
+  margin: 0 auto 12rpx;
+  border-radius: 20rpx;
   background: #eef5ff;
 }
 
@@ -121,8 +121,8 @@
 }
 
 .shortcut-img {
-  width: 32rpx;
-  height: 32rpx;
+  width: 42rpx;
+  height: 42rpx;
 }
 
 .shortcut-label {
@@ -146,14 +146,14 @@
 }
 
 .menu-left {
-  gap: 18rpx;
+  gap: 20rpx;
   color: #263247;
   font-size: 27rpx;
 }
 
 .menu-icon {
-  width: 32rpx;
-  height: 32rpx;
+  width: 40rpx;
+  height: 40rpx;
 }
 
 .menu-arrow {

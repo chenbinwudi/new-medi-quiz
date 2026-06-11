@@ -74,6 +74,25 @@ if (!/\.shortcut-img\s*{[\s\S]*?width:\s*(4[4-9]|[5-9]\d)rpx;[\s\S]*?height:\s*(
   fail('Home shortcut SVG image must be at least 44rpx square');
 }
 
+const materialsWxss = fs.readFileSync(path.join(root, 'miniprogram', 'pages', 'materials', 'materials.wxss'), 'utf8');
+if (!/\.category-icon\s*{[\s\S]*?width:\s*(7[6-9]|[89]\d)rpx;[\s\S]*?height:\s*(7[6-9]|[89]\d)rpx;/.test(materialsWxss)) {
+  fail('Materials category icon tile must be at least 76rpx square');
+}
+if (!/\.category-img\s*{[\s\S]*?width:\s*(4[4-9]|[5-9]\d)rpx;[\s\S]*?height:\s*(4[4-9]|[5-9]\d)rpx;/.test(materialsWxss)) {
+  fail('Materials category SVG image must be at least 44rpx square');
+}
+
+const profileWxss = fs.readFileSync(path.join(root, 'miniprogram', 'pages', 'profile', 'profile.wxss'), 'utf8');
+if (!/\.shortcut-icon\s*{[\s\S]*?width:\s*(6[8-9]|[789]\d)rpx;[\s\S]*?height:\s*(6[8-9]|[789]\d)rpx;/.test(profileWxss)) {
+  fail('Profile shortcut icon tile must be at least 68rpx square');
+}
+if (!/\.shortcut-img\s*{[\s\S]*?width:\s*(4[0-9]|[5-9]\d)rpx;[\s\S]*?height:\s*(4[0-9]|[5-9]\d)rpx;/.test(profileWxss)) {
+  fail('Profile shortcut SVG image must be at least 40rpx square');
+}
+if (!/\.menu-icon\s*{[\s\S]*?width:\s*(3[8-9]|[4-9]\d)rpx;[\s\S]*?height:\s*(3[8-9]|[4-9]\d)rpx;/.test(profileWxss)) {
+  fail('Profile menu SVG icon must be at least 38rpx square');
+}
+
 for (const icon of requiredIcons) {
   const file = path.join(root, 'miniprogram', 'assets', 'icons', icon);
   if (!fs.existsSync(file)) fail(`Missing icon: miniprogram/assets/icons/${icon}`);
