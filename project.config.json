@@ -1,0 +1,15 @@
+{
+  "appid": "wxe7fec94bbc002874",
+  "projectname": "new-medi-quiz",
+  "miniprogramRoot": "miniprogram/",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "enhance": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "latest"
+}

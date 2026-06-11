@@ -1,0 +1,33 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/bank/bank",
+    "pages/materials/materials",
+    "pages/profile/profile",
+    "pages/practice/practice",
+    "pages/wrong/wrong",
+    "pages/favorites/favorites",
+    "pages/report/report",
+    "pages/material-detail/material-detail"
+  ],
+  "window": {
+    "navigationBarTitleText": "医考通",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f7f9fc"
+  },
+  "tabBar": {
+    "color": "#8a94a6",
+    "selectedColor": "#2f7bff",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/home/home", "text": "首页" },
+      { "pagePath": "pages/bank/bank", "text": "题库" },
+      { "pagePath": "pages/materials/materials", "text": "资料" },
+      { "pagePath": "pages/profile/profile", "text": "我的" }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
