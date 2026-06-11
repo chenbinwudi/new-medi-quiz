@@ -14,7 +14,7 @@
     "navigationBarTitleText": "医考通",
     "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#f7f9fc"
+    "backgroundColor": "#f6f8fc"
   },
   "tabBar": {
     "color": "#8a94a6",
@@ -25,26 +25,26 @@
       {
         "pagePath": "pages/home/home",
         "text": "首页",
-        "iconPath": "assets/icons/tab-home.svg",
-        "selectedIconPath": "assets/icons/tab-home-active.svg"
+        "iconPath": "assets/icons/tab-home.png",
+        "selectedIconPath": "assets/icons/tab-home-active.png"
       },
       {
         "pagePath": "pages/bank/bank",
         "text": "题库",
-        "iconPath": "assets/icons/tab-bank.svg",
-        "selectedIconPath": "assets/icons/tab-bank-active.svg"
+        "iconPath": "assets/icons/tab-bank.png",
+        "selectedIconPath": "assets/icons/tab-bank-active.png"
       },
       {
         "pagePath": "pages/materials/materials",
         "text": "资料",
-        "iconPath": "assets/icons/tab-materials.svg",
-        "selectedIconPath": "assets/icons/tab-materials-active.svg"
+        "iconPath": "assets/icons/tab-materials.png",
+        "selectedIconPath": "assets/icons/tab-materials-active.png"
       },
       {
         "pagePath": "pages/profile/profile",
         "text": "我的",
-        "iconPath": "assets/icons/tab-profile.svg",
-        "selectedIconPath": "assets/icons/tab-profile-active.svg"
+        "iconPath": "assets/icons/tab-profile.png",
+        "selectedIconPath": "assets/icons/tab-profile-active.png"
       }
     ]
   },

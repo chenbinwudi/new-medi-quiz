@@ -4,14 +4,16 @@ const cp = require('child_process');
 
 const root = process.cwd();
 const requiredIcons = [
-  'tab-home.svg', 'tab-home-active.svg', 'tab-bank.svg', 'tab-bank-active.svg',
-  'tab-materials.svg', 'tab-materials-active.svg', 'tab-profile.svg', 'tab-profile-active.svg',
   'chapter.svg', 'real-paper.svg', 'mock-paper.svg', 'quick-notes.svg',
   'wrong-book.svg', 'favorite.svg', 'note.svg', 'record.svg', 'report.svg',
   'outline.svg', 'book.svg', 'summary.svg', 'mindmap.svg', 'memory.svg',
   'analysis.svg', 'guide.svg', 'more.svg', 'search.svg', 'back.svg',
   'star.svg', 'star-filled.svg', 'edit.svg', 'answer-card.svg', 'share.svg',
   'download.svg', 'settings.svg', 'order.svg', 'folder.svg'
+];
+const requiredTabIcons = [
+  'tab-home.png', 'tab-home-active.png', 'tab-bank.png', 'tab-bank-active.png',
+  'tab-materials.png', 'tab-materials-active.png', 'tab-profile.png', 'tab-profile-active.png'
 ];
 
 function walk(dir, predicate) {
@@ -53,6 +55,26 @@ for (const file of walk(path.join(root, 'miniprogram'), (p) => p.endsWith('.wxml
 for (const icon of requiredIcons) {
   const file = path.join(root, 'miniprogram', 'assets', 'icons', icon);
   if (!fs.existsSync(file)) fail(`Missing icon: miniprogram/assets/icons/${icon}`);
+}
+
+for (const icon of requiredTabIcons) {
+  const file = path.join(root, 'miniprogram', 'assets', 'icons', icon);
+  if (!fs.existsSync(file)) fail(`Missing tab icon: miniprogram/assets/icons/${icon}`);
+}
+
+try {
+  const appJson = JSON.parse(fs.readFileSync(path.join(root, 'miniprogram', 'app.json'), 'utf8'));
+  const tabItems = appJson.tabBar && Array.isArray(appJson.tabBar.list) ? appJson.tabBar.list : [];
+  tabItems.forEach((item, index) => {
+    ['iconPath', 'selectedIconPath'].forEach((key) => {
+      const value = item[key] || '';
+      if (!/\.(png|jpg|jpeg)$/i.test(value)) {
+        fail(`tabBar.list[${index}].${key} must be .png/.jpg/.jpeg: ${value}`);
+      }
+    });
+  });
+} catch (error) {
+  fail(`Unable to validate miniprogram/app.json tabBar icons: ${error.message}`);
 }
 
 if (process.exitCode) process.exit(process.exitCode);
