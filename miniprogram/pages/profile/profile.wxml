@@ -1,11 +1,11 @@
 <view class="page">
   <view class="profile-card">
-    <view class="avatar">{{user ? '医' : '未'}}</view>
+    <view class="avatar">{{displayUser.avatarText}}</view>
     <view class="profile-main">
-      <view class="name">{{user ? user.nickname : '点击登录'}}</view>
-      <view class="muted">ID: {{user ? user.openid : '未同步'}}</view>
+      <view class="name">{{displayUser.nickname}}</view>
+      <view class="muted">ID: {{displayUser.openid}}</view>
     </view>
-    <button class="login-btn" loading="{{syncing}}" bindtap="login">{{user ? '刷新' : '登录'}}</button>
+    <button class="login-btn" loading="{{syncing}}" bindtap="login">{{displayUser.buttonText}}</button>
   </view>
 
   <view class="member-card">
@@ -19,7 +19,7 @@
   <view class="block-title">我的学习</view>
   <view class="shortcut-row">
     <view wx:for="{{shortcuts}}" wx:key="label" class="shortcut" data-url="{{item.url}}" bindtap="go">
-      <view class="shortcut-icon">{{index + 1}}</view>
+      <view class="shortcut-icon">{{item.displayIndex}}</view>
       <view>{{item.label}}</view>
     </view>
   </view>

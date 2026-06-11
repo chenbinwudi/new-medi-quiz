@@ -3,7 +3,7 @@
   <seg-tabs tabs="{{tabs}}" active="{{active}}" bind:change="onTabChange" />
   <view class="summary muted">共{{list.length}}题</view>
 
-  <empty-state wx:if="{{!loading && !list.length}}" title="暂无收藏" desc="练习时可收藏重点题目" actionText="去练习" bind:action="goPractice" />
+  <empty-state wx:if="{{emptyVisible}}" title="暂无收藏" desc="练习时可收藏重点题目" actionText="去练习" bind:action="goPractice" />
 
   <view wx:for="{{list}}" wx:key="targetId" class="question-card">
     <view class="tag">{{item.typeLabel}}</view>

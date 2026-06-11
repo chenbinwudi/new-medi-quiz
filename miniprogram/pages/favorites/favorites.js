@@ -29,15 +29,20 @@ Page({
     ],
     active: 'all',
     loading: true,
-    list: []
+    list: [],
+    emptyVisible: false
   },
 
   onLoad() {
     getStudyData('favorites')
-      .then((res) => this.setData({ list: hydrateFavorites(res.favorites), loading: false }))
+      .then((res) => {
+        const list = hydrateFavorites(res.favorites);
+        this.setData({ list, loading: false, emptyVisible: !list.length });
+      })
       .catch(() => {
         wx.showToast({ title: '学习数据加载失败', icon: 'none' });
-        this.setData({ list: hydrateFavorites([]), loading: false });
+        const list = hydrateFavorites([]);
+        this.setData({ list, loading: false, emptyVisible: !list.length });
       });
   },
 

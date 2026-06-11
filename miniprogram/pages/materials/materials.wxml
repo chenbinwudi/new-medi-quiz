@@ -4,7 +4,7 @@
 
   <view class="category-grid">
     <view wx:for="{{categories}}" wx:key="id" class="category">
-      <view class="category-icon" style="background: {{item.color}};">{{index + 1}}</view>
+      <view class="category-icon" style="{{item.styleText}}">{{item.displayIndex}}</view>
       <view>{{item.name}}</view>
     </view>
   </view>

@@ -30,7 +30,8 @@ Page({
     ],
     active: 'all',
     loading: true,
-    list: []
+    list: [],
+    emptyVisible: false
   },
 
   onLoad() {
@@ -39,10 +40,14 @@ Page({
 
   load() {
     getStudyData('wrong')
-      .then((res) => this.setData({ list: hydrateWrong(res.wrongQuestions), loading: false }))
+      .then((res) => {
+        const list = hydrateWrong(res.wrongQuestions);
+        this.setData({ list, loading: false, emptyVisible: !list.length });
+      })
       .catch(() => {
         wx.showToast({ title: '学习数据加载失败', icon: 'none' });
-        this.setData({ list: hydrateWrong([]), loading: false });
+        const list = hydrateWrong([]);
+        this.setData({ list, loading: false, emptyVisible: !list.length });
       });
   },
 

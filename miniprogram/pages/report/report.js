@@ -1,13 +1,13 @@
 const { getStudyData } = require('../../services/study');
 
 const demoTrend = [
-  { date: '04-14', accuracy: 72 },
-  { date: '04-15', accuracy: 76 },
-  { date: '04-16', accuracy: 80 },
-  { date: '04-17', accuracy: 85 },
-  { date: '04-18', accuracy: 88 },
-  { date: '04-19', accuracy: 90 },
-  { date: '04-20', accuracy: 86 }
+  { date: '04-14', accuracy: 72, dotStyle: 'bottom: 17%;' },
+  { date: '04-15', accuracy: 76, dotStyle: 'bottom: 21%;' },
+  { date: '04-16', accuracy: 80, dotStyle: 'bottom: 25%;' },
+  { date: '04-17', accuracy: 85, dotStyle: 'bottom: 30%;' },
+  { date: '04-18', accuracy: 88, dotStyle: 'bottom: 33%;' },
+  { date: '04-19', accuracy: 90, dotStyle: 'bottom: 35%;' },
+  { date: '04-20', accuracy: 86, dotStyle: 'bottom: 31%;' }
 ];
 
 Page({
@@ -20,9 +20,9 @@ Page({
     trend: demoTrend,
     stats: { total: '325', correct: '280', accuracy: '85%' },
     distribution: [
-      { label: '单选题', value: 120, percent: '60%', color: '#35c6c8' },
-      { label: '多选题', value: 60, percent: '30%', color: '#ffa629' },
-      { label: '不定项', value: 20, percent: '10%', color: '#2f7bff' }
+      { label: '单选题', value: 120, percent: '60%', styleText: 'background: #35c6c8;' },
+      { label: '多选题', value: 60, percent: '30%', styleText: 'background: #ffa629;' },
+      { label: '不定项', value: 20, percent: '10%', styleText: 'background: #2f7bff;' }
     ]
   },
 

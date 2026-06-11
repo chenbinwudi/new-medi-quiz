@@ -3,7 +3,11 @@ const { materialCategories, materials } = require('../../data/materials');
 Page({
   data: {
     keyword: '',
-    categories: materialCategories,
+    categories: materialCategories.map((item, index) => ({
+      ...item,
+      displayIndex: index + 1,
+      styleText: `background: ${item.color};`
+    })),
     materials
   },
 

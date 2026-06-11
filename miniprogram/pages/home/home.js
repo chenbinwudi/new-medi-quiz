@@ -8,14 +8,14 @@ Page({
     daysLeft: 0,
     stats: { questionCount: '30', doneCount: '25', accuracy: '83%' },
     shortcuts: [
-      { label: '章节练习', url: '/pages/bank/bank', color: '#2f7bff' },
-      { label: '历年真题', url: '/pages/bank/bank?tab=real', color: '#45c56f' },
-      { label: '模拟试卷', url: '/pages/bank/bank?tab=mock', color: '#ff914d' },
-      { label: '考点速记', url: '/pages/bank/bank?tab=notes', color: '#8f6cff' },
-      { label: '错题本', url: '/pages/wrong/wrong', color: '#ff5a5f' },
-      { label: '收藏题', url: '/pages/favorites/favorites', color: '#ffb329' },
-      { label: '笔记', url: '/pages/favorites/favorites?tab=notes', color: '#28b7a8' },
-      { label: '学习报告', url: '/pages/report/report', color: '#3d7dff' }
+      { label: '章节练习', url: '/pages/bank/bank', styleText: 'background: #2f7bff;', displayIndex: 1 },
+      { label: '历年真题', url: '/pages/bank/bank?tab=real', styleText: 'background: #45c56f;', displayIndex: 2 },
+      { label: '模拟试卷', url: '/pages/bank/bank?tab=mock', styleText: 'background: #ff914d;', displayIndex: 3 },
+      { label: '考点速记', url: '/pages/bank/bank?tab=notes', styleText: 'background: #8f6cff;', displayIndex: 4 },
+      { label: '错题本', url: '/pages/wrong/wrong', styleText: 'background: #ff5a5f;', displayIndex: 5 },
+      { label: '收藏题', url: '/pages/favorites/favorites', styleText: 'background: #ffb329;', displayIndex: 6 },
+      { label: '笔记', url: '/pages/favorites/favorites?tab=notes', styleText: 'background: #28b7a8;', displayIndex: 7 },
+      { label: '学习报告', url: '/pages/report/report', styleText: 'background: #3d7dff;', displayIndex: 8 }
     ],
     materials: materials.slice(0, 2)
   },

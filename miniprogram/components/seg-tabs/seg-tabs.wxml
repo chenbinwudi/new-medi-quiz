@@ -1,9 +1,9 @@
 <view class="tabs">
   <view
-    wx:for="{{tabs}}"
+    wx:for="{{renderTabs}}"
     wx:key="value"
     data-value="{{item.value}}"
-    class="tab {{active === item.value ? 'active' : ''}}"
+    class="tab {{item.activeClass}}"
     bindtap="onTap"
   >
     {{item.label}}

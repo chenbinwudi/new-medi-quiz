@@ -5,7 +5,12 @@ Page({
   data: {
     material: null,
     activeTab: 'intro',
-    favorited: false
+    favorited: false,
+    introActive: true,
+    catalogActive: false,
+    introClass: 'active',
+    catalogClass: '',
+    starText: '☆'
   },
 
   onLoad(options) {
@@ -14,12 +19,19 @@ Page({
   },
 
   switchTab(event) {
-    this.setData({ activeTab: event.currentTarget.dataset.tab });
+    const activeTab = event.currentTarget.dataset.tab;
+    this.setData({
+      activeTab,
+      introActive: activeTab === 'intro',
+      catalogActive: activeTab === 'catalog',
+      introClass: activeTab === 'intro' ? 'active' : '',
+      catalogClass: activeTab === 'catalog' ? 'active' : ''
+    });
   },
 
   toggleFavorite() {
     toggleFavorite({ targetType: 'material', targetId: this.data.material.id })
-      .then((res) => this.setData({ favorited: res.favorited }))
+      .then((res) => this.setData({ favorited: res.favorited, starText: res.favorited ? '★' : '☆' }))
       .catch(() => wx.showToast({ title: '收藏同步失败', icon: 'none' }));
   },
 

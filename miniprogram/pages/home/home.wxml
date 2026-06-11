@@ -16,7 +16,7 @@
 
   <view class="shortcut-grid">
     <view wx:for="{{shortcuts}}" wx:key="label" class="shortcut" data-url="{{item.url}}" bindtap="go">
-      <view class="shortcut-icon" style="background: {{item.color}};">{{index + 1}}</view>
+      <view class="shortcut-icon" style="{{item.styleText}}">{{item.displayIndex}}</view>
       <view>{{item.label}}</view>
     </view>
   </view>
@@ -27,9 +27,18 @@
       <text class="muted">益练习 〉</text>
     </view>
     <view class="stats-row">
-      <stat-card value="{{stats.questionCount}}" label="题目数" />
-      <stat-card value="{{stats.doneCount}}" label="做题数" />
-      <stat-card value="{{stats.accuracy}}" label="正确率" />
+      <view class="stat-item">
+        <view class="stat-value">{{stats.questionCount}}</view>
+        <view class="stat-label">题目数</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-value">{{stats.doneCount}}</view>
+        <view class="stat-label">做题数</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-value">{{stats.accuracy}}</view>
+        <view class="stat-label">正确率</view>
+      </view>
     </view>
   </view>
 

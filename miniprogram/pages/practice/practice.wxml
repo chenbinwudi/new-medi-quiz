@@ -4,7 +4,7 @@
       <view class="title">章节练习</view>
       <view class="badge">{{typeLabel}}</view>
     </view>
-    <view class="muted">{{currentIndex + 1}}/{{questions.length}}</view>
+    <view class="muted">{{currentNo}}/{{questions.length}}</view>
   </view>
 
   <view class="question-card">
@@ -15,7 +15,7 @@
         wx:key="key"
         data-key="{{item.key}}"
         bindtap="selectOption"
-        class="option {{item.selected ? 'selected' : ''}} {{submitted && item.isAnswer ? 'correct' : ''}}"
+        class="option {{item.optionClass}}"
       >
         <view class="letter">{{item.key}}</view>
         <view class="option-text">{{item.text}}</view>
@@ -25,7 +25,7 @@
   </view>
 
   <view wx:if="{{submitted}}" class="answer-card">
-    <view class="answer-title {{isCorrect ? 'ok' : 'bad'}}">{{isCorrect ? '回答正确' : '回答错误'}}</view>
+    <view class="answer-title {{answerClass}}">{{answerTitle}}</view>
     <view class="answer-row">
       <text>正确答案</text>
       <text class="red">{{correctAnswerText}}</text>
@@ -34,7 +34,7 @@
   </view>
 
   <view class="bottom-bar">
-    <view class="tool" bindtap="toggleFavorite">{{favorited ? '已收藏' : '收藏'}}</view>
+    <view class="tool" bindtap="toggleFavorite">{{favoriteText}}</view>
     <view class="tool" bindtap="saveNote">笔记</view>
     <view class="tool" bindtap="showCard">答题卡</view>
     <button class="nav-btn ghost" bindtap="prev">上一题</button>

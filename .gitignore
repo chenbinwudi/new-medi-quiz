@@ -1,2 +1,5 @@
 .superpowers/
 .worktrees/
+project.private.config.json
+miniprogram/project.config.json
+miniprogram/project.private.config.json

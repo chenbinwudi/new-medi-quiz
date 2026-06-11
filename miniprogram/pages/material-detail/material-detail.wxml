@@ -6,15 +6,15 @@
       <view class="muted">{{material.type}} · {{material.size}}</view>
       <view class="muted">{{material.learnerCount}}人已学</view>
     </view>
-    <view class="star" bindtap="toggleFavorite">{{favorited ? '★' : '☆'}}</view>
+    <view class="star" bindtap="toggleFavorite">{{starText}}</view>
   </view>
 
   <view class="tabs">
-    <view data-tab="intro" bindtap="switchTab" class="tab {{activeTab === 'intro' ? 'active' : ''}}">简介</view>
-    <view data-tab="catalog" bindtap="switchTab" class="tab {{activeTab === 'catalog' ? 'active' : ''}}">目录</view>
+    <view data-tab="intro" bindtap="switchTab" class="tab {{introClass}}">简介</view>
+    <view data-tab="catalog" bindtap="switchTab" class="tab {{catalogClass}}">目录</view>
   </view>
 
-  <view wx:if="{{activeTab === 'intro'}}" class="content-card">
+  <view wx:if="{{introActive}}" class="content-card">
     <view class="section-title">资料简介</view>
     <view class="summary">{{material.summary}}</view>
     <view class="meta-row"><text>适用科目</text><text>执业医师（医学综合）</text></view>
@@ -26,7 +26,7 @@
   <view wx:else class="content-card">
     <view class="section-title">资料目录</view>
     <view wx:for="{{material.catalog}}" wx:key="*this" class="catalog-row">
-      <text>{{index + 1}}. {{item}}</text>
+      <text>{{item}}</text>
       <text class="muted">〉</text>
     </view>
   </view>

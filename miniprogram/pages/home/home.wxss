@@ -107,6 +107,23 @@
   display: flex;
 }
 
+.stat-item {
+  flex: 1;
+  text-align: center;
+}
+
+.stat-value {
+  color: #172033;
+  font-size: 36rpx;
+  font-weight: 700;
+}
+
+.stat-label {
+  margin-top: 8rpx;
+  color: #8a94a6;
+  font-size: 22rpx;
+}
+
 .section-title {
   margin: 36rpx 4rpx 18rpx;
   font-weight: 800;

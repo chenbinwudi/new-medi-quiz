@@ -14,7 +14,11 @@ Page({
     isCorrect: false,
     favorited: false,
     typeLabel: '',
-    correctAnswerText: ''
+    correctAnswerText: '',
+    currentNo: 1,
+    answerTitle: '',
+    answerClass: '',
+    favoriteText: '收藏'
   },
 
   onLoad(options) {
@@ -32,13 +36,17 @@ Page({
       chapter: chapters.find((item) => item.id === (chapterId || current.chapterId)) || chapters[0],
       questions: list,
       currentIndex: index,
+      currentNo: index + 1,
       current,
       selected: [],
       submitted: false,
       isCorrect: false,
       favorited: false,
       typeLabel: getQuestionTypeLabel(current.type),
-      correctAnswerText: normalizeAnswer(current.answer)
+      correctAnswerText: normalizeAnswer(current.answer),
+      answerTitle: '',
+      answerClass: '',
+      favoriteText: '收藏'
     });
   },
 
@@ -48,7 +56,11 @@ Page({
       options: question.options.map((option) => ({
         ...option,
         selected: selected.includes(option.key),
-        isAnswer: normalizeAnswer(question.answer).split(',').includes(option.key)
+        isAnswer: normalizeAnswer(question.answer).split(',').includes(option.key),
+        optionClass: [
+          selected.includes(option.key) ? 'selected' : '',
+          this.data && this.data.submitted && normalizeAnswer(question.answer).split(',').includes(option.key) ? 'correct' : ''
+        ].join(' ')
       }))
     };
   },
@@ -75,7 +87,22 @@ Page({
     const current = this.data.current;
     const answer = current.type === 'multiple' ? this.data.selected : this.data.selected[0];
     const isCorrect = isCorrectAnswer(current, answer);
-    this.setData({ submitted: true, isCorrect });
+    this.setData({
+      submitted: true,
+      isCorrect,
+      answerTitle: isCorrect ? '回答正确' : '回答错误',
+      answerClass: isCorrect ? 'ok' : 'bad',
+      current: {
+        ...current,
+        options: current.options.map((option) => ({
+          ...option,
+          optionClass: [
+            option.selected ? 'selected' : '',
+            option.isAnswer ? 'correct' : ''
+          ].join(' ')
+        }))
+      }
+    });
     saveAnswer({
       questionId: current.id,
       chapterId: current.chapterId,
@@ -104,7 +131,7 @@ Page({
   toggleFavorite() {
     const current = this.data.current;
     toggleFavorite({ targetType: 'question', targetId: current.id })
-      .then((res) => this.setData({ favorited: res.favorited }))
+      .then((res) => this.setData({ favorited: res.favorited, favoriteText: res.favorited ? '已收藏' : '收藏' }))
       .catch(() => wx.showToast({ title: '收藏同步失败', icon: 'none' }));
   },
 
