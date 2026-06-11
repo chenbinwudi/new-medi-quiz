@@ -1,5 +1,7 @@
 <view class="empty">
-  <view class="empty-icon">□</view>
+  <view class="empty-icon">
+    <image class="empty-img" src="{{icon}}" mode="aspectFit" />
+  </view>
   <view class="empty-title">{{title}}</view>
   <view wx:if="{{desc}}" class="empty-desc">{{desc}}</view>
   <button wx:if="{{actionText}}" class="empty-action" bindtap="onAction">{{actionText}}</button>

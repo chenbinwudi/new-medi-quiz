@@ -1,27 +1,39 @@
 .tabs {
   display: flex;
-  gap: 40rpx;
+  gap: 16rpx;
   align-items: center;
-  height: 72rpx;
+  min-height: 76rpx;
+  padding: 8rpx;
+  border-radius: 24rpx;
+  background: #f0f5ff;
+  box-sizing: border-box;
 }
 
 .tab {
   position: relative;
-  color: #4b5568;
+  flex: 1;
+  height: 58rpx;
+  border-radius: 18rpx;
+  color: #637083;
   font-size: 28rpx;
+  line-height: 58rpx;
+  text-align: center;
+  transition: color 0.18s ease, background 0.18s ease;
 }
 
 .tab.active {
+  background: #fff;
   color: #2f7bff;
   font-weight: 700;
+  box-shadow: 0 10rpx 20rpx rgba(47, 123, 255, 0.12);
 }
 
 .tab.active::after {
   position: absolute;
   left: 50%;
-  bottom: -16rpx;
-  width: 36rpx;
-  height: 6rpx;
+  bottom: 6rpx;
+  width: 28rpx;
+  height: 4rpx;
   border-radius: 999rpx;
   background: #2f7bff;
   content: "";

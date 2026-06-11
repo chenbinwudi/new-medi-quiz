@@ -1,21 +1,28 @@
 .empty {
-  padding: 80rpx 32rpx;
+  padding: 88rpx 32rpx;
   text-align: center;
   color: #8a94a6;
 }
 
 .empty-icon {
-  width: 96rpx;
-  height: 96rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 112rpx;
+  height: 112rpx;
   margin: 0 auto 20rpx;
-  border-radius: 50%;
-  background: #eef4ff;
-  color: #2f7bff;
-  line-height: 96rpx;
+  border-radius: 32rpx;
+  background: linear-gradient(180deg, #eff6ff, #e7f0ff);
+}
+
+.empty-img {
+  width: 58rpx;
+  height: 58rpx;
 }
 
 .empty-title {
   color: #172033;
+  font-size: 30rpx;
   font-weight: 600;
 }
 
@@ -26,8 +33,15 @@
 
 .empty-action {
   width: 220rpx;
+  height: 72rpx;
   margin-top: 28rpx;
   border-radius: 999rpx;
   background: #2f7bff;
   color: #fff;
+  font-size: 26rpx;
+  line-height: 72rpx;
+}
+
+.empty-action::after {
+  border: 0;
 }

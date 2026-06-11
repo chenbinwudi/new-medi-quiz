@@ -1,11 +1,16 @@
 .stat-card {
   flex: 1;
+  min-width: 0;
+  padding: 22rpx 12rpx;
+  border-radius: 20rpx;
+  background: #f8fbff;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .value {
   color: #172033;
-  font-size: 36rpx;
+  font-size: 34rpx;
   font-weight: 700;
 }
 
@@ -13,4 +18,16 @@
   margin-top: 8rpx;
   color: #8a94a6;
   font-size: 22rpx;
+}
+
+.stat-card.primary .value {
+  color: #2f7bff;
+}
+
+.stat-card.success .value {
+  color: #23c682;
+}
+
+.stat-card.danger .value {
+  color: #ff4d4f;
 }
