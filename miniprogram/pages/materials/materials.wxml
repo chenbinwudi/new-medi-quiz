@@ -1,1 +1,26 @@
-<view class="page"></view>
+<view class="page">
+  <view class="page-title">资料</view>
+  <view class="search-box">⌕ 搜索资料</view>
+
+  <view class="category-grid">
+    <view wx:for="{{categories}}" wx:key="id" class="category">
+      <view class="category-icon" style="background: {{item.color}};">{{index + 1}}</view>
+      <view>{{item.name}}</view>
+    </view>
+  </view>
+
+  <view class="section-title">
+    <text>推荐资料</text>
+    <text class="muted">更多 〉</text>
+  </view>
+  <view class="material-list">
+    <view wx:for="{{materials}}" wx:key="id" class="material-row" data-id="{{item.id}}" bindtap="goDetail">
+      <view class="file-icon">{{item.type}}</view>
+      <view class="material-main">
+        <view class="material-title">{{item.title}}</view>
+        <view class="muted">{{item.type}} · {{item.size}}</view>
+      </view>
+      <view class="muted">{{item.learnerCount}}人已学</view>
+    </view>
+  </view>
+</view>

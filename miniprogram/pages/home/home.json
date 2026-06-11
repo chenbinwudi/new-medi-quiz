@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "医考通"
+  "navigationBarTitleText": "医考通",
+  "usingComponents": {
+    "stat-card": "../../components/stat-card/stat-card"
+  }
 }

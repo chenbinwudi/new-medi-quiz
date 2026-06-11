@@ -1,1 +1,75 @@
+.page-title {
+  margin: 12rpx 0 28rpx;
+  font-size: 40rpx;
+  font-weight: 800;
+}
 
+.search-box {
+  height: 76rpx;
+  padding-left: 28rpx;
+  border-radius: 20rpx;
+  background: #fff;
+  color: #a0a8b8;
+  line-height: 76rpx;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32rpx 20rpx;
+  margin: 34rpx 0;
+}
+
+.category {
+  text-align: center;
+  font-size: 23rpx;
+}
+
+.category-icon {
+  width: 56rpx;
+  height: 56rpx;
+  margin: 0 auto 12rpx;
+  border-radius: 16rpx;
+  color: #fff;
+  font-size: 22rpx;
+  line-height: 56rpx;
+}
+
+.section-title,
+.material-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-title {
+  margin-bottom: 18rpx;
+  font-weight: 800;
+}
+
+.material-list {
+  display: flex;
+  flex-direction: column;
+  gap: 26rpx;
+}
+
+.file-icon {
+  width: 72rpx;
+  height: 82rpx;
+  margin-right: 20rpx;
+  border-radius: 12rpx;
+  background: #2f7bff;
+  color: #fff;
+  font-size: 22rpx;
+  line-height: 82rpx;
+  text-align: center;
+}
+
+.material-main {
+  flex: 1;
+}
+
+.material-title {
+  margin-bottom: 10rpx;
+  font-weight: 700;
+}

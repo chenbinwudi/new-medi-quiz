@@ -1,1 +1,50 @@
-<view class="page"></view>
+<view class="page home-page">
+  <view class="top-title">医考通</view>
+  <view class="search-row">
+    <view class="search-pill">⌕ {{exam.name}} ▾</view>
+    <view class="countdown">距离考试 <text>{{daysLeft}}</text> 天</view>
+  </view>
+
+  <view class="hero card">
+    <view>
+      <view class="hero-title">2024 执业医师考试</view>
+      <view class="hero-title blue">全程备考规划</view>
+      <view class="hero-tag">科学备考 · 高效通关</view>
+    </view>
+    <view class="hero-illus">PDF</view>
+  </view>
+
+  <view class="shortcut-grid">
+    <view wx:for="{{shortcuts}}" wx:key="label" class="shortcut" data-url="{{item.url}}" bindtap="go">
+      <view class="shortcut-icon" style="background: {{item.color}};">{{index + 1}}</view>
+      <view>{{item.label}}</view>
+    </view>
+  </view>
+
+  <view class="section-card card">
+    <view class="section-head">
+      <text>今日练习</text>
+      <text class="muted">益练习 〉</text>
+    </view>
+    <view class="stats-row">
+      <stat-card value="{{stats.questionCount}}" label="题目数" />
+      <stat-card value="{{stats.doneCount}}" label="做题数" />
+      <stat-card value="{{stats.accuracy}}" label="正确率" />
+    </view>
+  </view>
+
+  <view class="section-title">
+    <text>推荐资料</text>
+    <text class="muted">更多 〉</text>
+  </view>
+  <view class="material-list">
+    <view wx:for="{{materials}}" wx:key="id" class="material-row" data-id="{{item.id}}" bindtap="goMaterial">
+      <view class="file-icon">{{item.type}}</view>
+      <view class="material-main">
+        <view class="material-title">{{item.title}}</view>
+        <view class="muted">{{item.type}} · {{item.size}}</view>
+      </view>
+      <view class="muted">{{item.learnerCount}}人已学</view>
+    </view>
+  </view>
+</view>

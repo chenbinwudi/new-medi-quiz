@@ -1,1 +1,112 @@
+.profile-card,
+.member-card,
+.shortcut-row,
+.menu-row {
+  display: flex;
+  align-items: center;
+}
 
+.profile-card {
+  margin-top: 24rpx;
+}
+
+.avatar {
+  width: 96rpx;
+  height: 96rpx;
+  margin-right: 24rpx;
+  border-radius: 50%;
+  background: #dceaff;
+  color: #2f7bff;
+  font-size: 40rpx;
+  font-weight: 800;
+  line-height: 96rpx;
+  text-align: center;
+}
+
+.profile-main {
+  flex: 1;
+}
+
+.name {
+  margin-bottom: 10rpx;
+  font-size: 32rpx;
+  font-weight: 800;
+}
+
+.login-btn {
+  width: 130rpx;
+  height: 64rpx;
+  border-radius: 999rpx;
+  background: #2f7bff;
+  color: #fff;
+  font-size: 24rpx;
+  line-height: 64rpx;
+}
+
+.member-card {
+  justify-content: space-between;
+  margin: 42rpx 0;
+  padding: 28rpx;
+  border-radius: 18rpx;
+  background: linear-gradient(135deg, #1b1f2a, #363d4f);
+  color: #fff;
+}
+
+.member-title {
+  font-size: 30rpx;
+  font-weight: 800;
+}
+
+.member-sub {
+  margin-top: 8rpx;
+  color: #cfd6e6;
+  font-size: 23rpx;
+}
+
+.member-btn {
+  padding: 14rpx 22rpx;
+  border-radius: 999rpx;
+  background: #ffe0a8;
+  color: #4d3414;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.block-title {
+  margin-bottom: 20rpx;
+  font-weight: 800;
+}
+
+.shortcut-row {
+  justify-content: space-between;
+  margin-bottom: 30rpx;
+}
+
+.shortcut {
+  text-align: center;
+  font-size: 22rpx;
+}
+
+.shortcut-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin: 0 auto 10rpx;
+  border-radius: 12rpx;
+  background: #eef4ff;
+  color: #2f7bff;
+  line-height: 48rpx;
+}
+
+.menu-card {
+  padding: 6rpx 28rpx;
+}
+
+.menu-row {
+  justify-content: space-between;
+  min-height: 92rpx;
+  border-bottom: 1rpx solid #eef1f6;
+}
+
+.menu-row:last-child {
+  border-bottom: 0;
+}

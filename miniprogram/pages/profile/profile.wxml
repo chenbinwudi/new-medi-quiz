@@ -1,1 +1,33 @@
-<view class="page"></view>
+<view class="page">
+  <view class="profile-card">
+    <view class="avatar">{{user ? '医' : '未'}}</view>
+    <view class="profile-main">
+      <view class="name">{{user ? user.nickname : '点击登录'}}</view>
+      <view class="muted">ID: {{user ? user.openid : '未同步'}}</view>
+    </view>
+    <button class="login-btn" loading="{{syncing}}" bindtap="login">{{user ? '刷新' : '登录'}}</button>
+  </view>
+
+  <view class="member-card">
+    <view>
+      <view class="member-title">会员中心</view>
+      <view class="member-sub">开通会员，享尊贵权益</view>
+    </view>
+    <view class="member-btn">立即开通</view>
+  </view>
+
+  <view class="block-title">我的学习</view>
+  <view class="shortcut-row">
+    <view wx:for="{{shortcuts}}" wx:key="label" class="shortcut" data-url="{{item.url}}" bindtap="go">
+      <view class="shortcut-icon">{{index + 1}}</view>
+      <view>{{item.label}}</view>
+    </view>
+  </view>
+
+  <view class="menu-card card">
+    <view wx:for="{{menus}}" wx:key="*this" class="menu-row" data-name="{{item}}" bindtap="menuTap">
+      <text>{{item}}</text>
+      <text class="muted">〉</text>
+    </view>
+  </view>
+</view>

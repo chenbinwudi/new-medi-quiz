@@ -1,1 +1,27 @@
-<view class="page"></view>
+<view class="page">
+  <view class="page-title">题库</view>
+  <view class="subject-row">
+    <text>{{exam.fullName}} ▾</text>
+    <text>⌕</text>
+  </view>
+  <seg-tabs tabs="{{tabs}}" active="{{activeTab}}" bind:change="onTabChange" />
+
+  <view class="progress-card card">
+    <view class="progress-head">
+      <text>总体进度 <text class="green">{{totalPercent}}%</text></text>
+      <text class="muted">已学 {{totalDone}}/{{totalCount}}</text>
+    </view>
+    <view class="progress-track">
+      <view class="progress-bar" style="width: {{totalPercent}}%;"></view>
+    </view>
+  </view>
+
+  <view class="chapter-list">
+    <view wx:for="{{progress}}" wx:key="id" class="chapter-row" data-id="{{item.id}}" bindtap="goPractice">
+      <view class="plus">+</view>
+      <view class="chapter-name">{{item.name}}</view>
+      <view class="muted">{{item.learned}}/{{item.totalCount}}</view>
+      <view class="chapter-percent">{{item.progress}}%</view>
+    </view>
+  </view>
+</view>
