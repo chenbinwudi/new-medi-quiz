@@ -1,13 +1,15 @@
 .profile-card,
 .member-card,
 .shortcut-row,
-.menu-row {
+.menu-row,
+.menu-left {
   display: flex;
   align-items: center;
 }
 
 .profile-card {
-  margin-top: 24rpx;
+  min-height: 132rpx;
+  padding: 24rpx;
 }
 
 .avatar {
@@ -15,7 +17,7 @@
   height: 96rpx;
   margin-right: 24rpx;
   border-radius: 50%;
-  background: #dceaff;
+  background: linear-gradient(180deg, #eaf2ff, #d8e7ff);
   color: #2f7bff;
   font-size: 40rpx;
   font-weight: 800;
@@ -25,17 +27,20 @@
 
 .profile-main {
   flex: 1;
+  min-width: 0;
 }
 
 .name {
-  margin-bottom: 10rpx;
+  margin-bottom: 8rpx;
+  color: #172033;
   font-size: 32rpx;
   font-weight: 800;
 }
 
 .login-btn {
-  width: 130rpx;
+  width: 132rpx;
   height: 64rpx;
+  border: 0;
   border-radius: 999rpx;
   background: #2f7bff;
   color: #fff;
@@ -43,13 +48,18 @@
   line-height: 64rpx;
 }
 
+.login-btn::after {
+  border: 0;
+}
+
 .member-card {
   justify-content: space-between;
-  margin: 42rpx 0;
-  padding: 28rpx;
-  border-radius: 18rpx;
-  background: linear-gradient(135deg, #1b1f2a, #363d4f);
+  margin: 28rpx 0;
+  padding: 30rpx;
+  border-radius: 22rpx;
+  background: linear-gradient(135deg, #151923, #343b4e);
   color: #fff;
+  box-shadow: 0 18rpx 36rpx rgba(21, 25, 35, 0.16);
 }
 
 .member-title {
@@ -64,7 +74,7 @@
 }
 
 .member-btn {
-  padding: 14rpx 22rpx;
+  padding: 14rpx 24rpx;
   border-radius: 999rpx;
   background: #ffe0a8;
   color: #4d3414;
@@ -72,41 +82,81 @@
   font-weight: 700;
 }
 
-.block-title {
-  margin-bottom: 20rpx;
-  font-weight: 800;
-}
-
 .shortcut-row {
   justify-content: space-between;
-  margin-bottom: 30rpx;
+  padding: 24rpx 18rpx;
 }
 
 .shortcut {
+  flex: 1;
   text-align: center;
   font-size: 22rpx;
 }
 
 .shortcut-icon {
-  width: 48rpx;
-  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56rpx;
+  height: 56rpx;
   margin: 0 auto 10rpx;
-  border-radius: 12rpx;
-  background: #eef4ff;
-  color: #2f7bff;
-  line-height: 48rpx;
+  border-radius: 16rpx;
+  background: #eef5ff;
+}
+
+.shortcut-icon.red {
+  background: #fff0f0;
+}
+
+.shortcut-icon.amber {
+  background: #fff7df;
+}
+
+.shortcut-icon.teal {
+  background: #e8fbf7;
+}
+
+.shortcut-icon.green {
+  background: #eaf9f0;
+}
+
+.shortcut-img {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.shortcut-label {
+  color: #263247;
+  white-space: nowrap;
 }
 
 .menu-card {
+  margin-top: 28rpx;
   padding: 6rpx 28rpx;
 }
 
 .menu-row {
   justify-content: space-between;
-  min-height: 92rpx;
+  min-height: 94rpx;
   border-bottom: 1rpx solid #eef1f6;
 }
 
 .menu-row:last-child {
   border-bottom: 0;
+}
+
+.menu-left {
+  gap: 18rpx;
+  color: #263247;
+  font-size: 27rpx;
+}
+
+.menu-icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.menu-arrow {
+  color: #b5becc;
+  font-size: 34rpx;
 }

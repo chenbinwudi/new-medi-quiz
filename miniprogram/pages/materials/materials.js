@@ -3,9 +3,8 @@ const { materialCategories, materials } = require('../../data/materials');
 Page({
   data: {
     keyword: '',
-    categories: materialCategories.map((item, index) => ({
+    categories: materialCategories.map((item) => ({
       ...item,
-      displayIndex: index + 1,
       styleText: `background: ${item.color};`
     })),
     materials

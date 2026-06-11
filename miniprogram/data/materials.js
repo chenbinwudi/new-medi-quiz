@@ -1,12 +1,12 @@
 const materialCategories = [
-  { id: 'outline', name: '考试大纲', color: '#2f7bff' },
-  { id: 'textbook', name: '官方教材', color: '#46c06f' },
-  { id: 'summary', name: '考点汇总', color: '#ff8b4a' },
-  { id: 'mindmap', name: '思维导图', color: '#5f8dff' },
-  { id: 'mnemonic', name: '记忆口诀', color: '#ffa629' },
-  { id: 'analysis', name: '真题解析', color: '#8b6cff' },
-  { id: 'guide', name: '临床指南', color: '#35c6a4' },
-  { id: 'more', name: '更多资料', color: '#f06aaa' }
+  { id: 'outline', name: '考试大纲', color: '#2f7bff', icon: '/assets/icons/outline.svg' },
+  { id: 'textbook', name: '官方教材', color: '#46c06f', icon: '/assets/icons/book.svg' },
+  { id: 'summary', name: '考点汇总', color: '#ff8b4a', icon: '/assets/icons/summary.svg' },
+  { id: 'mindmap', name: '思维导图', color: '#5f8dff', icon: '/assets/icons/mindmap.svg' },
+  { id: 'mnemonic', name: '记忆口诀', color: '#ffa629', icon: '/assets/icons/memory.svg' },
+  { id: 'analysis', name: '真题解析', color: '#8b6cff', icon: '/assets/icons/analysis.svg' },
+  { id: 'guide', name: '临床指南', color: '#35c6a4', icon: '/assets/icons/guide.svg' },
+  { id: 'more', name: '更多资料', color: '#f06aaa', icon: '/assets/icons/more.svg' }
 ];
 
 const materials = [
@@ -17,7 +17,7 @@ const materials = [
     type: 'PDF',
     size: '2.4M',
     learnerCount: 1234,
-    summary: '根据最新考试大纲整理，包含考试范围、考试要求和重点内容。',
+    summary: '根据最新考试大纲整理，包含考试范围、考试要求和重点内容，帮助考生全面了解考试要求。',
     catalog: ['考试说明', '基础医学综合', '医学人文综合', '临床医学综合'],
     updatedAt: '2024-03-20'
   },

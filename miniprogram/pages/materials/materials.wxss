@@ -1,23 +1,18 @@
-.page-title {
-  margin: 12rpx 0 28rpx;
-  font-size: 40rpx;
-  font-weight: 800;
-}
-
 .search-box {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
   height: 76rpx;
-  padding-left: 28rpx;
-  border-radius: 20rpx;
-  background: #fff;
-  color: #a0a8b8;
-  line-height: 76rpx;
+  padding: 0 24rpx;
+  color: #9aa4b5;
+  font-size: 26rpx;
 }
 
 .category-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 32rpx 20rpx;
-  margin: 34rpx 0;
+  gap: 32rpx 18rpx;
+  margin: 34rpx 0 26rpx;
 }
 
 .category {
@@ -26,50 +21,75 @@
 }
 
 .category-icon {
-  width: 56rpx;
-  height: 56rpx;
-  margin: 0 auto 12rpx;
-  border-radius: 16rpx;
-  color: #fff;
-  font-size: 22rpx;
-  line-height: 56rpx;
-}
-
-.section-title,
-.material-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  width: 68rpx;
+  height: 68rpx;
+  margin: 0 auto 12rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 12rpx 22rpx rgba(47, 123, 255, 0.12);
 }
 
-.section-title {
-  margin-bottom: 18rpx;
-  font-weight: 800;
+.category-img {
+  width: 38rpx;
+  height: 38rpx;
+}
+
+.category-name {
+  color: #263247;
+  white-space: nowrap;
 }
 
 .material-list {
   display: flex;
   flex-direction: column;
-  gap: 26rpx;
+  gap: 18rpx;
+}
+
+.material-row {
+  display: flex;
+  align-items: center;
+  min-height: 126rpx;
+  padding: 22rpx;
 }
 
 .file-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 72rpx;
   height: 82rpx;
   margin-right: 20rpx;
-  border-radius: 12rpx;
+  border-radius: 16rpx;
   background: #2f7bff;
-  color: #fff;
-  font-size: 22rpx;
-  line-height: 82rpx;
-  text-align: center;
+}
+
+.file-img {
+  width: 40rpx;
+  height: 40rpx;
 }
 
 .material-main {
   flex: 1;
+  min-width: 0;
 }
 
 .material-title {
-  margin-bottom: 10rpx;
+  color: #172033;
+  font-size: 27rpx;
   font-weight: 700;
+  line-height: 1.4;
+}
+
+.material-meta,
+.learner {
+  margin-top: 8rpx;
+  color: #8a94a6;
+  font-size: 22rpx;
+}
+
+.learner {
+  flex-shrink: 0;
+  margin-left: 16rpx;
 }

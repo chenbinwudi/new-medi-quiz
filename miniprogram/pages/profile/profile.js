@@ -4,20 +4,27 @@ Page({
   data: {
     user: null,
     displayUser: {
-      avatarText: '未',
+      avatarText: '医',
       nickname: '点击登录',
       openid: '未同步',
       buttonText: '登录'
     },
     syncing: false,
     shortcuts: [
-      { label: '错题本', url: '/pages/wrong/wrong', displayIndex: 1 },
-      { label: '收藏题', url: '/pages/favorites/favorites', displayIndex: 2 },
-      { label: '笔记', url: '/pages/favorites/favorites?tab=notes', displayIndex: 3 },
-      { label: '做题记录', url: '/pages/report/report', displayIndex: 4 },
-      { label: '学习报告', url: '/pages/report/report', displayIndex: 5 }
+      { label: '错题本', url: '/pages/wrong/wrong', icon: '/assets/icons/wrong-book.svg', tone: 'red' },
+      { label: '收藏题', url: '/pages/favorites/favorites', icon: '/assets/icons/favorite.svg', tone: 'amber' },
+      { label: '笔记', url: '/pages/favorites/favorites?tab=notes', icon: '/assets/icons/note.svg', tone: 'teal' },
+      { label: '做题记录', url: '/pages/report/report', icon: '/assets/icons/record.svg', tone: 'blue' },
+      { label: '学习报告', url: '/pages/report/report', icon: '/assets/icons/report.svg', tone: 'green' }
     ],
-    menus: ['我的订单', '下载管理', '我的资料', '我的笔记', '帮助与反馈', '设置']
+    menus: [
+      { label: '我的订单', icon: '/assets/icons/order.svg' },
+      { label: '下载管理', icon: '/assets/icons/download.svg' },
+      { label: '我的资料', icon: '/assets/icons/folder.svg' },
+      { label: '我的笔记', icon: '/assets/icons/note.svg' },
+      { label: '帮助与反馈', icon: '/assets/icons/guide.svg' },
+      { label: '设置', icon: '/assets/icons/settings.svg' }
+    ]
   },
 
   onShow() {
@@ -36,7 +43,7 @@ Page({
     this.setData({
       user,
       displayUser: {
-        avatarText: user ? '医' : '未',
+        avatarText: '医',
         nickname: user ? user.nickname : '点击登录',
         openid: user ? user.openid : '未同步',
         buttonText: user ? '刷新' : '登录'
