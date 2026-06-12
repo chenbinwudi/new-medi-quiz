@@ -113,6 +113,29 @@ for (const key of ['realPapers', 'mockPapers', 'quickNotes']) {
   }
 }
 
+const favoritesJs = fs.readFileSync(path.join(root, 'miniprogram', 'pages', 'favorites', 'favorites.js'), 'utf8');
+const favoritesWxml = fs.readFileSync(path.join(root, 'miniprogram', 'pages', 'favorites', 'favorites.wxml'), 'utf8');
+if (!favoritesJs.includes("options.tab === 'notes'")) {
+  fail('Favorites page must support tab=notes from home shortcut');
+}
+if (!favoritesWxml.includes('wx:if="{{showNotes}}"')) {
+  fail('Favorites page missing notes content panel');
+}
+
+const questionText = fs.readFileSync(path.join(root, 'miniprogram', 'data', 'questions.js'), 'utf8');
+for (const expected of ['药品质量标准', '细胞膜', '发热常见病因']) {
+  if (!questionText.includes(expected)) {
+    fail(`Question data missing readable text: ${expected}`);
+  }
+}
+
+const questionUtilText = fs.readFileSync(path.join(root, 'miniprogram', 'utils', 'question.js'), 'utf8');
+for (const expected of ['单选题', '多选题']) {
+  if (!questionUtilText.includes(expected)) {
+    fail(`Question label missing readable text: ${expected}`);
+  }
+}
+
 for (const icon of requiredIcons) {
   const file = path.join(root, 'miniprogram', 'assets', 'icons', icon);
   if (!fs.existsSync(file)) fail(`Missing icon: miniprogram/assets/icons/${icon}`);

@@ -1,21 +1,40 @@
 <view class="page page-safe list-page">
   <view class="top-bar centered">
-    <view class="page-title">我的收藏</view>
+    <view class="page-title">我的学习</view>
   </view>
   <seg-tabs tabs="{{tabs}}" active="{{active}}" bind:change="onTabChange" />
-  <view class="summary muted">{{listCountText}}</view>
 
-  <empty-state wx:if="{{emptyVisible}}" title="暂无收藏" desc="练习时可收藏重点题目" actionText="去练习" bind:action="goPractice" icon="/assets/icons/favorite.svg" />
+  <view wx:if="{{showFavorites}}">
+    <view class="summary muted">{{listCountText}}</view>
+    <empty-state wx:if="{{emptyVisible}}" title="暂无收藏" desc="练习时可收藏重点题目" actionText="去练习" bind:action="goPractice" icon="/assets/icons/favorite.svg" />
 
-  <view wx:for="{{list}}" wx:key="targetId" class="question-card card">
-    <view class="tag">{{item.typeLabel}}</view>
-    <view class="stem">{{item.question.stem}}</view>
-    <view class="meta">章节：{{item.chapterName}}</view>
-    <view class="row-between foot">
-      <text class="muted">已收藏</text>
-      <text class="muted">{{item.dateText}}</text>
+    <view wx:for="{{list}}" wx:key="targetId" class="question-card card">
+      <view class="tag">{{item.typeLabel}}</view>
+      <view class="stem">{{item.question.stem}}</view>
+      <view class="meta">章节：{{item.chapterName}}</view>
+      <view class="row-between foot">
+        <text class="muted">已收藏</text>
+        <text class="muted">{{item.dateText}}</text>
+      </view>
     </view>
+
+    <button class="fixed-btn" bindtap="goPractice">查看收藏</button>
   </view>
 
-  <button class="fixed-btn" bindtap="goPractice">查看收藏</button>
+  <view wx:if="{{showNotes}}">
+    <view class="summary muted">{{notesCountText}}</view>
+    <empty-state wx:if="{{notesEmptyVisible}}" title="暂无笔记" desc="练习时可保存重点题目笔记" actionText="去练习" bind:action="goPractice" icon="/assets/icons/note.svg" />
+
+    <view wx:for="{{notes}}" wx:key="questionId" class="question-card card" data-chapter-id="{{item.question.chapterId}}" bindtap="goNotePractice">
+      <view class="tag">笔记</view>
+      <view class="stem">{{item.content}}</view>
+      <view class="meta">关联题目：{{item.question.stem}}</view>
+      <view class="row-between foot">
+        <text class="muted">{{item.chapterName}}</text>
+        <text class="muted">{{item.dateText}}</text>
+      </view>
+    </view>
+
+    <button class="fixed-btn" bindtap="goPractice">继续练习</button>
+  </view>
 </view>
