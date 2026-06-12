@@ -11,10 +11,11 @@ async function list(collection, openid) {
 
 exports.main = async () => {
   const { OPENID: openid } = cloud.getWXContext();
+  const safeOpenid = openid || '__preview__';
   const [users, orders, downloads] = await Promise.all([
-    db.collection('users').where({ openid }).limit(1).get(),
-    list('orders', openid),
-    list('downloads', openid)
+    db.collection('users').where({ openid: safeOpenid }).limit(1).get(),
+    list('orders', safeOpenid),
+    list('downloads', safeOpenid)
   ]);
   const user = users.data[0] || null;
   return {

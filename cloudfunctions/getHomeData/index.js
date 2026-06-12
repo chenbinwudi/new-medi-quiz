@@ -6,10 +6,11 @@ const db = cloud.database();
 
 exports.main = async () => {
   const { OPENID: openid } = cloud.getWXContext();
+  const safeOpenid = openid || '__preview__';
   const [categories, materials, reports] = await Promise.all([
     db.collection('question_categories').orderBy('order', 'asc').limit(20).get(),
     db.collection('materials').where({ status: 'published' }).limit(5).get(),
-    db.collection('study_reports').where({ openid }).orderBy('date', 'desc').limit(7).get()
+    db.collection('study_reports').where({ openid: safeOpenid }).orderBy('date', 'desc').limit(7).get()
   ]);
 
   return {

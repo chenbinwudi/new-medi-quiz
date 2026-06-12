@@ -89,6 +89,13 @@ node scripts/seed-cloud-data.cjs
 
 The seed data is original simulated practice content. It is not copied from official exam papers.
 
+When using CloudBase CLI login instead of SDK credentials, run:
+
+```bash
+$env:CLOUDBASE_ENV_ID='cloudbase-d0g4yo1qac1bbd1db'
+node scripts/deploy-cloud-data.cjs
+```
+
 ## Manual Acceptance In WeChat DevTools
 
 1. Compile the mini program and confirm there is no white screen.

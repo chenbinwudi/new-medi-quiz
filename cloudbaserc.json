@@ -1,0 +1,19 @@
+{
+  "$schema": "https://static.cloudbase.net/cli/cloudbaserc.schema.json",
+  "envId": "cloudbase-d0g4yo1qac1bbd1db",
+  "functionRoot": "cloudfunctions",
+  "functions": [
+    { "name": "login", "runtime": "Nodejs20.19", "handler": "index.main", "timeout": 10, "memorySize": 256 },
+    { "name": "syncGuestData", "runtime": "Nodejs20.19", "handler": "index.main", "timeout": 20, "memorySize": 256 },
+    { "name": "getHomeData", "runtime": "Nodejs20.19", "handler": "index.main", "timeout": 10, "memorySize": 256 },
+    { "name": "getQuestionBank", "runtime": "Nodejs20.19", "handler": "index.main", "timeout": 10, "memorySize": 256 },
+    { "name": "getPracticeSession", "runtime": "Nodejs20.19", "handler": "index.main", "timeout": 10, "memorySize": 256 },
+    { "name": "saveAnswer", "runtime": "Nodejs20.19", "handler": "index.main", "timeout": 10, "memorySize": 256 },
+    { "name": "toggleFavorite", "runtime": "Nodejs20.19", "handler": "index.main", "timeout": 10, "memorySize": 256 },
+    { "name": "saveNote", "runtime": "Nodejs20.19", "handler": "index.main", "timeout": 10, "memorySize": 256 },
+    { "name": "deleteNote", "runtime": "Nodejs20.19", "handler": "index.main", "timeout": 10, "memorySize": 256 },
+    { "name": "getStudyData", "runtime": "Nodejs20.19", "handler": "index.main", "timeout": 10, "memorySize": 256 },
+    { "name": "getMaterials", "runtime": "Nodejs20.19", "handler": "index.main", "timeout": 10, "memorySize": 256 },
+    { "name": "getProfileData", "runtime": "Nodejs20.19", "handler": "index.main", "timeout": 10, "memorySize": 256 }
+  ]
+}
