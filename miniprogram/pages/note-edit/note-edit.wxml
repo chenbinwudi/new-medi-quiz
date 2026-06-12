@@ -1,0 +1,5 @@
+<view class="page-shell">
+  <view class="page-title">编辑笔记</view>
+  <textarea class="note-input" value="{{content}}" placeholder="记录本题考点、易错点或复习提醒" bindinput="onInput" />
+  <button class="primary-btn" bindtap="save">保存笔记</button>
+</view>

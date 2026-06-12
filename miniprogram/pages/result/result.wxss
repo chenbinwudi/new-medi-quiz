@@ -1,0 +1,6 @@
+.page-shell { min-height: 100vh; padding: 32rpx; background: #f6f8fc; box-sizing: border-box; }
+.page-title { text-align: center; font-size: 36rpx; font-weight: 800; color: #18233d; margin: 24rpx 0 32rpx; }
+.page-card { padding: 40rpx; border-radius: 20rpx; background: #ffffff; text-align: center; color: #596579; box-shadow: 0 16rpx 40rpx rgba(47, 123, 255, 0.08); }
+.metric { font-size: 64rpx; line-height: 1.2; font-weight: 900; color: #2f7bff; }
+.desc { margin-top: 12rpx; font-size: 26rpx; }
+.primary-btn { margin-top: 40rpx; height: 88rpx; display: flex; align-items: center; justify-content: center; line-height: normal; border-radius: 20rpx; background: #2f7bff; color: #ffffff; font-weight: 700; }

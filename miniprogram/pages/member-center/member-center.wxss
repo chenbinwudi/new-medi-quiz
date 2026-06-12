@@ -1,0 +1,5 @@
+.page-shell { min-height: 100vh; padding: 32rpx; background: #f6f8fc; box-sizing: border-box; }
+.member-card { margin-top: 40rpx; padding: 40rpx; border-radius: 24rpx; background: linear-gradient(135deg, #1d2536, #3b465f); color: #ffffff; }
+.title { font-size: 38rpx; font-weight: 900; }
+.desc { margin-top: 16rpx; color: rgba(255, 255, 255, 0.76); }
+.badge { margin-top: 32rpx; display: inline-flex; padding: 12rpx 24rpx; border-radius: 999rpx; background: #f5d89c; color: #38280f; font-weight: 800; }

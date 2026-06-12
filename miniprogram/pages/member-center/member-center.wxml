@@ -1,0 +1,7 @@
+<view class="page-shell">
+  <view class="member-card">
+    <view class="title">会员中心</view>
+    <view class="desc">第一期展示会员状态和权益，不接真实支付。</view>
+    <view class="badge">当前：{{level}}</view>
+  </view>
+</view>
