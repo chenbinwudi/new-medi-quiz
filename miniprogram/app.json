@@ -8,7 +8,16 @@
     "pages/wrong/wrong",
     "pages/favorites/favorites",
     "pages/report/report",
-    "pages/material-detail/material-detail"
+    "pages/material-detail/material-detail",
+    "pages/result/result",
+    "pages/answer-card/answer-card",
+    "pages/note-edit/note-edit",
+    "pages/member-center/member-center",
+    "pages/orders/orders",
+    "pages/downloads/downloads",
+    "pages/my-materials/my-materials",
+    "pages/settings/settings",
+    "pages/feedback/feedback"
   ],
   "window": {
     "navigationBarTitleText": "医考通",

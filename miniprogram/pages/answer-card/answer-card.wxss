@@ -1,0 +1,3 @@
+.page-shell { min-height: 100vh; padding: 32rpx; background: #f6f8fc; box-sizing: border-box; }
+.page-title { text-align: center; font-size: 36rpx; font-weight: 800; color: #18233d; margin: 24rpx 0 32rpx; }
+.page-card { padding: 32rpx; border-radius: 20rpx; background: #ffffff; color: #596579; line-height: 1.7; }

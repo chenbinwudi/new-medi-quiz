@@ -8,7 +8,7 @@
     <button class="login-btn" loading="{{syncing}}" bindtap="login">{{displayUser.buttonText}}</button>
   </view>
 
-  <view class="member-card">
+  <view class="member-card" bindtap="goMember">
     <view>
       <view class="member-title">会员中心</view>
       <view class="member-sub">开通会员，享尊贵权益</view>

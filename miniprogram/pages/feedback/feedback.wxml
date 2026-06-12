@@ -1,0 +1,4 @@
+<view class="page-shell">
+  <view class="page-title">帮助与反馈</view>
+  <view class="page-card">遇到题目、资料或同步问题，可以在这里提交反馈。</view>
+</view>

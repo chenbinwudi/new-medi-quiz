@@ -1,7 +1,5 @@
-const { questions } = require('../../data/questions');
-const { chapters } = require('../../data/chapters');
-const { isCorrectAnswer, getQuestionTypeLabel, normalizeAnswer } = require('../../utils/question');
-const { saveAnswer, toggleFavorite, saveNote } = require('../../services/study');
+const { isCorrectAnswer, getQuestionTypeLabel, normalizeAnswer, isMultipleType } = require('../../utils/question');
+const { saveAnswer, toggleFavorite, getPracticeSession } = require('../../services/study');
 
 Page({
   data: {
@@ -13,6 +11,7 @@ Page({
     submitted: false,
     showSubmit: true,
     isCorrect: false,
+    correctCount: 0,
     favorited: false,
     typeLabel: '',
     correctAnswerText: '',
@@ -21,22 +20,30 @@ Page({
     answerTitle: '',
     answerClass: '',
     favoriteText: '收藏',
-    favoriteIcon: '/assets/icons/star.svg'
+    favoriteIcon: '/assets/icons/star.svg',
+    sourceOptions: {}
   },
 
   onLoad(options) {
-    const chapterId = options.chapterId || 'humanities';
-    const list = options.mode === 'wrong'
-      ? questions
-      : questions.filter((item) => item.chapterId === chapterId);
-    const safeList = list.length ? list : questions;
-    this.setQuestionState(safeList, 0, chapterId);
+    this.setData({ sourceOptions: options });
+    getPracticeSession(options).then((session) => {
+      const list = (session.questions || []).map((item) => ({
+        ...item,
+        id: item.questionId || item.id,
+        type: item.type || 'single'
+      }));
+      if (!list.length) {
+        wx.showToast({ title: '暂无题目', icon: 'none' });
+        return;
+      }
+      this.setQuestionState(list, 0);
+    });
   },
 
-  setQuestionState(list, index, chapterId) {
+  setQuestionState(list, index) {
     const current = this.decorateQuestion(list[index], [], false);
     this.setData({
-      chapter: chapters.find((item) => item.id === (chapterId || current.chapterId)) || chapters[0],
+      chapter: { name: current.chapterTitle || current.categoryTitle || '章节练习' },
       questions: list,
       currentIndex: index,
       currentNo: index + 1,
@@ -81,7 +88,7 @@ Page({
     if (this.data.submitted) return;
     const key = event.currentTarget.dataset.key;
     const current = this.data.current;
-    if (current.type === 'multiple') {
+    if (isMultipleType(current.type)) {
       const selected = this.data.selected.includes(key)
         ? this.data.selected.filter((item) => item !== key)
         : this.data.selected.concat(key);
@@ -97,12 +104,13 @@ Page({
       return;
     }
     const current = this.data.current;
-    const answer = current.type === 'multiple' ? this.data.selected : this.data.selected[0];
+    const answer = isMultipleType(current.type) ? this.data.selected : this.data.selected[0];
     const isCorrect = isCorrectAnswer(current, answer);
     this.setData({
       submitted: true,
       showSubmit: false,
       isCorrect,
+      correctCount: this.data.correctCount + (isCorrect ? 1 : 0),
       selectedAnswerText: normalizeAnswer(answer),
       answerTitle: isCorrect ? '回答正确' : '回答错误',
       answerClass: isCorrect ? 'ok' : 'bad',
@@ -112,17 +120,20 @@ Page({
       questionId: current.id,
       chapterId: current.chapterId,
       type: current.type,
+      selected: this.data.selected,
       answer,
       isCorrect,
-      duration: 0,
-      source: 'practice'
+      useSeconds: 0,
+      source: this.data.sourceOptions.source || 'practice'
     }).catch(() => wx.showToast({ title: '答题记录同步失败', icon: 'none' }));
   },
 
   next() {
     const nextIndex = this.data.currentIndex + 1;
     if (nextIndex >= this.data.questions.length) {
-      wx.showToast({ title: '已完成本组练习', icon: 'none' });
+      wx.navigateTo({
+        url: `/pages/result/result?total=${this.data.questions.length}&correct=${this.data.correctCount}`
+      });
       return;
     }
     this.setQuestionState(this.data.questions, nextIndex);
@@ -135,7 +146,7 @@ Page({
 
   toggleFavorite() {
     const current = this.data.current;
-    toggleFavorite({ targetType: 'question', targetId: current.id })
+    toggleFavorite({ targetType: 'question', targetId: current.id, title: current.stem, chapterId: current.chapterId })
       .then((res) => this.setData({
         favorited: res.favorited,
         favoriteText: res.favorited ? '已收藏' : '收藏',
@@ -146,13 +157,11 @@ Page({
 
   saveNote() {
     const current = this.data.current;
-    saveNote({ questionId: current.id, content: '重点复习本题考点' })
-      .then(() => wx.showToast({ title: '笔记已保存' }))
-      .catch(() => wx.showToast({ title: '笔记同步失败', icon: 'none' }));
+    wx.navigateTo({ url: `/pages/note-edit/note-edit?questionId=${current.id}&chapterId=${current.chapterId || ''}` });
   },
 
   showCard() {
-    wx.showToast({ title: '答题卡建设中', icon: 'none' });
+    wx.navigateTo({ url: '/pages/answer-card/answer-card' });
   },
 
   normalize(answer) {

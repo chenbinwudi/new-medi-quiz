@@ -1,5 +1,15 @@
-const { materials } = require('../../data/materials');
-const { toggleFavorite } = require('../../services/study');
+const { getMaterials, toggleFavorite } = require('../../services/study');
+const seed = require('../../data/cloud-seed');
+
+function materialView(item) {
+  return {
+    ...item,
+    id: item.materialId || item.id,
+    summary: item.intro || item.summary || '围绕高频考点、常见题型和解题思路整理，适合章节复习和考前查漏补缺。',
+    updatedAt: item.updatedAt || '2026-06-12',
+    catalog: item.catalog || ['核心考点梳理', '典型题型分析', '易错点提示', '复习建议']
+  };
+}
 
 Page({
   data: {
@@ -14,8 +24,11 @@ Page({
   },
 
   onLoad(options) {
-    const material = materials.find((item) => item.id === options.id) || materials[0];
-    this.setData({ material });
+    const materialId = options.id || options.materialId;
+    getMaterials({ materialId }).then((data) => {
+      const material = data.detail || seed.materials.find((item) => item.materialId === materialId) || seed.materials[0];
+      this.setData({ material: materialView(material) });
+    });
   },
 
   switchTab(event) {
@@ -30,7 +43,8 @@ Page({
   },
 
   toggleFavorite() {
-    toggleFavorite({ targetType: 'material', targetId: this.data.material.id })
+    const material = this.data.material;
+    toggleFavorite({ targetType: 'material', targetId: material.id, title: material.title })
       .then((res) => this.setData({
         favorited: res.favorited,
         starIcon: res.favorited ? '/assets/icons/star-filled.svg' : '/assets/icons/star.svg'
@@ -39,7 +53,7 @@ Page({
   },
 
   startLearning() {
-    wx.showToast({ title: '资料阅读功能建设中', icon: 'none' });
+    wx.navigateTo({ url: '/pages/downloads/downloads' });
   },
 
   onShareAppMessage() {

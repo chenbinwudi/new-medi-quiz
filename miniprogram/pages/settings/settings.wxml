@@ -1,0 +1,4 @@
+<view class="page-shell">
+  <view class="page-title">设置</view>
+  <view class="page-card">可在这里管理登录状态、缓存同步和隐私设置。</view>
+</view>

@@ -1,0 +1,4 @@
+.page-shell { min-height: 100vh; padding: 32rpx; background: #f6f8fc; box-sizing: border-box; }
+.page-title { text-align: center; font-size: 36rpx; font-weight: 800; color: #18233d; margin: 24rpx 0 32rpx; }
+.note-input { width: 100%; min-height: 320rpx; padding: 28rpx; border-radius: 20rpx; background: #ffffff; box-sizing: border-box; color: #18233d; }
+.primary-btn { margin-top: 32rpx; height: 88rpx; display: flex; align-items: center; justify-content: center; line-height: normal; border-radius: 20rpx; background: #2f7bff; color: #ffffff; font-weight: 700; }

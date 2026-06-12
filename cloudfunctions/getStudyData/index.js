@@ -9,13 +9,13 @@ async function list(collection, openid, orderField = 'createdAt') {
   return result.data;
 }
 
-exports.main = async (event) => {
+exports.main = async (event = {}) => {
   const { OPENID: openid } = cloud.getWXContext();
   const type = event.type || 'all';
 
   const payload = {};
   if (type === 'all' || type === 'report') {
-    payload.summary = await list('study_summary', openid, 'date');
+    payload.summary = await list('study_reports', openid, 'date');
   }
   if (type === 'all' || type === 'wrong') {
     payload.wrongQuestions = await list('wrong_questions', openid, 'lastWrongAt');
@@ -25,6 +25,9 @@ exports.main = async (event) => {
   }
   if (type === 'all' || type === 'notes') {
     payload.notes = await list('notes', openid, 'updatedAt');
+  }
+  if (type === 'all' || type === 'answers') {
+    payload.answerRecords = await list('answer_records', openid, 'createdAt');
   }
 
   return payload;

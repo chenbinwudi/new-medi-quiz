@@ -1,0 +1,4 @@
+<view class="page-shell">
+  <view class="page-title">我的资料</view>
+  <view class="page-card">已收藏和已学习资料会在这里汇总。</view>
+</view>

@@ -1,15 +1,17 @@
-const { login, getCachedUser } = require('../../services/user');
+const { login, getCachedUser, syncGuestData } = require('../../services/user');
+const { getProfileData, readStore } = require('../../services/study');
 
 Page({
   data: {
     user: null,
     displayUser: {
       avatarText: '医',
-      nickname: '点击登录',
+      nickname: '游客模式',
       openid: '未同步',
-      buttonText: '登录'
+      buttonText: '登录同步'
     },
     syncing: false,
+    memberLevel: 'guest',
     shortcuts: [
       { label: '错题本', url: '/pages/wrong/wrong', icon: '/assets/icons/wrong-book.svg', tone: 'red' },
       { label: '收藏题', url: '/pages/favorites/favorites', icon: '/assets/icons/favorite.svg', tone: 'amber' },
@@ -18,35 +20,43 @@ Page({
       { label: '学习报告', url: '/pages/report/report', icon: '/assets/icons/report.svg', tone: 'green' }
     ],
     menus: [
-      { label: '我的订单', icon: '/assets/icons/order.svg' },
-      { label: '下载管理', icon: '/assets/icons/download.svg' },
-      { label: '我的资料', icon: '/assets/icons/folder.svg' },
-      { label: '我的笔记', icon: '/assets/icons/note.svg' },
-      { label: '帮助与反馈', icon: '/assets/icons/guide.svg' },
-      { label: '设置', icon: '/assets/icons/settings.svg' }
+      { label: '我的订单', url: '/pages/orders/orders', icon: '/assets/icons/order.svg' },
+      { label: '下载管理', url: '/pages/downloads/downloads', icon: '/assets/icons/download.svg' },
+      { label: '我的资料', url: '/pages/my-materials/my-materials', icon: '/assets/icons/folder.svg' },
+      { label: '我的笔记', url: '/pages/favorites/favorites?tab=notes', icon: '/assets/icons/note.svg' },
+      { label: '帮助与反馈', url: '/pages/feedback/feedback', icon: '/assets/icons/guide.svg' },
+      { label: '设置', url: '/pages/settings/settings', icon: '/assets/icons/settings.svg' }
     ]
   },
 
   onShow() {
     this.setUser(getCachedUser());
+    getProfileData().then((data) => {
+      this.setData({ memberLevel: data.membership ? data.membership.level : 'guest' });
+    });
   },
 
   login() {
     this.setData({ syncing: true });
     login()
-      .then((user) => this.setUser(user))
+      .then((user) => syncGuestData(readStore()).then(() => user).catch(() => user))
+      .then((user) => {
+        this.setUser(user);
+        wx.showToast({ title: '已同步', icon: 'success' });
+      })
       .catch(() => wx.showToast({ title: '登录失败', icon: 'none' }))
       .finally(() => this.setData({ syncing: false }));
   },
 
   setUser(user) {
+    const isGuest = !user || user.isGuest;
     this.setData({
       user,
       displayUser: {
-        avatarText: '医',
-        nickname: user ? user.nickname : '点击登录',
-        openid: user ? user.openid : '未同步',
-        buttonText: user ? '刷新' : '登录'
+        avatarText: isGuest ? '医' : (user.nickName || '医').slice(0, 1),
+        nickname: isGuest ? '游客模式' : user.nickName,
+        openid: isGuest ? '未同步' : user.openid,
+        buttonText: isGuest ? '登录同步' : '刷新同步'
       }
     });
   },
@@ -55,7 +65,13 @@ Page({
     wx.navigateTo({ url: event.currentTarget.dataset.url });
   },
 
+  goMember() {
+    wx.navigateTo({ url: '/pages/member-center/member-center' });
+  },
+
   menuTap(event) {
-    wx.showToast({ title: `${event.currentTarget.dataset.name}建设中`, icon: 'none' });
+    const name = event.currentTarget.dataset.name;
+    const item = this.data.menus.find((menu) => menu.label === name);
+    if (item && item.url) wx.navigateTo({ url: item.url });
   }
 });

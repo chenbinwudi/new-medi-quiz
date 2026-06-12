@@ -1,0 +1,7 @@
+<view class="page-shell">
+  <view class="page-title">下载管理</view>
+  <block wx:if="{{downloads.length}}">
+    <view class="page-card" wx:for="{{downloads}}" wx:key="_id">{{item.title}} · {{item.status}}</view>
+  </block>
+  <view wx:else class="page-card">暂无下载记录，第一期仅展示资料下载状态。</view>
+</view>

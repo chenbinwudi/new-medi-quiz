@@ -1,0 +1,7 @@
+<view class="page-shell">
+  <view class="page-title">我的订单</view>
+  <block wx:if="{{orders.length}}">
+    <view class="page-card" wx:for="{{orders}}" wx:key="_id">{{item.title}} · {{item.status}}</view>
+  </block>
+  <view wx:else class="page-card">暂无订单记录</view>
+</view>

@@ -103,9 +103,9 @@ if (!/\.menu-icon\s*{[\s\S]*?width:\s*(3[8-9]|[4-9]\d)rpx;[\s\S]*?height:\s*(3[8
   fail('Profile menu SVG icon must be at least 38rpx square');
 }
 
-const homeJs = fs.readFileSync(path.join(root, 'miniprogram', 'pages', 'home', 'home.js'), 'utf8');
-for (const tab of ['real', 'mock', 'notes']) {
-  if (!homeJs.includes(`/pages/bank/bank?tab=${tab}`)) {
+const { homeShortcuts } = require('../miniprogram/data/cloud-contracts');
+for (const tab of ['real', 'mock', 'memory']) {
+  if (!homeShortcuts.some((item) => item.route === `/pages/bank/bank?tab=${tab}`)) {
     fail(`Home shortcut missing bank tab entry: ${tab}`);
   }
 }

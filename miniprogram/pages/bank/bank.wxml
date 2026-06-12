@@ -41,7 +41,7 @@
   </view>
 
   <view wx:if="{{showReal}}" class="paper-list">
-    <view wx:for="{{realPapers}}" wx:key="id" class="paper-card card" data-chapter-id="{{item.chapterId}}" bindtap="startPaper">
+    <view wx:for="{{realPapers}}" wx:key="id" class="paper-card card" data-paper-id="{{item.paperId}}" data-chapter-id="{{item.chapterId}}" bindtap="startPaper">
       <view class="paper-icon green">
         <image class="paper-img" src="/assets/icons/real-paper.svg" mode="aspectFit" />
       </view>
@@ -55,7 +55,7 @@
   </view>
 
   <view wx:if="{{showMock}}" class="paper-list">
-    <view wx:for="{{mockPapers}}" wx:key="id" class="paper-card card" data-chapter-id="{{item.chapterId}}" bindtap="startPaper">
+    <view wx:for="{{mockPapers}}" wx:key="id" class="paper-card card" data-paper-id="{{item.paperId}}" data-chapter-id="{{item.chapterId}}" bindtap="startPaper">
       <view class="paper-icon orange">
         <image class="paper-img" src="/assets/icons/mock-paper.svg" mode="aspectFit" />
       </view>

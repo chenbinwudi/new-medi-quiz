@@ -1,0 +1,8 @@
+<view class="page-shell">
+  <view class="page-title">练习结果</view>
+  <view class="page-card">
+    <view class="metric">{{correctCount}}</view>
+    <view class="desc">本次正确题数 / 共 {{total}} 题</view>
+  </view>
+  <button class="primary-btn" bindtap="goReport">查看学习报告</button>
+</view>
