@@ -4,9 +4,9 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 
 const db = cloud.database();
 
-exports.main = async (event) => {
+exports.main = async (event = {}) => {
   const { OPENID: openid } = cloud.getWXContext();
-  const { targetType, targetId } = event;
+  const { targetType = 'question', targetId } = event;
   if (!targetType || !targetId) throw new Error('targetType and targetId are required');
 
   const query = { openid, targetType, targetId };
@@ -17,7 +17,12 @@ exports.main = async (event) => {
   }
 
   await db.collection('favorites').add({
-    data: { ...query, createdAt: db.serverDate() }
+    data: {
+      ...query,
+      title: event.title || '',
+      chapterId: event.chapterId || '',
+      createdAt: db.serverDate()
+    }
   });
   return { favorited: true };
 };

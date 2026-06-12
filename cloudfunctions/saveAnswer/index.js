@@ -13,44 +13,38 @@ function todayText() {
   return `${y}-${m}-${d}`;
 }
 
-exports.main = async (event) => {
+exports.main = async (event = {}) => {
   const { OPENID: openid } = cloud.getWXContext();
-  const {
+  const questionId = event.questionId;
+  if (!questionId) throw new Error('questionId is required');
+
+  const isCorrect = !!event.isCorrect;
+  const type = event.type || 'single';
+  const chapterId = event.chapterId || '';
+  const record = {
+    openid,
     questionId,
     chapterId,
-    type = 'single',
-    answer,
+    type,
+    selected: event.selected || event.answer || [],
     isCorrect,
-    duration = 0,
-    source = 'practice'
-  } = event;
+    useSeconds: event.useSeconds || event.duration || 0,
+    source: event.source || 'practice',
+    answeredAt: event.answeredAt || String(Date.now()),
+    createdAt: db.serverDate()
+  };
 
-  if (!questionId || !chapterId) {
-    throw new Error('questionId and chapterId are required');
-  }
+  await db.collection('answer_records').add({ data: record });
 
-  await db.collection('answer_records').add({
-    data: {
-      openid,
-      questionId,
-      chapterId,
-      type,
-      answer,
-      isCorrect: !!isCorrect,
-      duration,
-      source,
-      createdAt: db.serverDate()
-    }
-  });
-
+  const wrong = await db.collection('wrong_questions').where({ openid, questionId }).limit(1).get();
   if (!isCorrect) {
-    const wrong = await db.collection('wrong_questions').where({ openid, questionId }).limit(1).get();
     if (wrong.data.length) {
       await db.collection('wrong_questions').doc(wrong.data[0]._id).update({
         data: {
           wrongCount: _.inc(1),
           lastWrongAt: db.serverDate(),
-          redoneCorrect: false
+          redoneCorrect: false,
+          updatedAt: db.serverDate()
         }
       });
     } else {
@@ -61,23 +55,22 @@ exports.main = async (event) => {
           chapterId,
           wrongCount: 1,
           lastWrongAt: db.serverDate(),
-          redoneCorrect: false
+          redoneCorrect: false,
+          createdAt: db.serverDate(),
+          updatedAt: db.serverDate()
         }
       });
     }
-  } else {
-    const wrong = await db.collection('wrong_questions').where({ openid, questionId }).limit(1).get();
-    if (wrong.data.length) {
-      await db.collection('wrong_questions').doc(wrong.data[0]._id).update({
-        data: { redoneCorrect: true }
-      });
-    }
+  } else if (wrong.data.length) {
+    await db.collection('wrong_questions').doc(wrong.data[0]._id).update({
+      data: { redoneCorrect: true, updatedAt: db.serverDate() }
+    });
   }
 
-  const date = todayText();
-  const summary = await db.collection('study_summary').where({ openid, date }).limit(1).get();
-  if (summary.data.length) {
-    await db.collection('study_summary').doc(summary.data[0]._id).update({
+  const date = event.date || todayText();
+  const report = await db.collection('study_reports').where({ openid, date }).limit(1).get();
+  if (report.data.length) {
+    await db.collection('study_reports').doc(report.data[0]._id).update({
       data: {
         answerCount: _.inc(1),
         correctCount: _.inc(isCorrect ? 1 : 0),
@@ -85,7 +78,7 @@ exports.main = async (event) => {
       }
     });
   } else {
-    await db.collection('study_summary').add({
+    await db.collection('study_reports').add({
       data: {
         openid,
         date,
