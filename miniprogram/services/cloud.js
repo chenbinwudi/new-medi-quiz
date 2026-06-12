@@ -4,11 +4,7 @@ function callFunction(name, data = {}) {
   }
 
   return wx.cloud.callFunction({ name, data })
-    .then((res) => res.result)
-    .catch((err) => {
-      console.error(`[cloud] ${name} failed`, err);
-      throw err;
-    });
+    .then((res) => res.result);
 }
 
 module.exports = { callFunction };

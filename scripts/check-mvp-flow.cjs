@@ -5,6 +5,14 @@ const root = process.cwd();
 const storage = new Map();
 global.getApp = () => ({ globalData: { user: null } });
 global.wx = {
+  cloud: {
+    callFunction() {
+      return Promise.reject({
+        errCode: -501000,
+        errMsg: 'FunctionName parameter could not be found'
+      });
+    }
+  },
   getStorageSync(key) {
     return storage.get(key);
   },
@@ -24,38 +32,49 @@ function freshRequire(file) {
 
 async function main() {
   storage.clear();
-  const study = freshRequire('miniprogram/services/study.js');
-  const { questions } = freshRequire('miniprogram/data/questions.js');
-  const { getQuestionTypeLabel } = freshRequire('miniprogram/utils/question.js');
+  let consoleErrorCount = 0;
+  const originalConsoleError = console.error;
+  console.error = () => {
+    consoleErrorCount += 1;
+  };
 
-  assert(questions.some((item) => item.stem.includes('药品质量标准')), 'question bank should contain readable Chinese stems');
-  assert.strictEqual(getQuestionTypeLabel('single'), '单选题');
-  assert.strictEqual(getQuestionTypeLabel('multiple'), '多选题');
+  try {
+    const study = freshRequire('miniprogram/services/study.js');
+    const { questions } = freshRequire('miniprogram/data/questions.js');
+    const { getQuestionTypeLabel } = freshRequire('miniprogram/utils/question.js');
 
-  await study.saveAnswer({
-    questionId: 'q-drug-quality-001',
-    chapterId: 'humanities',
-    type: 'single',
-    answer: 'A',
-    isCorrect: false,
-    source: 'practice'
-  });
+    assert(questions.some((item) => item.stem.includes('药品质量标准')), 'question bank should contain readable Chinese stems');
+    assert.strictEqual(getQuestionTypeLabel('single'), '单选题');
+    assert.strictEqual(getQuestionTypeLabel('multiple'), '多选题');
 
-  await study.toggleFavorite({ targetType: 'question', targetId: 'q-drug-quality-001' });
-  await study.saveNote({ questionId: 'q-drug-quality-001', content: '重点复习本题考点' });
+    await study.saveAnswer({
+      questionId: 'q-drug-quality-001',
+      chapterId: 'humanities',
+      type: 'single',
+      answer: 'A',
+      isCorrect: false,
+      source: 'practice'
+    });
 
-  const all = await study.getStudyData('all');
-  assert.strictEqual(all.answerRecords.length, 1, 'answer record should be persisted locally');
-  assert.strictEqual(all.wrongQuestions.length, 1, 'wrong answer should create wrong question');
-  assert.strictEqual(all.favorites.length, 1, 'favorite should be persisted locally');
-  assert.strictEqual(all.notes.length, 1, 'note should be persisted locally');
-  assert.strictEqual(all.summary.length, 1, 'study summary should be generated locally');
-  assert.strictEqual(all.summary[0].answerCount, 1);
-  assert.strictEqual(all.summary[0].correctCount, 0);
+    await study.toggleFavorite({ targetType: 'question', targetId: 'q-drug-quality-001' });
+    await study.saveNote({ questionId: 'q-drug-quality-001', content: '重点复习本题考点' });
 
-  await study.toggleFavorite({ targetType: 'question', targetId: 'q-drug-quality-001' });
-  const afterUnfavorite = await study.getStudyData('favorites');
-  assert.strictEqual(afterUnfavorite.favorites.length, 0, 'favorite toggle should remove existing favorite');
+    const all = await study.getStudyData('all');
+    assert.strictEqual(all.answerRecords.length, 1, 'answer record should be persisted locally');
+    assert.strictEqual(all.wrongQuestions.length, 1, 'wrong answer should create wrong question');
+    assert.strictEqual(all.favorites.length, 1, 'favorite should be persisted locally');
+    assert.strictEqual(all.notes.length, 1, 'note should be persisted locally');
+    assert.strictEqual(all.summary.length, 1, 'study summary should be generated locally');
+    assert.strictEqual(all.summary[0].answerCount, 1);
+    assert.strictEqual(all.summary[0].correctCount, 0);
+
+    await study.toggleFavorite({ targetType: 'question', targetId: 'q-drug-quality-001' });
+    const afterUnfavorite = await study.getStudyData('favorites');
+    assert.strictEqual(afterUnfavorite.favorites.length, 0, 'favorite toggle should remove existing favorite');
+    assert.strictEqual(consoleErrorCount, 0, 'cloud fallback should not print red console errors');
+  } finally {
+    console.error = originalConsoleError;
+  }
 
   console.log('mvp flow checks ok');
 }

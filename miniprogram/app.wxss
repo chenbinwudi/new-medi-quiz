@@ -6,6 +6,23 @@ page {
   line-height: 1.5;
 }
 
+button.fixed-btn,
+button.submit-btn,
+button.nav-btn,
+button.login-btn,
+button.empty-action,
+button.share,
+button.learn,
+button.btn-primary,
+button.btn-ghost {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: normal;
+  box-sizing: border-box;
+}
+
 .page {
   min-height: 100vh;
   padding: 24rpx 28rpx 48rpx;
@@ -144,13 +161,16 @@ page {
 }
 
 .btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 88rpx;
   border: 0;
   border-radius: 22rpx;
   background: linear-gradient(135deg, #2f7bff, #1f65f2);
   color: #fff;
   font-weight: 600;
-  line-height: 88rpx;
+  line-height: normal;
   box-shadow: 0 14rpx 28rpx rgba(47, 123, 255, 0.22);
 }
 
@@ -160,11 +180,14 @@ page {
 }
 
 .btn-ghost {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 76rpx;
   border: 1rpx solid #d9e3f2;
   border-radius: 22rpx;
   color: #4e5d75;
-  line-height: 76rpx;
+  line-height: normal;
   background: #fff;
 }
 

@@ -66,6 +66,16 @@ if (!/<picker\b[^>]*bindchange="onExamChange"/.test(homeWxml)) {
   fail('Home exam selector must use native picker with bindchange="onExamChange"');
 }
 
+const appWxss = fs.readFileSync(path.join(root, 'miniprogram', 'app.wxss'), 'utf8');
+for (const selector of ['button.fixed-btn', 'button.submit-btn', 'button.nav-btn', 'button.login-btn', 'button.btn-primary', 'button.btn-ghost']) {
+  if (!appWxss.includes(selector)) {
+    fail(`Global button centering rule missing selector: ${selector}`);
+  }
+}
+if (!/align-items:\s*center;[\s\S]*justify-content:\s*center;[\s\S]*line-height:\s*normal;/.test(appWxss)) {
+  fail('Global button centering rule must use flex centering and normal line-height');
+}
+
 const homeWxss = fs.readFileSync(path.join(root, 'miniprogram', 'pages', 'home', 'home.wxss'), 'utf8');
 if (!/\.shortcut-icon\s*{[\s\S]*?width:\s*(7[6-9]|[89]\d)rpx;[\s\S]*?height:\s*(7[6-9]|[89]\d)rpx;/.test(homeWxss)) {
   fail('Home shortcut icon tile must be at least 76rpx square');
