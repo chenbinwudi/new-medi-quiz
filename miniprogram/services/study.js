@@ -1,6 +1,8 @@
 const { callFunction } = require('./cloud');
+const { storageKeys } = require('../data/cloud-contracts');
+const seed = require('../data/cloud-seed');
 
-const STORAGE_KEY = 'mvpStudyData';
+const STORAGE_KEY = storageKeys.guestStudy;
 
 function todayText() {
   const date = new Date();
@@ -42,6 +44,8 @@ function saveAnswerLocal(payload) {
   const date = todayText();
   const record = {
     ...payload,
+    selected: payload.selected || payload.answer || [],
+    answeredAt: payload.answeredAt || nowText(),
     createdAt: nowText()
   };
   store.answerRecords.unshift(record);
@@ -97,8 +101,9 @@ function saveAnswerLocal(payload) {
 
 function toggleFavoriteLocal(payload) {
   const store = readStore();
+  const targetType = payload.targetType || 'question';
   const index = store.favorites.findIndex((item) => (
-    item.targetType === payload.targetType && item.targetId === payload.targetId
+    item.targetType === targetType && item.targetId === payload.targetId
   ));
   if (index >= 0) {
     store.favorites.splice(index, 1);
@@ -107,6 +112,7 @@ function toggleFavoriteLocal(payload) {
   }
   store.favorites.unshift({
     ...payload,
+    targetType,
     createdAt: nowText()
   });
   writeStore(store);
@@ -117,7 +123,9 @@ function saveNoteLocal(payload) {
   const store = readStore();
   const index = store.notes.findIndex((item) => item.questionId === payload.questionId);
   const note = {
+    noteId: payload.noteId || `${payload.questionId}-${Date.now()}`,
     questionId: payload.questionId,
+    chapterId: payload.chapterId || '',
     content: payload.content || '',
     updatedAt: nowText()
   };
@@ -127,6 +135,15 @@ function saveNoteLocal(payload) {
   return Promise.resolve({ note, local: true });
 }
 
+function deleteNoteLocal(payload) {
+  const store = readStore();
+  store.notes = store.notes.filter((item) => (
+    item.noteId !== payload.noteId && item.questionId !== payload.questionId
+  ));
+  writeStore(store);
+  return Promise.resolve({ ok: true, local: true });
+}
+
 function getStudyDataLocal(type) {
   const store = readStore();
   const payload = {};
@@ -134,8 +151,75 @@ function getStudyDataLocal(type) {
   if (type === 'all' || type === 'wrong') payload.wrongQuestions = store.wrongQuestions;
   if (type === 'all' || type === 'favorites') payload.favorites = store.favorites;
   if (type === 'all' || type === 'notes') payload.notes = store.notes;
-  if (type === 'all') payload.answerRecords = store.answerRecords;
+  if (type === 'all' || type === 'answers') payload.answerRecords = store.answerRecords;
   return Promise.resolve(payload);
+}
+
+function getHomeDataLocal() {
+  const store = readStore();
+  const today = store.summary[0] || { answerCount: 0, correctCount: 0 };
+  return Promise.resolve({
+    exams: seed.categories,
+    recommendedMaterials: seed.materials.slice(0, 3),
+    today,
+    trend: store.summary
+  });
+}
+
+function getQuestionBankLocal() {
+  return Promise.resolve({
+    chapters: seed.categories,
+    realPapers: seed.papers.filter((item) => item.type === 'real-like'),
+    mockPapers: seed.papers.filter((item) => item.type === 'mock'),
+    memories: seed.categories.map((item) => ({
+      memoryId: `memory-${item.categoryId}`,
+      title: `${item.title}考点速记`,
+      categoryId: item.categoryId,
+      total: item.total || 0
+    }))
+  });
+}
+
+function getPracticeSessionLocal(payload = {}) {
+  if (payload.source === 'paper') {
+    const paper = seed.papers.find((item) => item.paperId === payload.paperId) || seed.papers[0];
+    const ids = paper ? paper.questionIds : [];
+    return Promise.resolve({
+      title: paper ? paper.title : '练习',
+      questions: seed.questions.filter((item) => ids.includes(item.questionId))
+    });
+  }
+
+  if (payload.source === 'wrong') {
+    const store = readStore();
+    const ids = store.wrongQuestions.map((item) => item.questionId);
+    return Promise.resolve({
+      title: '错题重练',
+      questions: seed.questions.filter((item) => ids.includes(item.questionId))
+    });
+  }
+
+  const categoryId = payload.categoryId || payload.chapterId || seed.categories[0].categoryId;
+  return Promise.resolve({
+    title: '章节练习',
+    questions: seed.questions.filter((item) => item.categoryId === categoryId)
+  });
+}
+
+function getMaterialsLocal(payload = {}) {
+  if (payload.materialId) {
+    return Promise.resolve({ detail: seed.materials.find((item) => item.materialId === payload.materialId) || null });
+  }
+  return Promise.resolve({ materials: seed.materials });
+}
+
+function getProfileDataLocal() {
+  return Promise.resolve({
+    user: null,
+    orders: [],
+    downloads: [],
+    membership: { level: 'guest' }
+  });
 }
 
 function saveAnswer(payload) {
@@ -150,8 +234,44 @@ function saveNote(payload) {
   return cloudOrLocal('saveNote', payload, () => saveNoteLocal(payload));
 }
 
+function deleteNote(payload) {
+  return cloudOrLocal('deleteNote', payload, () => deleteNoteLocal(payload));
+}
+
 function getStudyData(type) {
   return cloudOrLocal('getStudyData', { type }, () => getStudyDataLocal(type));
 }
 
-module.exports = { saveAnswer, toggleFavorite, saveNote, getStudyData };
+function getHomeData() {
+  return cloudOrLocal('getHomeData', {}, getHomeDataLocal);
+}
+
+function getQuestionBank() {
+  return cloudOrLocal('getQuestionBank', {}, getQuestionBankLocal);
+}
+
+function getPracticeSession(payload) {
+  return cloudOrLocal('getPracticeSession', payload, () => getPracticeSessionLocal(payload));
+}
+
+function getMaterials(payload = {}) {
+  return cloudOrLocal('getMaterials', payload, () => getMaterialsLocal(payload));
+}
+
+function getProfileData() {
+  return cloudOrLocal('getProfileData', {}, getProfileDataLocal);
+}
+
+module.exports = {
+  saveAnswer,
+  toggleFavorite,
+  saveNote,
+  deleteNote,
+  getStudyData,
+  getHomeData,
+  getQuestionBank,
+  getPracticeSession,
+  getMaterials,
+  getProfileData,
+  readStore
+};

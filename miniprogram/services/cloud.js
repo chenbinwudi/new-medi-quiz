@@ -3,8 +3,7 @@ function callFunction(name, data = {}) {
     return Promise.reject(new Error('当前基础库不支持云开发'));
   }
 
-  return wx.cloud.callFunction({ name, data })
-    .then((res) => res.result);
+  return wx.cloud.callFunction({ name, data }).then((res) => res.result || {});
 }
 
 module.exports = { callFunction };
