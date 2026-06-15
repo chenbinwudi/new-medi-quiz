@@ -21,10 +21,16 @@ exports.main = async (event = {}) => {
   const isCorrect = !!event.isCorrect;
   const type = event.type || 'single';
   const chapterId = event.chapterId || '';
+  const categoryId = event.categoryId || '';
+  const primaryId = event.primaryId || '';
+  const subjectId = event.subjectId || '';
   const record = {
     openid,
     questionId,
     chapterId,
+    categoryId,
+    primaryId,
+    subjectId,
     type,
     selected: event.selected || event.answer || [],
     isCorrect,
@@ -53,6 +59,9 @@ exports.main = async (event = {}) => {
           openid,
           questionId,
           chapterId,
+          categoryId,
+          primaryId,
+          subjectId,
           wrongCount: 1,
           lastWrongAt: db.serverDate(),
           redoneCorrect: false,

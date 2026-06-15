@@ -1,6 +1,7 @@
 const collections = {
   users: 'users',
   questionCategories: 'question_categories',
+  subjects: 'subjects',
   questions: 'questions',
   papers: 'papers',
   materials: 'materials',

@@ -1,41 +1,62 @@
 <view class="page page-safe materials-page">
-  <view class="top-bar">
-    <view>
-      <view class="page-title">资料</view>
-      <view class="page-subtitle">考试大纲、真题解析与速记资料</view>
-    </view>
-  </view>
+  <skeleton-card wx:if="{{loading}}" type="home" />
 
-  <view class="search-box soft-card">
-    <image class="icon-sm" src="/assets/icons/search.svg" mode="aspectFit" />
-    <text>搜索资料</text>
-  </view>
+  <error-state
+    wx:elif="{{error}}"
+    title="资料加载失败"
+    desc="资料列表暂时没有取到，请重新加载"
+    bind:retry="reload"
+  />
 
-  <view class="category-grid">
-    <view wx:for="{{categories}}" wx:key="id" class="category">
-      <view class="category-icon" style="{{item.styleText}}">
-        <image class="category-img" src="{{item.icon}}" mode="aspectFit" />
-      </view>
-      <view class="category-name">{{item.name}}</view>
-    </view>
-  </view>
-
-  <view class="section">
-    <view class="section-head">
-      <text class="section-title">推荐资料</text>
-      <text class="section-more">更多 ›</text>
-    </view>
-    <view class="material-list">
-      <view wx:for="{{materials}}" wx:key="id" class="material-row soft-card" data-id="{{item.id}}" bindtap="goDetail">
-        <view class="file-icon">
-          <image class="file-img" src="/assets/icons/outline.svg" mode="aspectFit" />
-        </view>
-        <view class="material-main">
-          <view class="material-title">{{item.title}}</view>
-          <view class="material-meta">{{item.type}} · {{item.size}}</view>
-        </view>
-        <view class="learner">{{item.learnerCount}}人已学</view>
+  <block wx:else>
+    <view class="top-bar">
+      <view>
+        <view class="page-title">资料</view>
+        <view class="page-subtitle">考试大纲、真题解析与速记资料</view>
       </view>
     </view>
-  </view>
+
+    <view class="search-box soft-card tap-card" hover-class="tap-card-active" hover-stay-time="80">
+      <image class="icon-sm" src="/assets/icons/search.svg" mode="aspectFit" />
+      <text>搜索资料</text>
+    </view>
+
+    <view class="category-grid">
+      <view wx:for="{{categories}}" wx:key="id" class="category tap-card" hover-class="tap-card-active" hover-stay-time="80">
+        <view class="category-icon" style="{{item.styleText}}">
+          <image class="category-img" src="{{item.icon}}" mode="aspectFit" />
+        </view>
+        <view class="category-name">{{item.name}}</view>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-head">
+        <text class="section-title">推荐资料</text>
+        <text class="section-more">更多 ›</text>
+      </view>
+      <empty-state wx:if="{{!materials.length}}" title="暂无资料" desc="资料正在整理中" icon="/assets/icons/folder.svg" />
+      <view wx:else class="material-list">
+        <view
+          wx:for="{{materials}}"
+          wx:key="id"
+          class="material-row soft-card tap-card"
+          hover-class="tap-card-active"
+          hover-stay-time="80"
+          data-id="{{item.id}}"
+          bindtap="goDetail"
+        >
+          <view class="file-icon">
+            <image class="file-img" src="/assets/icons/outline.svg" mode="aspectFit" />
+          </view>
+          <view class="material-main">
+            <view class="material-title">{{item.title}}</view>
+            <view class="material-meta">{{item.type}} · {{item.size}}</view>
+          </view>
+          <view class="learner">{{item.learnerCount}}人已学</view>
+        </view>
+      </view>
+      <loading-more wx:if="{{materials.length}}" status="{{moreStatus}}" />
+    </view>
+  </block>
 </view>

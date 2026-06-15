@@ -13,7 +13,9 @@ exports.main = async (event = {}) => {
     const paperResult = await db.collection('papers').where({ paperId: event.paperId }).limit(1).get();
     const paper = paperResult.data[0];
     if (!paper) return { questions: [], title: '练习' };
-    const questions = await db.collection('questions').where({ questionId: _.in(paper.questionIds.slice(0, 100)) }).limit(100).get();
+    const questions = await db.collection('questions').where({
+      questionId: _.in(paper.questionIds.slice(0, 100))
+    }).limit(100).get();
     return { title: paper.title, questions: questions.data };
   }
 
@@ -25,7 +27,18 @@ exports.main = async (event = {}) => {
     return { title: '错题重练', questions: questions.data };
   }
 
+  if (event.subjectId) {
+    const result = await db.collection('questions').where({
+      subjectId: event.subjectId,
+      status: 'published'
+    }).limit(100).get();
+    return { title: '章节练习', questions: result.data };
+  }
+
   const categoryId = event.categoryId || event.chapterId || 'clinical';
-  const result = await db.collection('questions').where({ categoryId, status: 'published' }).limit(100).get();
+  const result = await db.collection('questions').where({
+    categoryId,
+    status: 'published'
+  }).limit(100).get();
   return { title: '章节练习', questions: result.data };
 };

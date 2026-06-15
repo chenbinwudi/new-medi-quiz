@@ -6,6 +6,7 @@ const dryRun = process.argv.includes('--dry-run');
 function rows() {
   return [
     [collections.questionCategories, seed.categories, 'categoryId'],
+    [collections.subjects, seed.subjects, 'subjectId'],
     [collections.questions, seed.questions, 'questionId'],
     [collections.papers, seed.papers, 'paperId'],
     [collections.materials, seed.materials, 'materialId']

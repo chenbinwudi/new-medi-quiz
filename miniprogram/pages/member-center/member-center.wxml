@@ -1,7 +1,62 @@
-<view class="page-shell">
-  <view class="member-card">
-    <view class="title">会员中心</view>
-    <view class="desc">第一期展示会员状态和权益，不接真实支付。</view>
-    <view class="badge">当前：{{level}}</view>
-  </view>
+<view class="page page-safe member-page">
+  <skeleton-card wx:if="{{loading}}" type="member" />
+
+  <error-state
+    wx:elif="{{error}}"
+    title="会员数据加载失败"
+    desc="会员状态暂时没有取到，请重新加载"
+    bind:retry="reload"
+  />
+
+  <block wx:else>
+    <view class="member-card tap-card" hover-class="tap-card-active" hover-stay-time="80">
+      <view>
+        <view class="title">会员中心</view>
+        <view class="desc">开通会员，解锁专项练习、资料下载和学习报告</view>
+      </view>
+      <view class="badge">当前：{{levelText}}</view>
+    </view>
+
+    <view class="section">
+      <view class="section-head">
+        <text class="section-title">会员权益</text>
+      </view>
+      <view class="benefit-grid">
+        <view wx:for="{{benefits}}" wx:key="title" class="benefit-card soft-card tap-card" hover-class="tap-card-active" hover-stay-time="80">
+          <view class="benefit-icon {{item.tone}}">
+            <image class="benefit-img" src="{{item.icon}}" mode="aspectFit" />
+          </view>
+          <view class="benefit-title">{{item.title}}</view>
+          <view class="benefit-desc">{{item.desc}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-head">
+        <text class="section-title">选择套餐</text>
+      </view>
+      <view class="package-list">
+        <view
+          wx:for="{{packages}}"
+          wx:key="id"
+          class="package-card card tap-card {{item.activeClass}}"
+          hover-class="tap-card-active"
+          hover-stay-time="80"
+          data-id="{{item.id}}"
+          bindtap="selectPackage"
+        >
+          <view>
+            <view class="package-name">{{item.name}}</view>
+            <view class="package-desc">{{item.desc}}</view>
+          </view>
+          <view class="price">{{item.price}}</view>
+        </view>
+      </view>
+    </view>
+
+    <button class="open-btn" loading="{{submitting}}" disabled="{{submitting}}" bindtap="submitMember">
+      {{submitText}}
+    </button>
+  </block>
 </view>

@@ -31,9 +31,12 @@ Page({
     ],
     active: 'all',
     loading: true,
+    refreshing: false,
+    error: false,
     list: [],
     listCountText: '共0题',
-    emptyVisible: false
+    emptyVisible: false,
+    moreStatus: 'noMore'
   },
 
   onLoad() {
@@ -41,16 +44,37 @@ Page({
   },
 
   load() {
+    this.setData({ loading: !this.data.refreshing, error: false });
     getStudyData('wrong')
       .then((res) => {
         const list = hydrateWrong(res.wrongQuestions);
-        this.setData({ list, listCountText: `共${list.length}题`, loading: false, emptyVisible: !list.length });
+        this.setData({
+          list,
+          listCountText: `共${list.length}题`,
+          loading: false,
+          refreshing: false,
+          emptyVisible: !list.length,
+          moreStatus: 'noMore'
+        });
+        wx.stopPullDownRefresh();
       })
       .catch(() => {
-        wx.showToast({ title: '学习数据加载失败', icon: 'none' });
-        const list = hydrateWrong([]);
-        this.setData({ list, listCountText: `共${list.length}题`, loading: false, emptyVisible: !list.length });
+        this.setData({ loading: false, refreshing: false, error: true });
+        wx.stopPullDownRefresh();
       });
+  },
+
+  reload() {
+    this.load();
+  },
+
+  onPullDownRefresh() {
+    this.setData({ refreshing: true });
+    this.load();
+  },
+
+  onReachBottom() {
+    if (this.data.list.length) this.setData({ moreStatus: 'noMore' });
   },
 
   onTabChange(event) {
@@ -58,6 +82,6 @@ Page({
   },
 
   goPractice() {
-    wx.navigateTo({ url: '/pages/practice/practice?mode=wrong' });
+    wx.navigateTo({ url: '/pages/practice/practice?source=wrong' });
   }
 });

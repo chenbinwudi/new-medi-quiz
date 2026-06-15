@@ -1,59 +1,93 @@
 <view class="practice-page">
-  <view class="practice-head">
-    <view>
-      <view class="title">章节练习</view>
-      <view class="chapter-name">{{chapter.name}}</view>
-    </view>
-    <view class="head-right">
-      <view class="badge">{{typeLabel}}</view>
-      <view class="muted">{{currentNo}}/{{questions.length}}</view>
-    </view>
+  <block wx:if="{{loading}}">
+    <skeleton-card type="practice" />
+  </block>
+
+  <view wx:elif="{{error}}" class="state-wrap">
+    <error-state
+      title="题目加载失败"
+      desc="当前练习暂时无法打开，请重新加载"
+      bind:retry="reload"
+    />
   </view>
 
-  <view class="question-card">
-    <view class="stem">{{current.stem}}</view>
-    <view class="options">
-      <view
-        wx:for="{{current.options}}"
-        wx:key="key"
-        data-key="{{item.key}}"
-        bindtap="selectOption"
-        class="option {{item.optionClass}}"
-      >
-        <view class="letter">{{item.key}}</view>
-        <view class="option-text">{{item.text}}</view>
+  <view wx:elif="{{emptyVisible}}" class="state-wrap">
+    <empty-state
+      title="暂无可练习题目"
+      desc="换一个章节或试卷试试"
+      actionText="返回题库"
+      icon="/assets/icons/chapter.svg"
+      bind:action="goBank"
+    />
+  </view>
+
+  <block wx:else>
+    <view class="practice-head">
+      <view>
+        <view class="title">章节练习</view>
+        <view class="chapter-name">{{chapter.name}}</view>
+      </view>
+      <view class="head-right">
+        <view class="badge">{{typeLabel}}</view>
+        <view class="muted">{{currentNo}}/{{questions.length}}</view>
       </view>
     </view>
-    <button wx:if="{{showSubmit}}" class="submit-btn" bindtap="submit">提交答案</button>
-  </view>
 
-  <view wx:if="{{submitted}}" class="answer-card">
-    <view class="answer-title {{answerClass}}">{{answerTitle}}</view>
-    <view class="answer-row">
-      <text>正确答案</text>
-      <text class="answer-code">{{correctAnswerText}}</text>
+    <view class="question-card">
+      <view class="stem">{{current.stem}}</view>
+      <view class="options">
+        <view
+          wx:for="{{current.options}}"
+          wx:key="key"
+          data-key="{{item.key}}"
+          bindtap="selectOption"
+          class="option tap-card {{item.optionClass}}"
+          hover-class="tap-card-active"
+          hover-stay-time="80"
+        >
+          <view class="letter">{{item.key}}</view>
+          <view class="option-text">{{item.text}}</view>
+        </view>
+      </view>
+      <button
+        wx:if="{{showSubmit}}"
+        class="submit-btn"
+        loading="{{submitting}}"
+        disabled="{{submitting || !selected.length}}"
+        bindtap="submit"
+      >
+        {{submitText}}
+      </button>
     </view>
-    <view class="answer-row">
-      <text>您的答案</text>
-      <text class="answer-code">{{selectedAnswerText}}</text>
-    </view>
-    <view class="analysis">{{current.analysis}}</view>
-  </view>
 
-  <view class="bottom-bar">
-    <view class="tool" bindtap="toggleFavorite">
-      <image class="tool-icon" src="{{favoriteIcon}}" mode="aspectFit" />
-      <text>{{favoriteText}}</text>
+    <view wx:if="{{submitted}}" class="answer-card">
+      <view class="answer-title {{answerClass}}">{{answerTitle}}</view>
+      <view class="answer-row">
+        <text>正确答案</text>
+        <text class="answer-code">{{correctAnswerText}}</text>
+      </view>
+      <view class="answer-row">
+        <text>你的答案</text>
+        <text class="answer-code">{{selectedAnswerText}}</text>
+      </view>
+      <view class="analysis">{{current.analysis}}</view>
     </view>
-    <view class="tool" bindtap="saveNote">
-      <image class="tool-icon" src="/assets/icons/edit.svg" mode="aspectFit" />
-      <text>笔记</text>
+
+    <view class="bottom-bar">
+      <view class="tool tap-card" hover-class="tap-card-active" hover-stay-time="80" bindtap="toggleFavorite">
+        <image class="tool-icon" src="{{favoriteIcon}}" mode="aspectFit" />
+        <text>{{favoriteDisplayText}}</text>
+      </view>
+      <view class="tool tap-card" hover-class="tap-card-active" hover-stay-time="80" bindtap="saveNote">
+        <image class="tool-icon" src="/assets/icons/edit.svg" mode="aspectFit" />
+        <text>笔记</text>
+      </view>
+      <view class="tool tap-card" hover-class="tap-card-active" hover-stay-time="80" bindtap="showCard">
+        <image class="tool-icon" src="/assets/icons/answer-card.svg" mode="aspectFit" />
+        <text>答题卡</text>
+      </view>
+      <button class="nav-btn ghost" disabled="{{prevDisabled}}" bindtap="prev">上一题</button>
+      <button class="nav-btn" bindtap="next">{{nextText}}</button>
     </view>
-    <view class="tool" bindtap="showCard">
-      <image class="tool-icon" src="/assets/icons/answer-card.svg" mode="aspectFit" />
-      <text>答题卡</text>
-    </view>
-    <button class="nav-btn ghost" bindtap="prev">上一题</button>
-    <button class="nav-btn" bindtap="next">下一题</button>
-  </view>
+  </block>
 </view>

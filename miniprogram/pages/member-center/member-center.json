@@ -1,3 +1,8 @@
 {
-  "navigationBarTitleText": "会员中心"
+  "navigationBarTitleText": "会员中心",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "skeleton-card": "../../components/skeleton-card/skeleton-card",
+    "error-state": "../../components/error-state/error-state"
+  }
 }

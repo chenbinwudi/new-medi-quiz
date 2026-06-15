@@ -11,7 +11,11 @@ Page({
       buttonText: '登录同步'
     },
     syncing: false,
+    loading: true,
+    refreshing: false,
+    error: false,
     memberLevel: 'guest',
+    memberButtonText: '立即开通',
     shortcuts: [
       { label: '错题本', url: '/pages/wrong/wrong', icon: '/assets/icons/wrong-book.svg', tone: 'red' },
       { label: '收藏题', url: '/pages/favorites/favorites', icon: '/assets/icons/favorite.svg', tone: 'amber' },
@@ -31,12 +35,37 @@ Page({
 
   onShow() {
     this.setUser(getCachedUser());
+    this.loadProfile();
+  },
+
+  loadProfile() {
+    this.setData({ loading: !this.data.refreshing, error: false });
     getProfileData().then((data) => {
-      this.setData({ memberLevel: data.membership ? data.membership.level : 'guest' });
+      this.setData({
+        memberLevel: data.membership ? data.membership.level : 'guest',
+        memberButtonText: data.membership && data.membership.level !== 'guest' ? '查看权益' : '立即开通',
+        loading: false,
+        refreshing: false,
+        error: false
+      });
+      wx.stopPullDownRefresh();
+    }).catch(() => {
+      this.setData({ loading: false, refreshing: false, error: true });
+      wx.stopPullDownRefresh();
     });
   },
 
+  reload() {
+    this.loadProfile();
+  },
+
+  onPullDownRefresh() {
+    this.setData({ refreshing: true });
+    this.loadProfile();
+  },
+
   login() {
+    if (this.data.syncing) return;
     this.setData({ syncing: true });
     login()
       .then((user) => syncGuestData(readStore()).then(() => user).catch(() => user))
@@ -45,7 +74,7 @@ Page({
         wx.showToast({ title: '已同步', icon: 'success' });
       })
       .catch(() => wx.showToast({ title: '登录失败', icon: 'none' }))
-      .finally(() => this.setData({ syncing: false }));
+      .then(() => this.setData({ syncing: false }));
   },
 
   setUser(user) {

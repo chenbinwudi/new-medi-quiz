@@ -1,72 +1,117 @@
 <view class="page page-safe home-page">
-  <view class="top-bar">
-    <view>
-      <view class="page-title">医考通</view>
-      <view class="page-subtitle">{{exam.fullName}}</view>
-    </view>
-    <view class="countdown">
-      <text class="muted">距离考试</text>
-      <text class="count-num">{{daysLeft}}</text>
-      <text class="muted">天</text>
-    </view>
-  </view>
+  <skeleton-card wx:if="{{loading}}" type="home" />
 
-  <picker mode="selector" range="{{examOptions}}" value="{{examIndex}}" bindchange="onExamChange">
-    <view class="search-row soft-card">
-      <image class="selector-icon" src="/assets/icons/search.svg" mode="aspectFit" />
-      <text class="selector-text">{{exam.name}}</text>
-      <text class="search-arrow">⌄</text>
-    </view>
-  </picker>
+  <error-state
+    wx:elif="{{error}}"
+    title="首页加载失败"
+    desc="题库和学习数据暂时没有取到，请重新加载"
+    bind:retry="reload"
+  />
 
-  <view class="hero card">
-    <view class="hero-copy">
-      <view class="hero-title">2024 执业医师考试</view>
-      <view class="hero-title blue">全程备考规划</view>
-      <view class="hero-tag">科学备考 · 高效通关</view>
-    </view>
-    <view class="hero-doc">
-      <image class="hero-icon" src="/assets/icons/outline.svg" mode="aspectFit" />
-    </view>
-  </view>
-
-  <view class="shortcut-grid">
-    <view wx:for="{{shortcuts}}" wx:key="label" class="shortcut" data-url="{{item.url}}" bindtap="go">
-      <view class="shortcut-icon {{item.tone}}">
-        <image class="shortcut-img" src="{{item.icon}}" mode="aspectFit" />
+  <block wx:else>
+    <view class="top-bar">
+      <view>
+        <view class="page-title">医考通</view>
+        <view class="page-subtitle">{{selectedPrimary.title}} · {{selectedPrimary.subtitle}}</view>
       </view>
-      <view class="shortcut-label">{{item.label}}</view>
-    </view>
-  </view>
-
-  <view class="section-card card">
-    <view class="section-head">
-      <text class="section-title">今日练习</text>
-      <text class="section-more">继续练习 ›</text>
-    </view>
-    <view class="stats-row">
-      <stat-card value="{{stats.questionCount}}" label="题目数" />
-      <stat-card value="{{stats.doneCount}}" label="做题数" />
-      <stat-card value="{{stats.accuracy}}" label="正确率" tone="primary" />
-    </view>
-  </view>
-
-  <view class="section">
-    <view class="section-head">
-      <text class="section-title">推荐资料</text>
-      <text class="section-more">更多 ›</text>
-    </view>
-    <view class="material-list">
-      <view wx:for="{{materials}}" wx:key="id" class="material-row soft-card" data-id="{{item.id}}" bindtap="goMaterial">
-        <view class="file-icon">
-          <image class="file-img" src="/assets/icons/outline.svg" mode="aspectFit" />
-        </view>
-        <view class="material-main">
-          <view class="material-title">{{item.title}}</view>
-          <view class="material-meta">{{item.type}} · {{item.size}}</view>
-        </view>
-        <view class="learner">{{item.learnerCount}}人已学</view>
+      <view class="countdown">
+        <text class="muted">距离考试</text>
+        <text class="count-num">{{daysLeft}}</text>
+        <text class="muted">天</text>
       </view>
     </view>
-  </view>
+
+    <view class="hero card tap-card" hover-class="tap-card-active" hover-stay-time="80">
+      <view class="hero-copy">
+        <view class="hero-title">2024 执业医师考试</view>
+        <view class="hero-title blue">全程备考规划</view>
+        <view class="hero-tag">科学备考 · 高效通关</view>
+      </view>
+      <view class="hero-doc">
+        <image class="hero-icon" src="/assets/icons/outline.svg" mode="aspectFit" />
+      </view>
+    </view>
+
+    <view class="module-section">
+      <view class="section-head">
+        <text class="section-title">选择备考模块</text>
+        <text class="section-more">先选模块，再进题库</text>
+      </view>
+      <view class="primary-grid">
+        <view
+          wx:for="{{primaryModules}}"
+          wx:key="primaryId"
+          class="primary-card tap-card {{item.activeClass}}"
+          hover-class="tap-card-active"
+          hover-stay-time="80"
+          data-primary-id="{{item.primaryId}}"
+          bindtap="selectPrimary"
+        >
+          <view class="primary-icon {{item.color}}">
+            <image class="primary-img" src="{{item.icon}}" mode="aspectFit" />
+          </view>
+          <view class="primary-name">{{item.title}}</view>
+          <view class="primary-sub">{{item.subtitle}}</view>
+          <view class="primary-progress">
+            <view class="primary-bar" style="{{item.progressStyle}}"></view>
+          </view>
+          <view class="primary-meta">{{item.progressText}} · 正确率 {{item.accuracyText}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="selected-module card">
+      <view>
+        <view class="selected-title">{{selectedPrimary.title}}</view>
+        <view class="selected-sub">{{selectedPrimary.subtitle}}</view>
+      </view>
+      <button class="enter-bank-btn" bindtap="goSelectedBank">进入题库</button>
+    </view>
+
+    <view class="section-card card">
+      <view class="section-head">
+        <text class="section-title">今日练习</text>
+        <text class="section-more" bindtap="goPractice">继续练习 ›</text>
+      </view>
+      <view class="stats-row">
+        <stat-card value="{{stats.questionCount}}" label="题目数" />
+        <stat-card value="{{stats.doneCount}}" label="做题数" />
+        <stat-card value="{{stats.accuracy}}" label="正确率" tone="primary" />
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-head">
+        <text class="section-title">推荐资料</text>
+        <text class="section-more" bindtap="goMaterials">更多 ›</text>
+      </view>
+      <empty-state
+        wx:if="{{!materials.length}}"
+        title="暂无推荐资料"
+        desc="稍后会根据你的学习进度推荐资料"
+        icon="/assets/icons/folder.svg"
+      />
+      <view wx:else class="material-list">
+        <view
+          wx:for="{{materials}}"
+          wx:key="id"
+          class="material-row soft-card tap-card"
+          hover-class="tap-card-active"
+          hover-stay-time="80"
+          data-id="{{item.id}}"
+          bindtap="goMaterial"
+        >
+          <view class="file-icon">
+            <image class="file-img" src="/assets/icons/outline.svg" mode="aspectFit" />
+          </view>
+          <view class="material-main">
+            <view class="material-title">{{item.title}}</view>
+            <view class="material-meta">{{item.type}} · {{item.size}}</view>
+          </view>
+          <view class="learner">{{item.learnerCount}}人已学</view>
+        </view>
+      </view>
+      <loading-more wx:if="{{materials.length}}" status="{{moreStatus}}" noMoreText="推荐资料已展示完" />
+    </view>
+  </block>
 </view>

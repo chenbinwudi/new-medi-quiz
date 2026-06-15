@@ -23,23 +23,69 @@ Page({
       { label: '单选题', value: 120, percent: '60%', styleText: 'background: #35c6c8;' },
       { label: '多选题', value: 60, percent: '30%', styleText: 'background: #ffa629;' },
       { label: '不定项', value: 20, percent: '10%', styleText: 'background: #2f7bff;' }
-    ]
+    ],
+    loading: true,
+    refreshing: false,
+    error: false,
+    emptyVisible: false,
+    moreStatus: 'noMore'
   },
 
   onLoad() {
+    this.load();
+  },
+
+  load() {
+    this.setData({ loading: !this.data.refreshing, error: false });
     getStudyData('report')
       .then((res) => {
         const summary = res.summary || [];
-        if (!summary.length) return;
+        if (!summary.length) {
+          this.setData({
+            loading: false,
+            refreshing: false,
+            emptyVisible: false,
+            moreStatus: 'noMore'
+          });
+          wx.stopPullDownRefresh();
+          return;
+        }
         const total = summary.reduce((sum, item) => sum + (item.answerCount || 0), 0);
         const correct = summary.reduce((sum, item) => sum + (item.correctCount || 0), 0);
         const accuracy = total ? `${Math.round((correct / total) * 100)}%` : '0%';
-        this.setData({ stats: { total: String(total), correct: String(correct), accuracy } });
+        this.setData({
+          stats: { total: String(total), correct: String(correct), accuracy },
+          loading: false,
+          refreshing: false,
+          emptyVisible: false,
+          moreStatus: 'noMore'
+        });
+        wx.stopPullDownRefresh();
       })
-      .catch(() => wx.showToast({ title: '学习数据加载失败', icon: 'none' }));
+      .catch(() => {
+        this.setData({ loading: false, refreshing: false, error: true });
+        wx.stopPullDownRefresh();
+      });
+  },
+
+  reload() {
+    this.load();
+  },
+
+  onPullDownRefresh() {
+    this.setData({ refreshing: true });
+    this.load();
+  },
+
+  onReachBottom() {
+    this.setData({ moreStatus: 'noMore' });
   },
 
   onTabChange(event) {
     this.setData({ active: event.detail.value });
+  },
+
+  goPractice() {
+    wx.navigateTo({ url: '/pages/practice/practice?source=chapter&categoryId=basic' });
   }
 });

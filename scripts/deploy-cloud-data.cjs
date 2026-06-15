@@ -3,6 +3,7 @@ const seed = require('../miniprogram/data/cloud-seed');
 const { collections } = require('../miniprogram/data/cloud-contracts');
 
 const envId = process.env.CLOUDBASE_ENV_ID || 'cloudbase-d0g4yo1qac1bbd1db';
+const contentOnly = process.argv.includes('--content-only');
 
 function runNosql(commands) {
   const json = JSON.stringify(commands);
@@ -46,7 +47,7 @@ function ensureCollection(name) {
 }
 
 function replaceByIds(name, idField, docs) {
-  const batchSize = name === collections.papers ? 1 : 5;
+  const batchSize = name === collections.questions || name === collections.papers ? 1 : 5;
   for (const part of chunk(docs, batchSize)) {
     runNosql([
       {
@@ -76,6 +77,7 @@ function replaceByIds(name, idField, docs) {
 const allCollections = [
   collections.users,
   collections.questionCategories,
+  collections.subjects,
   collections.questions,
   collections.papers,
   collections.materials,
@@ -90,13 +92,18 @@ const allCollections = [
 ];
 
 console.log(`Preparing CloudBase data in ${envId}`);
-allCollections.forEach((name) => {
-  console.log(`Ensuring collection ${name}`);
-  ensureCollection(name);
-});
+if (!contentOnly) {
+  allCollections.forEach((name) => {
+    console.log(`Ensuring collection ${name}`);
+    ensureCollection(name);
+  });
+}
 
 console.log('Uploading categories');
 replaceByIds(collections.questionCategories, 'categoryId', seed.categories);
+
+console.log('Uploading subjects');
+replaceByIds(collections.subjects, 'subjectId', seed.subjects);
 
 console.log('Uploading questions');
 replaceByIds(collections.questions, 'questionId', seed.questions);

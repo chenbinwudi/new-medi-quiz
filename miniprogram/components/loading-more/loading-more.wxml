@@ -1,0 +1,4 @@
+<view class="load-more {{status}}" bindtap="onRetry">
+  <view wx:if="{{isLoading}}" class="spinner"></view>
+  <text>{{displayText}}</text>
+</view>

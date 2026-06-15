@@ -1,0 +1,10 @@
+<view class="error-card">
+  <view class="error-icon">
+    <image class="error-img" src="{{icon}}" mode="aspectFit" />
+  </view>
+  <view class="error-main">
+    <view class="error-title">{{title}}</view>
+    <view class="error-desc">{{desc}}</view>
+  </view>
+  <button class="retry-btn" bindtap="onRetry">{{retryText}}</button>
+</view>

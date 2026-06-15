@@ -1,0 +1,152 @@
+<view class="skeleton skeleton-{{type}}">
+  <block wx:if="{{showHome}}">
+    <view class="sk-head">
+      <view>
+        <view class="sk-line title"></view>
+        <view class="sk-line short"></view>
+      </view>
+      <view class="sk-pill"></view>
+    </view>
+    <view class="sk-search"></view>
+    <view class="sk-hero">
+      <view>
+        <view class="sk-line hero-title"></view>
+        <view class="sk-line hero-sub"></view>
+        <view class="sk-chip"></view>
+      </view>
+      <view class="sk-doc"></view>
+    </view>
+    <view class="sk-grid">
+      <view wx:for="{{gridRows}}" wx:key="*this" class="sk-grid-item">
+        <view class="sk-icon"></view>
+        <view class="sk-line tiny"></view>
+      </view>
+    </view>
+    <view class="sk-card">
+      <view class="sk-line medium"></view>
+      <view class="sk-stats">
+        <view class="sk-stat"></view>
+        <view class="sk-stat"></view>
+        <view class="sk-stat"></view>
+      </view>
+    </view>
+    <view wx:for="{{shortListRows}}" wx:key="*this" class="sk-row-card">
+      <view class="sk-file"></view>
+      <view class="sk-row-main">
+        <view class="sk-line wide"></view>
+        <view class="sk-line short"></view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:elif="{{showBank}}">
+    <view class="sk-head">
+      <view>
+        <view class="sk-line title"></view>
+        <view class="sk-line medium"></view>
+      </view>
+      <view class="sk-icon small"></view>
+    </view>
+    <view class="sk-tabs"></view>
+    <view class="sk-card">
+      <view class="sk-line medium"></view>
+      <view class="sk-progress"></view>
+    </view>
+    <view wx:for="{{listRows}}" wx:key="*this" class="sk-bank-row">
+      <view class="sk-dot"></view>
+      <view class="sk-row-main">
+        <view class="sk-line wide"></view>
+        <view class="sk-progress mini"></view>
+      </view>
+      <view class="sk-line count"></view>
+    </view>
+  </block>
+
+  <block wx:elif="{{showPractice}}">
+    <view class="sk-head">
+      <view>
+        <view class="sk-line title"></view>
+        <view class="sk-line medium"></view>
+      </view>
+      <view class="sk-pill"></view>
+    </view>
+    <view class="sk-question">
+      <view class="sk-line stem"></view>
+      <view class="sk-line stem short-stem"></view>
+      <view wx:for="{{optionRows}}" wx:key="*this" class="sk-option">
+        <view class="sk-letter"></view>
+        <view class="sk-line option-line"></view>
+      </view>
+    </view>
+    <view class="sk-bottom">
+      <view class="sk-tool"></view>
+      <view class="sk-tool"></view>
+      <view class="sk-button"></view>
+      <view class="sk-button primary"></view>
+    </view>
+  </block>
+
+  <block wx:elif="{{showProfile}}">
+    <view class="sk-profile">
+      <view class="sk-avatar"></view>
+      <view class="sk-row-main">
+        <view class="sk-line medium"></view>
+        <view class="sk-line short"></view>
+      </view>
+      <view class="sk-pill"></view>
+    </view>
+    <view class="sk-member"></view>
+    <view class="sk-grid compact">
+      <view wx:for="{{compactGridRows}}" wx:key="*this" class="sk-grid-item">
+        <view class="sk-icon"></view>
+        <view class="sk-line tiny"></view>
+      </view>
+    </view>
+    <view wx:for="{{menuRows}}" wx:key="*this" class="sk-menu-row">
+      <view class="sk-icon small"></view>
+      <view class="sk-line wide"></view>
+    </view>
+  </block>
+
+  <block wx:elif="{{showMember}}">
+    <view class="sk-member large"></view>
+    <view class="sk-grid compact">
+      <view wx:for="{{benefitRows}}" wx:key="*this" class="sk-grid-item">
+        <view class="sk-icon"></view>
+        <view class="sk-line tiny"></view>
+      </view>
+    </view>
+    <view wx:for="{{packageRows}}" wx:key="*this" class="sk-package">
+      <view class="sk-line medium"></view>
+      <view class="sk-line short"></view>
+      <view class="sk-pill"></view>
+    </view>
+  </block>
+
+  <block wx:elif="{{showReport}}">
+    <view class="sk-tabs"></view>
+    <view class="sk-card chart">
+      <view class="sk-line medium"></view>
+      <view class="sk-chart"></view>
+    </view>
+    <view class="sk-card">
+      <view class="sk-line medium"></view>
+      <view class="sk-stats">
+        <view class="sk-stat"></view>
+        <view class="sk-stat"></view>
+        <view class="sk-stat"></view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:elif="{{showList}}">
+    <view wx:for="{{listRows}}" wx:key="*this" class="sk-row-card">
+      <view class="sk-file"></view>
+      <view class="sk-row-main">
+        <view class="sk-line wide"></view>
+        <view class="sk-line medium"></view>
+        <view class="sk-line short"></view>
+      </view>
+    </view>
+  </block>
+</view>

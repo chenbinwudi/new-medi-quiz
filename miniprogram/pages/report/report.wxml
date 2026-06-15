@@ -2,44 +2,68 @@
   <view class="top-bar centered">
     <view class="page-title">学习报告</view>
   </view>
-  <seg-tabs tabs="{{tabs}}" active="{{active}}" bind:change="onTabChange" />
 
-  <view class="card block">
-    <view class="block-title">正确率趋势</view>
-    <view class="trend">
-      <view wx:for="{{trend}}" wx:key="date" class="trend-item">
-        <view class="trend-line" style="{{item.lineStyle}}"></view>
-        <view class="dot" style="{{item.dotStyle}}"></view>
-        <view class="rate">{{item.accuracy}}%</view>
-        <view class="date">{{item.date}}</view>
-      </view>
-    </view>
-  </view>
+  <skeleton-card wx:if="{{loading}}" type="report" />
 
-  <view class="card block">
-    <view class="block-title">做题战绩</view>
-    <view class="stats-row">
-      <stat-card value="{{stats.total}}" label="做题数" />
-      <stat-card value="{{stats.correct}}" label="正确数" />
-      <stat-card value="{{stats.accuracy}}" label="正确率" tone="primary" />
-    </view>
-  </view>
+  <error-state
+    wx:elif="{{error}}"
+    title="报告加载失败"
+    desc="学习数据暂时没有取到，请重新加载"
+    bind:retry="reload"
+  />
 
-  <view class="card block">
-    <view class="block-title">题型分布</view>
-    <view class="dist-wrap">
-      <view class="donut">
-        <view class="donut-hole"></view>
-      </view>
-      <view class="legend">
-        <view wx:for="{{distribution}}" wx:key="label" class="legend-row">
-          <view class="legend-left">
-            <view class="legend-dot" style="{{item.styleText}}"></view>
-            <text>{{item.label}}</text>
+  <block wx:else>
+    <seg-tabs tabs="{{tabs}}" active="{{active}}" bind:change="onTabChange" />
+
+    <empty-state
+      wx:if="{{emptyVisible}}"
+      title="暂无学习数据"
+      desc="完成一次练习后会生成学习报告"
+      actionText="去练习"
+      icon="/assets/icons/report.svg"
+      bind:action="goPractice"
+    />
+
+    <block wx:else>
+      <view class="card block">
+        <view class="block-title">正确率趋势</view>
+        <view class="trend">
+          <view wx:for="{{trend}}" wx:key="date" class="trend-item">
+            <view class="trend-line" style="{{item.lineStyle}}"></view>
+            <view class="dot" style="{{item.dotStyle}}"></view>
+            <view class="rate">{{item.accuracy}}%</view>
+            <view class="date">{{item.date}}</view>
           </view>
-          <text>{{item.value}} ({{item.percent}})</text>
         </view>
       </view>
-    </view>
-  </view>
+
+      <view class="card block">
+        <view class="block-title">做题战绩</view>
+        <view class="stats-row">
+          <stat-card value="{{stats.total}}" label="做题数" />
+          <stat-card value="{{stats.correct}}" label="正确数" />
+          <stat-card value="{{stats.accuracy}}" label="正确率" tone="primary" />
+        </view>
+      </view>
+
+      <view class="card block">
+        <view class="block-title">题型分布</view>
+        <view class="dist-wrap">
+          <view class="donut">
+            <view class="donut-hole"></view>
+          </view>
+          <view class="legend">
+            <view wx:for="{{distribution}}" wx:key="label" class="legend-row">
+              <view class="legend-left">
+                <view class="legend-dot" style="{{item.styleText}}"></view>
+                <text>{{item.label}}</text>
+              </view>
+              <text>{{item.value}} ({{item.percent}})</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <loading-more status="{{moreStatus}}" noMoreText="报告数据已更新" />
+    </block>
+  </block>
 </view>
