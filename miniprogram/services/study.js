@@ -199,6 +199,14 @@ function getPracticeSessionLocal(payload = {}) {
     });
   }
 
+  const subjectId = payload.subjectId || '';
+  if (subjectId) {
+    return Promise.resolve({
+      title: '章节练习',
+      questions: seed.questions.filter((item) => item.subjectId === subjectId)
+    });
+  }
+
   const categoryId = payload.categoryId || payload.chapterId || seed.categories[0].categoryId;
   return Promise.resolve({
     title: '章节练习',

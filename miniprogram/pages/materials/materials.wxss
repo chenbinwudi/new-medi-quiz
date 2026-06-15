@@ -24,16 +24,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 78rpx;
-  height: 78rpx;
+  width: 88rpx;
+  height: 88rpx;
   margin: 0 auto 14rpx;
   border-radius: 22rpx;
   box-shadow: 0 12rpx 22rpx rgba(47, 123, 255, 0.12);
 }
 
 .category-img {
-  width: 46rpx;
-  height: 46rpx;
+  width: 54rpx;
+  height: 54rpx;
 }
 
 .category-name {
@@ -66,8 +66,8 @@
 }
 
 .file-img {
-  width: 48rpx;
-  height: 48rpx;
+  width: 56rpx;
+  height: 56rpx;
 }
 
 .material-main {

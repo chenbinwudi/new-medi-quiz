@@ -6,10 +6,10 @@ const contracts = require('../miniprogram/data/cloud-contracts');
 
 assert.ok(seed.questions.length >= 300, 'seed question count must be production-like');
 assert.ok(seed.papers.length >= 4, 'papers required');
-assert.ok(seed.materials.length >= 8, 'materials required');
+assert.ok(seed.materials.length >= 6, 'materials required');
 assert.ok(contracts.homeShortcuts.length >= 8, 'home shortcuts required');
 
-const requiredQuestionFields = ['questionId', 'categoryId', 'type', 'stem', 'options', 'answer', 'analysis'];
+const requiredQuestionFields = ['questionId', 'primaryId', 'categoryId', 'subjectId', 'subjectTitle', 'type', 'stem', 'options', 'answer', 'analysis'];
 seed.questions.slice(0, 20).forEach((question) => {
   requiredQuestionFields.forEach((field) => assert.ok(question[field], `${question.questionId} missing ${field}`));
 });

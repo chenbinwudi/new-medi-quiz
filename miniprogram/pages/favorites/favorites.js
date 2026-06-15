@@ -51,6 +51,8 @@ Page({
     ],
     active: 'favorites',
     loading: true,
+    refreshing: false,
+    error: false,
     list: [],
     notes: [],
     listCountText: '共0题',
@@ -58,7 +60,8 @@ Page({
     emptyVisible: false,
     notesEmptyVisible: false,
     showFavorites: true,
-    showNotes: false
+    showNotes: false,
+    moreStatus: 'noMore'
   },
 
   onLoad(options) {
@@ -71,6 +74,7 @@ Page({
   },
 
   load() {
+    this.setData({ loading: !this.data.refreshing, error: false });
     getStudyData('all')
       .then((res) => {
         const list = hydrateFavorites(res.favorites);
@@ -81,24 +85,30 @@ Page({
           listCountText: `共${list.length}题`,
           notesCountText: `共${notes.length}条`,
           loading: false,
+          refreshing: false,
           emptyVisible: !list.length,
-          notesEmptyVisible: !notes.length
+          notesEmptyVisible: !notes.length,
+          moreStatus: 'noMore'
         });
+        wx.stopPullDownRefresh();
       })
       .catch(() => {
-        wx.showToast({ title: '学习数据加载失败', icon: 'none' });
-        const list = hydrateFavorites([]);
-        const notes = hydrateNotes([]);
-        this.setData({
-          list,
-          notes,
-          listCountText: `共${list.length}题`,
-          notesCountText: `共${notes.length}条`,
-          loading: false,
-          emptyVisible: !list.length,
-          notesEmptyVisible: !notes.length
-        });
+        this.setData({ loading: false, refreshing: false, error: true });
+        wx.stopPullDownRefresh();
       });
+  },
+
+  reload() {
+    this.load();
+  },
+
+  onPullDownRefresh() {
+    this.setData({ refreshing: true });
+    this.load();
+  },
+
+  onReachBottom() {
+    if (this.data.list.length || this.data.notes.length) this.setData({ moreStatus: 'noMore' });
   },
 
   onTabChange(event) {

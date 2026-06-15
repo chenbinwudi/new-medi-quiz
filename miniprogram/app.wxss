@@ -14,7 +14,8 @@ button.empty-action,
 button.share,
 button.learn,
 button.btn-primary,
-button.btn-ghost {
+button.btn-ghost,
+button.retry-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -122,20 +123,20 @@ button.btn-ghost {
 }
 
 .icon {
-  width: 40rpx;
-  height: 40rpx;
+  width: 46rpx;
+  height: 46rpx;
   display: block;
 }
 
 .icon-sm {
-  width: 32rpx;
-  height: 32rpx;
+  width: 38rpx;
+  height: 38rpx;
   display: block;
 }
 
 .icon-lg {
-  width: 58rpx;
-  height: 58rpx;
+  width: 66rpx;
+  height: 66rpx;
   display: block;
 }
 
@@ -172,6 +173,33 @@ button.btn-ghost {
   font-weight: 600;
   line-height: normal;
   box-shadow: 0 14rpx 28rpx rgba(47, 123, 255, 0.22);
+}
+
+.btn-primary:active,
+.btn-ghost:active,
+.fixed-btn:active,
+.submit-btn:active,
+.nav-btn:active,
+.login-btn:active,
+.empty-action:active {
+  transform: scale(0.985);
+  opacity: 0.88;
+}
+
+button[disabled],
+.is-disabled {
+  opacity: 0.48;
+}
+
+.tap-card {
+  transition: transform 0.16s ease, opacity 0.16s ease, background-color 0.16s ease;
+}
+
+.tap-card-active,
+.card:active,
+.soft-card:active {
+  transform: scale(0.985);
+  opacity: 0.9;
 }
 
 .btn-primary::after,

@@ -1,6 +1,11 @@
 {
   "navigationBarTitleText": "医考通",
+  "enablePullDownRefresh": true,
   "usingComponents": {
-    "stat-card": "../../components/stat-card/stat-card"
+    "stat-card": "../../components/stat-card/stat-card",
+    "skeleton-card": "../../components/skeleton-card/skeleton-card",
+    "empty-state": "../../components/empty-state/empty-state",
+    "error-state": "../../components/error-state/error-state",
+    "loading-more": "../../components/loading-more/loading-more"
   }
 }

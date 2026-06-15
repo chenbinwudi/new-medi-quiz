@@ -1,82 +1,158 @@
 <view class="page page-safe bank-page">
-  <view class="top-bar">
-    <view>
-      <view class="page-title">题库</view>
-      <view class="page-subtitle">{{exam.fullName}}</view>
+  <skeleton-card wx:if="{{loading}}" type="bank" />
+
+  <error-state
+    wx:elif="{{error}}"
+    title="题库加载失败"
+    desc="章节、试卷和考点暂时没有取到"
+    bind:retry="reload"
+  />
+
+  <block wx:else>
+    <view class="top-bar">
+      <view>
+        <view class="page-title">题库</view>
+        <view class="page-subtitle">{{selectedPrimary.title}} · {{selectedPrimary.subtitle}}</view>
+      </view>
+      <image class="icon" src="/assets/icons/search.svg" mode="aspectFit" />
     </view>
-    <image class="icon" src="/assets/icons/search.svg" mode="aspectFit" />
-  </view>
 
-  <seg-tabs tabs="{{tabs}}" active="{{activeTab}}" bind:change="onTabChange" />
-
-  <view wx:if="{{showChapter}}">
-    <view class="progress-card card">
-      <view class="progress-head">
-        <view>
-          <text class="muted">总体进度</text>
-          <text class="progress-num">{{totalPercent}}%</text>
+    <scroll-view class="primary-scroll" scroll-x enable-flex>
+      <view class="primary-tabs">
+        <view
+          wx:for="{{primaryModules}}"
+          wx:key="primaryId"
+          class="primary-chip {{item.activeClass}}"
+          data-primary-id="{{item.primaryId}}"
+          bindtap="selectPrimary"
+        >
+          {{item.title}}
         </view>
-        <text class="muted">已学 {{totalDone}}/{{totalCount}}</text>
       </view>
-      <view class="progress-track">
-        <view class="progress-bar" style="{{totalProgressStyle}}"></view>
-      </view>
-    </view>
+    </scroll-view>
 
-    <view class="chapter-list card">
-      <view wx:for="{{progress}}" wx:key="id" class="chapter-row" data-id="{{item.id}}" bindtap="goPractice">
-        <view class="chapter-plus">+</view>
-        <view class="chapter-main">
-          <view class="chapter-name">{{item.name}}</view>
-          <view class="mini-track">
-            <view class="mini-bar" style="{{item.progressStyle}}"></view>
+    <seg-tabs tabs="{{tabs}}" active="{{activeTab}}" bind:change="onTabChange" />
+
+    <view wx:if="{{showChapter}}">
+      <view class="progress-card card">
+        <view class="progress-head">
+          <view>
+            <text class="muted">总体进度</text>
+            <text class="progress-num">{{totalPercent}}%</text>
+          </view>
+          <text class="muted">正确率 {{totalAccuracy}}%</text>
+        </view>
+        <view class="module-summary">
+          <text>{{selectedPrimary.title}}</text>
+          <text>二级学科 {{subjects.length}} 个 · 已做 {{totalDone}}/{{totalCount}}</text>
+        </view>
+        <view class="progress-track">
+          <view class="progress-bar" style="{{totalProgressStyle}}"></view>
+        </view>
+      </view>
+
+      <empty-state wx:if="{{!subjects.length}}" title="暂无学科配置" desc="该模块的二级学科正在准备中" icon="/assets/icons/chapter.svg" />
+      <view wx:else class="subject-list">
+        <view
+          wx:for="{{subjects}}"
+          wx:key="subjectId"
+          class="subject-card card tap-card"
+          hover-class="tap-card-active"
+          hover-stay-time="80"
+          data-subject-id="{{item.subjectId}}"
+          bindtap="goSubjectPractice"
+        >
+          <view class="subject-icon">+</view>
+          <view class="subject-main">
+            <view class="subject-title">{{item.title}}</view>
+            <view class="subject-meta">{{item.progressText}} · 正确率 {{item.accuracyText}}</view>
+            <view class="subject-track">
+              <view class="subject-bar" style="{{item.progressStyle}}"></view>
+            </view>
+          </view>
+          <view class="subject-side">
+            <view class="subject-percent">{{item.progress}}%</view>
+            <view class="subject-status">{{item.statusText}}</view>
           </view>
         </view>
-        <view class="chapter-side">
-          <view class="chapter-count">{{item.learned}}/{{item.totalCount}}</view>
-          <view class="chapter-percent">{{item.progress}}%</view>
+      </view>
+    </view>
+
+    <view wx:if="{{showReal}}" class="paper-list">
+      <empty-state wx:if="{{!realPapers.length}}" title="暂无真题风格卷" desc="稍后会补充更多试卷" icon="/assets/icons/real-paper.svg" />
+      <block wx:else>
+        <view
+          wx:for="{{realPapers}}"
+          wx:key="id"
+          class="paper-card card tap-card"
+          hover-class="tap-card-active"
+          hover-stay-time="80"
+          data-paper-id="{{item.paperId}}"
+          data-chapter-id="{{item.chapterId}}"
+          bindtap="startPaper"
+        >
+          <view class="paper-icon green">
+            <image class="paper-img" src="/assets/icons/real-paper.svg" mode="aspectFit" />
+          </view>
+          <view class="paper-main">
+            <view class="paper-title">{{item.title}}</view>
+            <view class="paper-desc">{{item.desc}}</view>
+            <view class="paper-meta">{{item.questionCount}}题 · {{item.duration}}</view>
+          </view>
+          <view class="paper-action">开始</view>
         </view>
-      </view>
+      </block>
     </view>
-  </view>
 
-  <view wx:if="{{showReal}}" class="paper-list">
-    <view wx:for="{{realPapers}}" wx:key="id" class="paper-card card" data-paper-id="{{item.paperId}}" data-chapter-id="{{item.chapterId}}" bindtap="startPaper">
-      <view class="paper-icon green">
-        <image class="paper-img" src="/assets/icons/real-paper.svg" mode="aspectFit" />
-      </view>
-      <view class="paper-main">
-        <view class="paper-title">{{item.title}}</view>
-        <view class="paper-desc">{{item.desc}}</view>
-        <view class="paper-meta">{{item.questionCount}}题 · {{item.duration}}</view>
-      </view>
-      <view class="paper-action">开始</view>
+    <view wx:if="{{showMock}}" class="paper-list">
+      <empty-state wx:if="{{!mockPapers.length}}" title="暂无模拟试卷" desc="稍后会补充更多模拟训练" icon="/assets/icons/mock-paper.svg" />
+      <block wx:else>
+        <view
+          wx:for="{{mockPapers}}"
+          wx:key="id"
+          class="paper-card card tap-card"
+          hover-class="tap-card-active"
+          hover-stay-time="80"
+          data-paper-id="{{item.paperId}}"
+          data-chapter-id="{{item.chapterId}}"
+          bindtap="startPaper"
+        >
+          <view class="paper-icon orange">
+            <image class="paper-img" src="/assets/icons/mock-paper.svg" mode="aspectFit" />
+          </view>
+          <view class="paper-main">
+            <view class="paper-title">{{item.title}}</view>
+            <view class="paper-desc">{{item.desc}}</view>
+            <view class="paper-meta">{{item.questionCount}}题 · {{item.duration}}</view>
+          </view>
+          <view class="paper-action">练习</view>
+        </view>
+      </block>
     </view>
-  </view>
 
-  <view wx:if="{{showMock}}" class="paper-list">
-    <view wx:for="{{mockPapers}}" wx:key="id" class="paper-card card" data-paper-id="{{item.paperId}}" data-chapter-id="{{item.chapterId}}" bindtap="startPaper">
-      <view class="paper-icon orange">
-        <image class="paper-img" src="/assets/icons/mock-paper.svg" mode="aspectFit" />
-      </view>
-      <view class="paper-main">
-        <view class="paper-title">{{item.title}}</view>
-        <view class="paper-desc">{{item.desc}}</view>
-        <view class="paper-meta">{{item.questionCount}}题 · {{item.duration}}</view>
-      </view>
-      <view class="paper-action">练习</view>
+    <view wx:if="{{showNotes}}" class="note-list">
+      <empty-state wx:if="{{!quickNotes.length}}" title="暂无考点速记" desc="章节考点正在整理中" icon="/assets/icons/quick-notes.svg" />
+      <block wx:else>
+        <view
+          wx:for="{{quickNotes}}"
+          wx:key="id"
+          class="note-card card tap-card"
+          hover-class="tap-card-active"
+          hover-stay-time="80"
+          data-chapter-id="{{item.chapterId}}"
+          bindtap="openNote"
+        >
+          <view class="note-head">
+            <view class="note-tag">{{item.tag}}</view>
+            <image class="note-icon" src="/assets/icons/quick-notes.svg" mode="aspectFit" />
+          </view>
+          <view class="note-title">{{item.title}}</view>
+          <view class="note-desc">{{item.desc}}</view>
+          <view class="note-action">去练相关题 ›</view>
+        </view>
+      </block>
     </view>
-  </view>
 
-  <view wx:if="{{showNotes}}" class="note-list">
-    <view wx:for="{{quickNotes}}" wx:key="id" class="note-card card" data-chapter-id="{{item.chapterId}}" bindtap="openNote">
-      <view class="note-head">
-        <view class="note-tag">{{item.tag}}</view>
-        <image class="note-icon" src="/assets/icons/quick-notes.svg" mode="aspectFit" />
-      </view>
-      <view class="note-title">{{item.title}}</view>
-      <view class="note-desc">{{item.desc}}</view>
-      <view class="note-action">去练相关题 ›</view>
-    </view>
-  </view>
+    <loading-more wx:if="{{currentListLength}}" status="{{moreStatus}}" />
+  </block>
 </view>

@@ -3,19 +3,38 @@
     <view class="page-title">错题本</view>
   </view>
   <seg-tabs tabs="{{tabs}}" active="{{active}}" bind:change="onTabChange" />
-  <view class="summary muted">{{listCountText}}</view>
 
-  <empty-state wx:if="{{emptyVisible}}" title="暂无错题" desc="完成练习后会自动收集错题" actionText="去练习" bind:action="goPractice" icon="/assets/icons/wrong-book.svg" />
+  <skeleton-card wx:if="{{loading}}" type="list" />
 
-  <view wx:for="{{list}}" wx:key="questionId" class="question-card card">
-    <view class="tag">{{item.typeLabel}}</view>
-    <view class="stem">{{item.question.stem}}</view>
-    <view class="meta">章节：{{item.chapterName}}</view>
-    <view class="row-between foot">
-      <text>错误次数：<text class="red">{{item.countText}}</text></text>
-      <text class="muted">{{item.dateText}}</text>
+  <error-state
+    wx:elif="{{error}}"
+    title="错题加载失败"
+    desc="请检查网络后重新加载"
+    bind:retry="reload"
+  />
+
+  <block wx:else>
+    <view class="summary muted">{{listCountText}}</view>
+    <empty-state wx:if="{{emptyVisible}}" title="暂无错题" desc="完成练习后会自动收集错题" actionText="去练习" bind:action="goPractice" icon="/assets/icons/wrong-book.svg" />
+
+    <view
+      wx:for="{{list}}"
+      wx:key="questionId"
+      class="question-card card tap-card"
+      hover-class="tap-card-active"
+      hover-stay-time="80"
+    >
+      <view class="tag">{{item.typeLabel}}</view>
+      <view class="stem">{{item.question.stem}}</view>
+      <view class="meta">章节：{{item.chapterName}}</view>
+      <view class="row-between foot">
+        <text>错误次数：<text class="red">{{item.countText}}</text></text>
+        <text class="muted">{{item.dateText}}</text>
+      </view>
     </view>
-  </view>
 
-  <button class="fixed-btn" bindtap="goPractice">错题重做</button>
+    <loading-more wx:if="{{list.length}}" status="{{moreStatus}}" />
+  </block>
+
+  <button class="fixed-btn" loading="{{loading}}" disabled="{{loading}}" bindtap="goPractice">错题重做</button>
 </view>

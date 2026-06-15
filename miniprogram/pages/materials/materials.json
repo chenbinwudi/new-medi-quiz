@@ -1,3 +1,10 @@
 {
-  "navigationBarTitleText": "资料"
+  "navigationBarTitleText": "资料",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "skeleton-card": "../../components/skeleton-card/skeleton-card",
+    "empty-state": "../../components/empty-state/empty-state",
+    "error-state": "../../components/error-state/error-state",
+    "loading-more": "../../components/loading-more/loading-more"
+  }
 }

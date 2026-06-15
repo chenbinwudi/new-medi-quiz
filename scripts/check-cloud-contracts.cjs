@@ -2,6 +2,7 @@ const assert = require('assert');
 const contracts = require('../miniprogram/data/cloud-contracts');
 
 assert.strictEqual(contracts.collections.questions, 'questions');
+assert.strictEqual(contracts.collections.subjects, 'subjects');
 assert.strictEqual(contracts.storageKeys.guestStudy, 'mvpStudyData');
 assert.ok(Array.isArray(contracts.homeShortcuts));
 assert.ok(contracts.homeShortcuts.length >= 8);

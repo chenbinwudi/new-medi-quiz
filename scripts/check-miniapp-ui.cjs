@@ -62,8 +62,8 @@ for (const file of walk(path.join(root, 'miniprogram'), (p) => p.endsWith('.wxml
 }
 
 const homeWxml = fs.readFileSync(path.join(root, 'miniprogram', 'pages', 'home', 'home.wxml'), 'utf8');
-if (!/<picker\b[^>]*bindchange="onExamChange"/.test(homeWxml)) {
-  fail('Home exam selector must use native picker with bindchange="onExamChange"');
+if (homeWxml.includes('search-row') || homeWxml.includes('shortcut-grid')) {
+  fail('Home should not render removed top selector or shortcut grid');
 }
 
 const appWxss = fs.readFileSync(path.join(root, 'miniprogram', 'app.wxss'), 'utf8');
@@ -77,11 +77,8 @@ if (!/align-items:\s*center;[\s\S]*justify-content:\s*center;[\s\S]*line-height:
 }
 
 const homeWxss = fs.readFileSync(path.join(root, 'miniprogram', 'pages', 'home', 'home.wxss'), 'utf8');
-if (!/\.shortcut-icon\s*{[\s\S]*?width:\s*(7[6-9]|[89]\d)rpx;[\s\S]*?height:\s*(7[6-9]|[89]\d)rpx;/.test(homeWxss)) {
-  fail('Home shortcut icon tile must be at least 76rpx square');
-}
-if (!/\.shortcut-img\s*{[\s\S]*?width:\s*(4[4-9]|[5-9]\d)rpx;[\s\S]*?height:\s*(4[4-9]|[5-9]\d)rpx;/.test(homeWxss)) {
-  fail('Home shortcut SVG image must be at least 44rpx square');
+if (homeWxss.includes('.search-row') || homeWxss.includes('.shortcut-grid')) {
+  fail('Home removed selector/shortcut styles should be cleaned up');
 }
 
 const materialsWxss = fs.readFileSync(path.join(root, 'miniprogram', 'pages', 'materials', 'materials.wxss'), 'utf8');

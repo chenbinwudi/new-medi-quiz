@@ -1,6 +1,11 @@
 {
   "navigationBarTitleText": "题库",
+  "enablePullDownRefresh": true,
   "usingComponents": {
-    "seg-tabs": "../../components/seg-tabs/seg-tabs"
+    "seg-tabs": "../../components/seg-tabs/seg-tabs",
+    "skeleton-card": "../../components/skeleton-card/skeleton-card",
+    "empty-state": "../../components/empty-state/empty-state",
+    "error-state": "../../components/error-state/error-state",
+    "loading-more": "../../components/loading-more/loading-more"
   }
 }

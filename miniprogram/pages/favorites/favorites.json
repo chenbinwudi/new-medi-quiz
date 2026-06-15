@@ -1,7 +1,11 @@
 {
   "navigationBarTitleText": "我的收藏",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "seg-tabs": "../../components/seg-tabs/seg-tabs",
-    "empty-state": "../../components/empty-state/empty-state"
+    "empty-state": "../../components/empty-state/empty-state",
+    "skeleton-card": "../../components/skeleton-card/skeleton-card",
+    "error-state": "../../components/error-state/error-state",
+    "loading-more": "../../components/loading-more/loading-more"
   }
 }

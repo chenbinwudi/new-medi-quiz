@@ -1,0 +1,332 @@
+.skeleton {
+  display: block;
+}
+
+.sk-line,
+.sk-pill,
+.sk-search,
+.sk-hero,
+.sk-doc,
+.sk-icon,
+.sk-card,
+.sk-stat,
+.sk-file,
+.sk-dot,
+.sk-tabs,
+.sk-option,
+.sk-letter,
+.sk-tool,
+.sk-button,
+.sk-avatar,
+.sk-member,
+.sk-package,
+.sk-chart {
+  background: linear-gradient(90deg, #edf2f8 0%, #f8fbff 50%, #edf2f8 100%);
+  background-size: 360rpx 100%;
+  animation: sk-pulse 1.35s ease-in-out infinite;
+}
+
+.sk-head,
+.sk-row-card,
+.sk-bank-row,
+.sk-profile,
+.sk-grid,
+.sk-stats,
+.sk-bottom,
+.sk-menu-row {
+  display: flex;
+  align-items: center;
+}
+
+.sk-head {
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.sk-line {
+  height: 24rpx;
+  border-radius: 999rpx;
+}
+
+.sk-line.title {
+  width: 170rpx;
+  height: 38rpx;
+  margin-bottom: 14rpx;
+}
+
+.sk-line.short {
+  width: 140rpx;
+}
+
+.sk-line.medium {
+  width: 220rpx;
+}
+
+.sk-line.wide {
+  width: 340rpx;
+}
+
+.sk-line.tiny {
+  width: 58rpx;
+  height: 18rpx;
+  margin: 12rpx auto 0;
+}
+
+.sk-pill {
+  width: 126rpx;
+  height: 46rpx;
+  border-radius: 999rpx;
+}
+
+.sk-search,
+.sk-tabs {
+  height: 82rpx;
+  margin-bottom: 24rpx;
+  border-radius: 24rpx;
+}
+
+.sk-hero {
+  display: flex;
+  justify-content: space-between;
+  min-height: 214rpx;
+  padding: 32rpx;
+  border-radius: 24rpx;
+  box-sizing: border-box;
+}
+
+.sk-line.hero-title {
+  width: 300rpx;
+  height: 34rpx;
+  margin-bottom: 18rpx;
+}
+
+.sk-line.hero-sub {
+  width: 240rpx;
+  height: 34rpx;
+}
+
+.sk-chip {
+  width: 180rpx;
+  height: 48rpx;
+  margin-top: 24rpx;
+  border-radius: 999rpx;
+}
+
+.sk-doc {
+  width: 150rpx;
+  height: 176rpx;
+  border-radius: 22rpx;
+}
+
+.sk-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28rpx 18rpx;
+  margin: 32rpx 0;
+}
+
+.sk-grid.compact {
+  grid-template-columns: repeat(5, 1fr);
+  padding: 26rpx 18rpx;
+  border-radius: 22rpx;
+  background: #fff;
+}
+
+.sk-icon {
+  width: 82rpx;
+  height: 82rpx;
+  margin: 0 auto;
+  border-radius: 24rpx;
+}
+
+.sk-icon.small {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 14rpx;
+}
+
+.sk-card {
+  margin-bottom: 22rpx;
+  padding: 28rpx;
+  border-radius: 24rpx;
+  background-color: #fff;
+}
+
+.sk-stats {
+  gap: 16rpx;
+  margin-top: 24rpx;
+}
+
+.sk-stat {
+  flex: 1;
+  height: 100rpx;
+  border-radius: 20rpx;
+}
+
+.sk-row-card {
+  min-height: 126rpx;
+  margin-bottom: 18rpx;
+  padding: 22rpx;
+  border-radius: 22rpx;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.sk-file {
+  width: 82rpx;
+  height: 92rpx;
+  margin-right: 20rpx;
+  border-radius: 18rpx;
+}
+
+.sk-row-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.sk-row-main .sk-line + .sk-line {
+  margin-top: 14rpx;
+}
+
+.sk-progress {
+  height: 14rpx;
+  margin-top: 22rpx;
+  border-radius: 999rpx;
+}
+
+.sk-progress.mini {
+  width: 220rpx;
+  height: 8rpx;
+  margin-top: 14rpx;
+}
+
+.sk-bank-row {
+  min-height: 104rpx;
+  padding: 0 24rpx;
+  border-radius: 20rpx;
+  background: #fff;
+  margin-bottom: 14rpx;
+}
+
+.sk-dot {
+  width: 34rpx;
+  height: 34rpx;
+  margin-right: 18rpx;
+  border-radius: 50%;
+}
+
+.sk-line.count {
+  width: 100rpx;
+}
+
+.sk-question {
+  padding-top: 12rpx;
+}
+
+.sk-line.stem {
+  width: 92%;
+  height: 34rpx;
+  margin-bottom: 18rpx;
+}
+
+.sk-line.short-stem {
+  width: 68%;
+}
+
+.sk-option {
+  display: flex;
+  align-items: center;
+  height: 94rpx;
+  margin-bottom: 22rpx;
+  padding: 0 22rpx;
+  border-radius: 24rpx;
+  box-sizing: border-box;
+}
+
+.sk-letter {
+  width: 46rpx;
+  height: 46rpx;
+  margin-right: 18rpx;
+  border-radius: 50%;
+}
+
+.sk-line.option-line {
+  flex: 1;
+}
+
+.sk-bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  gap: 14rpx;
+  padding: 18rpx 24rpx calc(18rpx + env(safe-area-inset-bottom));
+  background: #fff;
+}
+
+.sk-tool {
+  width: 72rpx;
+  height: 58rpx;
+  border-radius: 16rpx;
+}
+
+.sk-button {
+  flex: 1;
+  height: 72rpx;
+  border-radius: 999rpx;
+}
+
+.sk-profile {
+  min-height: 132rpx;
+  padding: 24rpx;
+  border-radius: 22rpx;
+  background: #fff;
+}
+
+.sk-avatar {
+  width: 96rpx;
+  height: 96rpx;
+  margin-right: 24rpx;
+  border-radius: 50%;
+}
+
+.sk-member {
+  height: 150rpx;
+  margin: 28rpx 0;
+  border-radius: 22rpx;
+}
+
+.sk-member.large {
+  height: 260rpx;
+}
+
+.sk-menu-row {
+  min-height: 94rpx;
+  gap: 20rpx;
+  padding: 0 28rpx;
+  border-radius: 18rpx;
+  background: #fff;
+  margin-bottom: 8rpx;
+}
+
+.sk-package {
+  min-height: 150rpx;
+  margin-top: 20rpx;
+  padding: 28rpx;
+  border-radius: 22rpx;
+}
+
+.sk-chart {
+  height: 220rpx;
+  margin-top: 24rpx;
+  border-radius: 22rpx;
+}
+
+@keyframes sk-pulse {
+  0% {
+    background-position: -180rpx 0;
+  }
+  100% {
+    background-position: 180rpx 0;
+  }
+}

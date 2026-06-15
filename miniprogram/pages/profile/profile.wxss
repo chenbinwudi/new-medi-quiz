@@ -10,6 +10,7 @@
 .profile-card {
   min-height: 132rpx;
   padding: 24rpx;
+  margin-bottom: 22rpx;
 }
 
 .avatar {
@@ -97,8 +98,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 70rpx;
-  height: 70rpx;
+  width: 82rpx;
+  height: 82rpx;
   margin: 0 auto 12rpx;
   border-radius: 20rpx;
   background: #eef5ff;
@@ -121,8 +122,8 @@
 }
 
 .shortcut-img {
-  width: 42rpx;
-  height: 42rpx;
+  width: 52rpx;
+  height: 52rpx;
 }
 
 .shortcut-label {
@@ -152,8 +153,8 @@
 }
 
 .menu-icon {
-  width: 40rpx;
-  height: 40rpx;
+  width: 50rpx;
+  height: 50rpx;
 }
 
 .menu-arrow {
